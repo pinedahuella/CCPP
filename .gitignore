@@ -1,0 +1,27 @@
+CCPP/[Ll]ibrary/
+CCPP/[Tt]emp/
+CCPP/[Oo]bj/
+CCPP/[Bb]uild/
+CCPP/[Bb]uilds/
+CCPP/[Ll]ogs/
+CCPP/UserSettings/
+CCPP/MemoryCaptures/
+
+# Asset meta data should be included
+!CCPP/[Aa]ssets/**/*.meta
+
+# VS / Rider
+.vs/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+
+# OS
+.DS_Store
+Thumbs.db
