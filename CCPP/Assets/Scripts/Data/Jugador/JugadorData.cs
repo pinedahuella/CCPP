@@ -23,4 +23,18 @@ public class JugadorData : MonoBehaviour
     [Header("Condicion para moverse")]
     [Tooltip("Impide movimiento en ciertas acciones o cuando se desee")]
     public bool puedeMoverse = true;
+
+
+
+    [Header("Audio")]
+    public AudioSource audioCaminata;
+    public AudioClip clipCaminata;
+
+    [Header("Animación")]
+    public Animator animador;
+    public SpriteRenderer spriteRenderer;
+
+    [Header("Nombres de animación")]
+    public string animCaminando = "Caminando";
+    public string animQuieto = "Quieto";
 }

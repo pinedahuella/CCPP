@@ -95,6 +95,9 @@ public class TransicionZonaController : MonoBehaviour
         // 1 — Bloquear movimiento
         _jugadorData.puedeMoverse = false;
 
+        if (_data.audioTransicion != null)
+            _data.audioTransicion.Play();
+
         // 2 — Bajar cuadro negro hasta Y = 0
         yield return StartCoroutine(MoverCuadro(0f));
 
@@ -108,6 +111,13 @@ public class TransicionZonaController : MonoBehaviour
 
         if (_data.zonaSalida != null)
             _data.zonaSalida.SetActive(false);
+
+        if (_data.nuevaCaminata != null && _jugadorData.audioCaminata != null)
+            _jugadorData.audioCaminata.clip = _data.nuevaCaminata;
+
+        CamaraData camaraData = _data.camara.GetComponent<CamaraData>();
+        if (camaraData != null)
+            camaraData.seguirJugador = _data.SeguirJugadorSiguiente;
 
         // 5 — Subir cuadro negro hasta Y = 2
         yield return StartCoroutine(MoverCuadro(2f));

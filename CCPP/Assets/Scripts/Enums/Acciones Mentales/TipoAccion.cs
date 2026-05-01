@@ -4,5 +4,6 @@
 /// </summary>
 public enum TipoAccion
 {
-    Postura
+    Postura,
+    Mano
 }

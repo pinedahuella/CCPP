@@ -115,6 +115,28 @@ public class JugadorController : MonoBehaviour
 
         // Recomponemos con la Y original para respetar gravedad / saltos
         _rb.linearVelocity = new Vector3(nuevaVelXZ.x, _rb.linearVelocity.y, nuevaVelXZ.z);
+
+
+
+        bool moviendose = _data.direccionInput != Vector3.zero;
+
+        // Animación
+        _data.animador.Play(moviendose ? _data.animCaminando : _data.animQuieto);
+
+        // Audio
+        if (moviendose)
+        {
+            if (!_data.audioCaminata.isPlaying)
+                _data.audioCaminata.Play();
+        }
+        else
+        {
+            _data.audioCaminata.Stop();
+        }
+
+        // Flip X
+        if (_data.direccionInput.x != 0)
+            _data.spriteRenderer.flipX = _data.direccionInput.x < 0;
     }
 
     #endregion

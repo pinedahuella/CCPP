@@ -30,4 +30,18 @@ public class TransicionZonaData : MonoBehaviour
     [Header("Referencias")]
     [Tooltip("Transform de la cámara principal")]
     public Transform camara;
+
+
+
+    [Header("Audio")]
+    [Tooltip("AudioSource que reproduce el sonido de transición")]
+    public AudioSource audioTransicion;
+
+    [Tooltip("Nuevo AudioClip de caminata para la zona destino")]
+    public AudioClip nuevaCaminata;
+
+
+
+    [Header("Seguir Al Jugador Luego")]
+    public bool SeguirJugadorSiguiente;
 }
