@@ -394,6 +394,11 @@ for _i in range(1, 2):
     px(_frm, 13,16,HAB2); px(_frm, 12,16,HAB1)
     px(_frm,  4,17,SKNS); px(_frm,  4,18,SKND)
     px(_frm, 13,17,SKNS); px(_frm, 13,18,SKND)
+    # Brazo derecho extendido al lado del libro
+    px(_frm, 14,16,HAB1); px(_frm, 14,17,HAB1)
+    px(_frm, 14,18,HAB1); px(_frm, 14,19,HAB1)
+    # Zapato visible a la derecha del libro
+    px(_frm, 13,20,SHO); px(_frm, 13,21,SHO)
     for _bx in range(5, 13):
         for _by in range(17, 22):
             if   _bx in (5,12):   _c = BOOK1
@@ -557,6 +562,11 @@ for _i in range(1, 2):
     px(_frm, 13,16,_ms2); px(_frm, 12,16,_ms1)
     px(_frm,  4,17,SKNS); px(_frm,  4,18,SKND)
     px(_frm, 13,17,SKNS); px(_frm, 13,18,SKND)
+    # Brazo derecho extendido al lado del libro
+    px(_frm, 14,16,_ms1); px(_frm, 14,17,_ms1)
+    px(_frm, 14,18,_ms1); px(_frm, 14,19,_ms1)
+    # Zapato visible a la derecha del libro
+    px(_frm, 13,20,SHO); px(_frm, 13,21,SHO)
     for _bx in range(5, 13):
         for _by in range(17, 22):
             if   _bx in (5,12):   _c = BOOK1

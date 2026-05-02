@@ -471,6 +471,11 @@ def _draw_bible_mon(out):
     px(out, 13,16,SOT2); px(out, 12,16,SOT1)
     px(out,  4,17,SKNS); px(out,  4,18,SKND)
     px(out, 13,17,SKNS); px(out, 13,18,SKND)
+    # Brazo derecho extendido al lado del libro
+    px(out, 14,16,SOT1); px(out, 14,17,SOT1)
+    px(out, 14,18,SOT1); px(out, 14,19,SOT1)
+    # Zapato visible a la derecha del libro
+    px(out, 13,20,SHO); px(out, 13,21,SHO)
     for _bx in range(5, 13):
         for _by in range(17, 22):
             if   _bx in (5,12):   _c = BK1

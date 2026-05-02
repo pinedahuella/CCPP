@@ -431,12 +431,30 @@ def gen_animations(dst_dir, f1_img, h1, h2, h3, s1, s2, s3):
     # ── F36-F39: Caminando con Biblia (F1-F4) ────────────────────────────────
     BK1 = (0x4C,0x28,0x08,255); BK2 = (0x78,0x44,0x14,255)
     BKP = (0xEC,0xE8,0xD8,255); BKX = (0xC0,0x60,0x08,255)
+    # Detectar color del zapato del personaje
+    _shoe_pix = []
+    for _sy in range(21, H):
+        for _sx in range(W):
+            _r,_g,_b,_a = f1_img.getpixel((_sx, _sy))
+            if _a > 0 and not is_skin_warm(_r,_g,_b,_a):
+                _shoe_pix.append((_r,_g,_b,255))
+    if _shoe_pix:
+        _shoe_srt = sorted(set(_shoe_pix), key=lambda c: c[0]+c[1]+c[2])
+        SHD = _shoe_srt[0]
+        SHM = _shoe_srt[min(len(_shoe_srt)//3, len(_shoe_srt)-1)]
+    else:
+        SHD, SHM = s1, s2
 
     def _draw_bible(out):
         px(out, 4,15,s2); px(out, 5,15,s1); px(out, 4,16,s2); px(out, 5,16,s1)
         px(out,13,15,s2); px(out,12,15,s1); px(out,13,16,s2); px(out,12,16,s1)
         px(out, 4,17,SKNS); px(out, 4,18,SKND)
         px(out,13,17,SKNS); px(out,13,18,SKND)
+        # Brazo derecho extendido al lado del libro
+        px(out, 14,16,s1); px(out, 14,17,s1)
+        px(out, 14,18,s1); px(out, 14,19,s1)
+        # Zapato visible a la derecha del libro
+        px(out, 13,20,SHD); px(out, 13,21,SHD)
         for _bx in range(5,13):
             for _by in range(17,22):
                 if   _bx in (5,12):  _c = BK1
@@ -496,20 +514,6 @@ def gen_animations(dst_dir, f1_img, h1, h2, h3, s1, s2, s3):
     f44.save(os.path.join(dst_dir,"FRAME44.png"))
 
     # ── F46-F49: Frames de espaldas adicionales ───────────────────────────────
-
-    # Detectar color del zapato del personaje desde filas inferiores de F1
-    def _shoe_shade():
-        _pix = []
-        for _sy in range(21, H):
-            for _sx in range(W):
-                _r,_g,_b,_a = f1_img.getpixel((_sx, _sy))
-                if _a > 0 and not is_skin_warm(_r,_g,_b,_a):
-                    _pix.append((_r,_g,_b,255))
-        if _pix:
-            _srt = sorted(set(_pix), key=lambda c: c[0]+c[1]+c[2])
-            return _srt[0], _srt[min(len(_srt)//3, len(_srt)-1)]
-        return s1, s2
-    SHD, SHM = _shoe_shade()
 
     def _limpiar_brazos(img, y0=15, y1=22):
         for _cy in range(y0, y1):

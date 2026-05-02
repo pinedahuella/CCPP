@@ -461,6 +461,19 @@ def gen_animations(dst_dir, f1_img, h1, h2, h3, s1, s2, s3):
     BK2 = (0x78, 0x44, 0x14, 255)   # cubierta: borde claro
     BKP = (0xEC, 0xE8, 0xD8, 255)   # paginas
     BKX = (0xC0, 0x60, 0x08, 255)   # cruz dorada
+    # Detectar color del zapato del personaje
+    _shoe_pix = []
+    for _sy in range(21, H):
+        for _sx in range(W):
+            _r,_g,_b,_a = f1_img.getpixel((_sx, _sy))
+            if _a > 0 and not is_skin_warm(_r,_g,_b,_a):
+                _shoe_pix.append((_r,_g,_b,255))
+    if _shoe_pix:
+        _shoe_srt = sorted(set(_shoe_pix), key=lambda c: c[0]+c[1]+c[2])
+        SHD = _shoe_srt[0]
+        SHM = _shoe_srt[min(len(_shoe_srt)//3, len(_shoe_srt)-1)]
+    else:
+        SHD, SHM = s1, s2
     def _draw_bible(out):
         px(out,  4,15,s2); px(out,  5,15,s1)
         px(out,  4,16,s2); px(out,  5,16,s1)
@@ -468,6 +481,11 @@ def gen_animations(dst_dir, f1_img, h1, h2, h3, s1, s2, s3):
         px(out, 13,16,s2); px(out, 12,16,s1)
         px(out,  4,17,SKNS); px(out,  4,18,SKND)
         px(out, 13,17,SKNS); px(out, 13,18,SKND)
+        # Brazo derecho extendido al lado del libro (igual que HOMBRE1 pintado a mano)
+        px(out, 14,16,s1); px(out, 14,17,s1)
+        px(out, 14,18,s1); px(out, 14,19,s1)
+        # Zapato visible a la derecha del libro
+        px(out, 13,20,SHD); px(out, 13,21,SHD)
         for _bx in range(5, 13):
             for _by in range(17, 22):
                 if   _bx in (5,12):   _c = BK1
@@ -543,20 +561,6 @@ def gen_animations(dst_dir, f1_img, h1, h2, h3, s1, s2, s3):
 
     # ── F46-F49: Frames de espaldas adicionales ───────────────────────────────
 
-    # Detectar color del zapato del personaje desde las filas inferiores de F1
-    def _shoe_shade():
-        _pix = []
-        for _sy in range(21, H):
-            for _sx in range(W):
-                _r,_g,_b,_a = f1_img.getpixel((_sx, _sy))
-                if _a > 0 and not is_skin_warm(_r,_g,_b,_a):
-                    _pix.append((_r,_g,_b,255))
-        if _pix:
-            _srt = sorted(set(_pix), key=lambda c: c[0]+c[1]+c[2])
-            return _srt[0], _srt[min(len(_srt)//3, len(_srt)-1)]
-        return s1, s2
-    SHD, SHM = _shoe_shade()
-
     # Limpia zonas laterales (artefactos de brazos walk a y=15-21, x=0-3 y x=14-17)
     # y también los artefactos de piel cálida del brazo oscilante en x=4-13, y=18+
     def _limpiar_brazos(img, y0=15, y1=22):
@@ -576,59 +580,58 @@ def gen_animations(dst_dir, f1_img, h1, h2, h3, s1, s2, s3):
             px(img,  4, _cy, c1)
             px(img, 13, _cy, c2)
 
-    # F46: Incarse (arrodillado de espaldas)
-    f46 = make_back(f1_img)
-    # Borrar todo y=15+ para redibujar pose arrodillado limpia
-    for _cx in range(W):
-        for _cy in range(15, H): f46.putpixel((_cx, _cy), (0,0,0,0))
-    # Torso superior y=15-17 (ancho normal)
-    for _cy in range(15, 18):
-        for _cx in range(4, 14):
-            f46.putpixel((_cx, _cy), s1 if (_cx<=5 or _cx>=12) else s2)
-    # Cintura comprimida y=18 (cuerpo aplanado al arrodillarse)
-    for _cx in range(4, 14): f46.putpixel((_cx, 18), s1 if (_cx<=5 or _cx>=12) else s2)
-    # Rodillas y=19-20 (dos bultos simetricos)
-    for _cy in range(19, 21):
-        px(f46, 3,_cy,s1); px(f46,4,_cy,s2); px(f46,5,_cy,s2); px(f46,6,_cy,s1)
-        px(f46,11,_cy,s1); px(f46,12,_cy,s2); px(f46,13,_cy,s2); px(f46,14,_cy,s1)
-    # Suela del zapato (visible al arrodillarse de espaldas)
-    for _cx in range(4, 8):  f46.putpixel((_cx, 21), SHD if (_cx==4 or _cx==7) else SHM)
-    for _cx in range(10,14): f46.putpixel((_cx, 21), SHD if (_cx==10 or _cx==13) else SHM)
-    f46.save(os.path.join(dst_dir, "FRAME46.png"))
+    # F46: eliminado — borrar si existe
+    _f46p = os.path.join(dst_dir, "FRAME46.png")
+    if os.path.exists(_f46p): os.remove(_f46p)
 
-    # F47: Padre Nuestro de espaldas (brazos horizontales)
+    # F47: Padre Nuestro de espaldas (brazos horizontales, 2px de ancho)
     f47 = make_back(f1_img)
-    _limpiar_brazos(f47)          # elimina artefactos walk en zona lateral
-    _hombros(f47)                 # restaura borde hombro x=4 y x=13
-    # Brazo izquierdo horizontal
+    _limpiar_brazos(f47)
+    _hombros(f47)
+    # Brazo izquierdo horizontal — 2 filas de grosor
     px(f47, 3,15,s1); px(f47,2,15,s1); px(f47,1,15,SKNS); px(f47,0,15,SKIN)
-    px(f47, 2,16,s1); px(f47,1,16,SKND)
-    # Brazo derecho horizontal
+    px(f47, 3,16,s1); px(f47,2,16,s1); px(f47,1,16,SKNS); px(f47,0,16,SKND)
+    # Brazo derecho horizontal — 2 filas de grosor
     px(f47,14,15,s1); px(f47,15,15,s1); px(f47,16,15,SKNS); px(f47,17,15,SKIN)
-    px(f47,15,16,s1); px(f47,16,16,SKND)
+    px(f47,14,16,s1); px(f47,15,16,s1); px(f47,16,16,SKNS); px(f47,17,16,SKND)
     f47.save(os.path.join(dst_dir, "FRAME47.png"))
 
-    # F48: Dar la paz de espaldas (brazo derecho extendido y hacia abajo)
+    # F48: Dar la paz de espaldas (brazo derecho diagonal baja, 2px de ancho)
     f48 = make_back(f1_img)
     _limpiar_brazos(f48)
     _hombros(f48)
-    # Brazo derecho extendido en diagonal baja
-    px(f48,14,15,s1); px(f48,15,15,s1)
-    px(f48,15,16,s2); px(f48,16,16,SKNS)
-    px(f48,16,17,SKNS); px(f48,17,17,SKIN)
-    px(f48,17,18,SKIN)
+    # Brazo derecho en diagonal baja — cada paso con 2px de ancho
+    px(f48,14,15,s1);  px(f48,15,15,s1)
+    px(f48,14,16,s2);  px(f48,15,16,s2);  px(f48,16,16,SKNS)
+    px(f48,15,17,s2);  px(f48,16,17,SKNS); px(f48,17,17,SKIN)
+    px(f48,16,18,SKNS); px(f48,17,18,SKIN)
     f48.save(os.path.join(dst_dir, "FRAME48.png"))
 
-    # F49: Levantar manos de espaldas (ambos brazos completamente arriba)
+    # F49: Levantar manos de espaldas (brazos arriba diagonal, 2px de ancho)
     f49 = make_back(f1_img)
-    _limpiar_brazos(f49, 9, 22)   # limpia zona lateral desde y=9 (sobre el hombro)
+    _limpiar_brazos(f49, 9, 22)
     _hombros(f49)
-    # Brazo izquierdo subiendo en diagonal
-    px(f49, 3,15,s1); px(f49,3,14,s1); px(f49,2,13,s1)
-    px(f49, 2,12,s1); px(f49,1,11,s2); px(f49,0,10,SKNS); px(f49,0,9,SKIN)
-    # Brazo derecho subiendo en diagonal
-    px(f49,14,15,s1); px(f49,14,14,s1); px(f49,15,13,s1)
-    px(f49,15,12,s1); px(f49,16,11,s2); px(f49,17,10,SKNS); px(f49,17,9,SKIN)
+    # Brazo izquierdo diagonal arriba-izquierda — 2px de ancho por paso
+    px(f49, 3,15,s1);  px(f49,2,15,s1)
+    px(f49, 3,14,s1);  px(f49,2,14,s1)
+    px(f49, 2,13,s1);  px(f49,1,13,s2)
+    px(f49, 2,12,s1);  px(f49,1,12,s2)
+    px(f49, 1,11,s2);  px(f49,0,11,SKNS)
+    px(f49, 0,10,SKNS); px(f49,0,9,SKIN)
+    # Brazo derecho diagonal arriba-derecha — 2px de ancho por paso
+    px(f49,14,15,s1);  px(f49,15,15,s1)
+    px(f49,14,14,s1);  px(f49,15,14,s1)
+    px(f49,15,13,s1);  px(f49,16,13,s2)
+    px(f49,15,12,s1);  px(f49,16,12,s2)
+    px(f49,16,11,s2);  px(f49,17,11,SKNS)
+    px(f49,17,10,SKNS); px(f49,17,9,SKIN)
+    # Restaurar nuca borrada por _limpiar donde el brazo no cubre (y=9-11)
+    px(f49, 1,9,h1);  px(f49,2,9,h1);  px(f49,3,9,h2)
+    px(f49, 1,10,h1); px(f49,2,10,h1); px(f49,3,10,h2)
+    px(f49, 2,11,h1); px(f49,3,11,h2)
+    px(f49,14,9,h2);  px(f49,15,9,h1)
+    px(f49,14,10,h2); px(f49,15,10,h1)
+    px(f49,14,11,h2); px(f49,15,11,h1)
     f49.save(os.path.join(dst_dir, "FRAME49.png"))
 
 # ==============================================================================
@@ -693,7 +696,6 @@ Generacion completa — 49 frames por personaje
   F36-F39 caminando con Biblia (ciclo walk 4 frames, F1-F4)
   F44     cantando: levanta, 1px boca
   F45     cantando: boca abierta, 2px vertical
-  F46     incarse de espaldas
   F47     Padre Nuestro de espaldas (brazos horizontales)
   F48     dar la paz de espaldas (brazo derecho)
   F49     levantar manos de espaldas
