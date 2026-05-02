@@ -1390,28 +1390,697 @@ def mk_retablo():
     return img
 
 
+# =============================================================================
+# 21  CUSTODIA (ostensorio/monstrance)
+# =============================================================================
+def mk_custodia():
+    img, dr, p, px, hl, vl, rc = cv()
+    cx = 24
+
+    for x in range(10, 38): px(x, 47, SHC)
+
+    # Base / pie (igual que caliz)
+    rc(12, 41, 36, 44, GDD)
+    for x in range(12, 37): px(x, 41, GDL); px(x, 44, GDK)
+    for y in range(41, 45): px(12, y, GDL); px(36, y, GDK)
+    rc(13, 38, 35, 41, GDM)
+    for x in range(13, 36): px(x, 38, GDH)
+
+    # Tallo delgado
+    for y in range(24, 38):
+        px(22, y, GDL); px(23, y, GDH); px(24, y, GDM); px(25, y, GDD)
+
+    # Nudo
+    rc(19, 30, 29, 34, GDM)
+    for x in range(19, 30): px(x, 30, GDL); px(x, 34, GDK)
+    for y in range(30, 35): px(19, y, GDL); px(29, y, GDK)
+
+    # Rayos de la custodia (alternando rectos y ondulados)
+    ray_angles = [i * (360/16) for i in range(16)]
+    ray_r_long = 13; ray_r_short = 10
+    for i, ang in enumerate(ray_angles):
+        rad = math.radians(ang - 90)
+        rlen = ray_r_long if i % 2 == 0 else ray_r_short
+        for r in range(7, rlen):
+            rx2 = int(cx + r * math.cos(rad))
+            ry2 = int(16 + r * math.sin(rad))
+            if i % 2 == 0:  # rayo recto
+                px(rx2, ry2, GDH)
+                px(rx2+1 if ang < 180 else rx2, ry2, GDM)
+            else:           # rayo con punta (rombo)
+                px(rx2, ry2, GDL)
+        # Punta del rayo largo (rombo dorado)
+        if i % 2 == 0:
+            tip_x = int(cx + ray_r_long * math.cos(rad))
+            tip_y = int(16 + ray_r_long * math.sin(rad))
+            px(tip_x, tip_y, GDW)
+
+    # Circulo exterior (anillo de la luna)
+    for ang in range(0, 360, 3):
+        rad = math.radians(ang)
+        px(int(cx + 6.5*math.cos(rad)), int(16 + 6.5*math.sin(rad)), GDK)
+
+    # Circulo interior (host / hostia)
+    for dy in range(-5, 6):
+        for dx in range(-5, 6):
+            if dx*dx + dy*dy <= 25:
+                px(cx+dx, 16+dy, IVL if dx*dx+dy*dy > 16 else (240,235,210,255))
+    # Cruz sobre la hostia
+    for yy in range(12, 21): px(cx, yy, GDM)
+    for xx in range(20, 29): px(xx, 16, GDM)
+    px(cx, 16, GDH)
+
+    return img
+
+
+# =============================================================================
+# 22  PILA BAUTISMAL
+# =============================================================================
+def mk_pila_bautismal():
+    img, dr, p, px, hl, vl, rc = cv()
+    cx = 24
+
+    for x in range(6, 42): px(x, 47, SHC)
+
+    # Columna pedestal
+    rc(19, 32, 29, 42, SM)
+    for y in range(32, 43): px(19, y, SHH); px(20, y, SL); px(28, y, SM); px(29, y, SD)
+    # Base de la columna
+    rc(14, 40, 34, 44, SD)
+    for x in range(14, 35): px(x, 40, SM); px(x, 44, SD)
+    for y in range(40, 45): px(14, y, SL); px(34, y, SD)
+    rc(12, 43, 36, 46, SD)
+    for x in range(12, 37): px(x, 43, SM)
+
+    # Capitel de la columna
+    rc(16, 30, 32, 32, SM)
+    for x in range(16, 33): px(x, 30, SHH); px(x, 32, SD)
+    for y in range(30, 33): px(16, y, SL); px(32, y, SD)
+
+    # Cuenco octogonal (pila)
+    # Cara frontal del cuenco
+    rc(8, 20, 40, 30, MB)
+    for x in range(8, 41): px(x, 20, MA); px(x, 30, MDK)
+    for y in range(20, 31): px(8, y, IVL); px(40, y, MC)
+    # Cara superior (boca del cuenco)
+    rc(6, 14, 42, 20, MA)
+    for x in range(6, 43): px(x, 14, IVL); px(x, 20, MB)
+    for y in range(14, 21): px(6, y, IVL); px(42, y, MC)
+    # Interior (agua)
+    rc(10, 16, 38, 19, WAT)
+    for x in range(10, 39): px(x, 16, WAH)
+    for y in range(16, 20): px(10, y, WAM); px(38, y, WAT)
+    # Reflejo del agua
+    for x in range(12, 36, 4): px(x, 17, WAH); px(x+1, 17, WAM)
+
+    # Tapa/cubierta conica de madera
+    # Base de la tapa (apoyo en el borde)
+    rc(8, 12, 40, 14, WDM)
+    for x in range(8, 41): px(x, 12, WDH); px(x, 14, WDK)
+    # Cono (perfil triangular)
+    for y in range(2, 12):
+        hw = int((12-y) * 14 / 10)
+        xl = cx - hw; xr = cx + hw
+        for x in range(xl, xr+1):
+            if x == xl: px(x, y, WDK)
+            elif x == xl+1: px(x, y, WDH)
+            elif x == xr-1: px(x, y, WDM)
+            elif x == xr: px(x, y, WDK)
+            else: px(x, y, WDL)
+        # Pliegues
+        if (y % 3) == 0:
+            px(xl+3, y, WDD); px(xr-3, y, WDD)
+    # Remate/pomo dorado
+    rc(22, 1, 26, 3, GDM)
+    for x in range(22, 27): px(x, 1, GDH)
+    px(24, 0, GDW)
+
+    return img
+
+
+# =============================================================================
+# 23  SILLA DEL CELEBRANTE
+# =============================================================================
+def mk_silla_celebrante():
+    img, dr, p, px, hl, vl, rc = cv()
+
+    for x in range(7, 41): px(x, 47, SHC)
+
+    # Patas
+    for y in range(34, 44):
+        px( 9, y, WDK); px(10, y, WDD); px(11, y, WDM)
+        px(36, y, WDL); px(37, y, WDD); px(38, y, WDK)
+    # Travesano
+    for x in range(10, 38): px(x, 40, WDK); px(x, 41, WDD)
+
+    # Asiento con cojin rojo
+    rc(8, 30, 39, 34, WDM)
+    for x in range(8, 40): px(x, 30, WDH); px(x, 34, WDK)
+    for y in range(30, 35): px(8, y, WDH); px(39, y, WDK)
+    # Cojin
+    rc(10, 28, 37, 30, TDM)
+    for x in range(10, 38): px(x, 28, TDH); px(x, 30, TDK)
+    for y in range(28, 31): px(10, y, TDL); px(37, y, TDK)
+    # Borde dorado del cojin
+    for x in range(10, 38): px(x, 28, GDD)
+    for y in range(28, 31): px(10, y, GDD); px(37, y, GDD)
+
+    # Brazos del sillon
+    rc(8, 22, 12, 30, WDM)
+    for y in range(22, 31): px(8, y, WDH); px(12, y, WDD)
+    for x in range(8, 13): px(x, 22, WDH)
+    rc(35, 22, 39, 30, WDM)
+    for y in range(22, 31): px(35, y, WDH); px(39, y, WDK)
+    for x in range(35, 40): px(x, 22, WDH)
+
+    # Respaldo
+    rc(9, 6, 38, 22, WDD)
+    rc(10, 7, 37, 21, WDM)
+    for x in range(9, 39): px(x, 6, WDH); px(x, 22, WDK)
+    for y in range(6, 23): px(9, y, WDH); px(38, y, WDK)
+
+    # Cojin del respaldo
+    rc(11, 8, 36, 20, TDM)
+    for x in range(11, 37): px(x, 8, TDH); px(x, 20, TDK)
+    for y in range(8, 21): px(11, y, TDL); px(36, y, TDK)
+    # Pliegues del cojin
+    for y in range(10, 20, 4): px(14, y, TDK); px(22, y, TDK); px(30, y, TDK)
+
+    # Remate del respaldo (corona tallada)
+    rc(9, 3, 38, 6, WDM)
+    for x in range(9, 39): px(x, 3, WDH); px(x, 6, WDK)
+    # Picos de la corona
+    for cx2 in range(13, 35, 7):
+        px(cx2, 2, WDH); px(cx2+1, 2, WDH)
+        px(cx2, 1, WDL); px(cx2+1, 1, WDL)
+    # Cruz central en el remate
+    for y in range(1, 4): px(23, y, GDH); px(24, y, GDM)
+    for x in range(21, 27): px(x, 2, GDH)
+    px(24, 2, GDW)
+
+    return img
+
+
+# =============================================================================
+# 24  CRUZ PROCESIONAL (en vara)
+# =============================================================================
+def mk_cruz_procesional():
+    img, dr, p, px, hl, vl, rc = cv()
+
+    for x in range(18, 30): px(x, 47, SHC)
+
+    # Vara/poste (madera oscura)
+    for y in range(30, 48):
+        px(21, y, WDK); px(22, y, WDD); px(23, y, WDM)
+        px(24, y, WDM); px(25, y, WDL); px(26, y, WDK)
+
+    # Union vara-cruz (regatón dorado)
+    rc(19, 26, 29, 30, GDM)
+    for x in range(19, 30): px(x, 26, GDL); px(x, 30, GDK)
+    for y in range(26, 31): px(19, y, GDL); px(29, y, GDK)
+
+    # Cruz dorada
+    # Brazo vertical: x=21..26, y=2..26
+    for y in range(2, 27):
+        px(20, y, GDK); px(21, y, GDM); px(22, y, GDL); px(23, y, GDH)
+        px(24, y, GDH); px(25, y, GDM); px(26, y, GDD); px(27, y, GDK)
+    # Brazo horizontal: x=8..39, y=10..16
+    for x in range(8, 40):
+        px(x, 10, GDK); px(x, 11, GDM); px(x, 12, GDL)
+        px(x, 13, GDH); px(x, 14, GDM); px(x, 15, GDD); px(x, 16, GDK)
+    # Remate de los brazos (terminaciones ornamentales)
+    for y in range(10, 17):
+        px(7, y, GDD); px(8, y, GDL); px(39, y, GDL); px(40, y, GDD)
+    for x in range(20, 28):
+        px(x, 1, GDD); px(x, 2, GDL)
+    # Highlight central de la cruz
+    for y in range(2, 27): px(23, y, GDW if y%4==2 else GDH)
+    for x in range(8, 40): px(x, 13, GDW if x%5==0 else GDH)
+
+    # INRI (tableta pequeña sobre la cruz)
+    rc(18, 3, 30, 8, IVL)
+    for x in range(18, 31): px(x, 3, IVL); px(x, 8, IVD)
+    for y in range(3, 9): px(18, y, IVL); px(30, y, IVD)
+    # Letras INRI simplificadas
+    px(20,5,WDK); px(21,5,WDK)  # I
+    px(22,4,WDK); px(22,5,WDK); px(22,6,WDK); px(23,4,WDK); px(23,6,WDK)  # N
+    px(24,5,WDK); px(25,5,WDK)  # R
+    px(26,4,WDK); px(26,5,WDK); px(26,6,WDK)  # I
+
+    # Corpus simplificado (figura de Cristo)
+    # Cabeza
+    rc(22, 18, 25, 21, (215,175,140,255))
+    # Brazos abiertos (cuerpo en la cruz)
+    for x in range(12, 20): px(x, 22, (215,175,140,255))
+    for x in range(28, 36): px(x, 22, (215,175,140,255))
+    # Torso
+    for y in range(21, 29): px(22, y, (215,175,140,255)); px(23, y, (195,155,118,255))
+    # Panos
+    rc(20, 28, 26, 32, IVL)
+    for x in range(20, 27): px(x, 28, IVD)
+
+    return img
+
+
+# =============================================================================
+# 25  NAVETA (barco del incienso)
+# =============================================================================
+def mk_naveta():
+    img, dr, p, px, hl, vl, rc = cv()
+
+    for x in range(6, 42): px(x, 47, SHC)
+
+    # Cadena/mango
+    for y in range(5, 16):
+        px(24, y, GDD); px(25, y, GDM)
+    # Argolla superior
+    rc(22, 3, 26, 6, GDM)
+    for x in range(22, 27): px(x, 3, GDL); px(x, 6, GDK)
+    for y in range(3, 7): px(22, y, GDL); px(26, y, GDK)
+    px(24, 2, GDH); px(23, 2, GDM); px(25, 2, GDM)
+
+    # Cuerpo de la naveta (forma de barco, elipse)
+    # Tapa (mitad superior), abierta
+    lid = [
+        (16, 9, 39), (15, 8, 40), (14, 8, 40), (13, 9, 39),
+    ]
+    for y, xl, xr in lid:
+        for x in range(xl, xr+1):
+            if x == xl or x == xr: px(x, y, GDK)
+            elif x == xl+1: px(x, y, GDL)
+            elif x == xr-1: px(x, y, GDD)
+            else: px(x, y, GDM)
+
+    # Cuerpo inferior (cuenco)
+    hull = [
+        (17,  8, 40), (18,  7, 41), (19,  6, 42), (20,  6, 42),
+        (21,  6, 42), (22,  6, 42), (23,  6, 42), (24,  6, 42),
+        (25,  6, 42), (26,  6, 42), (27,  6, 42), (28,  7, 41),
+        (29,  8, 40), (30,  9, 39), (31, 11, 37), (32, 14, 34),
+    ]
+    for y, xl, xr in hull:
+        for x in range(xl, xr+1):
+            if x == xl or x == xr: px(x, y, GDK)
+            elif x == xl+1: px(x, y, GDL)
+            elif x == xr-1: px(x, y, GDD)
+            else: px(x, y, GDM)
+    # Interior con incienso (gris humo)
+    for y in range(18, 31):
+        for x in range(9, 39):
+            c = img.getpixel((x, y))
+            if c[3] == 0:
+                px(x, y, SMK if y < 25 else (100,95,90,255))
+
+    # Pie/base
+    rc(16, 32, 32, 36, GDM)
+    for x in range(16, 33): px(x, 32, GDL); px(x, 36, GDK)
+    for y in range(32, 37): px(16, y, GDL); px(32, y, GDK)
+    rc(18, 36, 30, 39, GDD)
+    for x in range(18, 31): px(x, 36, GDL); px(x, 39, GDK)
+    # Pata base
+    rc(17, 39, 31, 43, GDM)
+    for x in range(17, 32): px(x, 39, GDL); px(x, 43, GDK)
+
+    return img
+
+
+# =============================================================================
+# 26  ACETRE E HISOPO (cubo y aspersorio de agua bendita)
+# =============================================================================
+def mk_acetre():
+    img, dr, p, px, hl, vl, rc = cv()
+
+    for x in range(5, 43): px(x, 47, SHC)
+
+    # ── HISOPO (aspersorio) — derecha ─────────────────────────────────────────
+    # Mango
+    for y in range(14, 42):
+        px(35, y, WDK); px(36, y, WDD); px(37, y, WDM); px(38, y, WDL)
+    # Cabeza del hisopo (cilindro perforado)
+    rc(32, 10, 41, 16, IM)
+    for x in range(32, 42): px(x, 10, IH); px(x, 16, ID)
+    for y in range(10, 17): px(32, y, IL); px(41, y, ID)
+    # Perforaciones
+    for y in range(11, 16, 2):
+        for x in range(33, 41, 2): px(x, y, ID)
+    # Gotas de agua
+    for i, (gx, gy) in enumerate([(30,8),(28,6),(26,9),(33,5)]):
+        px(gx, gy, WAL); px(gx, gy+1, WAM)
+
+    # ── ACETRE (cubo) — izquierda ─────────────────────────────────────────────
+    # Asa/arco
+    for ang in range(0, 181, 15):
+        ax = int(14 + 7*math.cos(math.radians(ang)))
+        ay = int(20 - 6*math.sin(math.radians(ang)))
+        px(ax, ay, IM); px(ax+1, ay, IL)
+    # Cuerpo del cubo (trapecio ligeramente cónico)
+    body = [
+        ( 8, 10, 18),(16, 9, 19),(20, 9, 19),(21, 9, 19),
+        (22, 9, 19), (23, 9, 19),
+    ]
+    # Cara frontal
+    for y in range(20, 38):
+        lx = 7 + int((y-20)*0.5); rx = 21 - int((y-20)*0.5)
+        lx = max(6, lx); rx = min(22, rx)
+        for x in range(lx, rx+1):
+            if x == lx: px(x, y, ID)
+            elif x == lx+1: px(x, y, IL)
+            elif x == rx-1: px(x, y, IM)
+            elif x == rx: px(x, y, ID)
+            else: px(x, y, IM)
+
+    # Cara superior (abertura)
+    rc(6, 18, 22, 20, IL)
+    for x in range(6, 23): px(x, 18, IH); px(x, 20, ID)
+    for y in range(18, 21): px(6, y, IL); px(22, y, ID)
+    # Agua dentro
+    for x in range(8, 20): px(x, 19, WAL if x%3==0 else WAM)
+
+    # Borde superior reforzado
+    rc(5, 16, 23, 18, IH)
+    for x in range(5, 24): px(x, 16, IH); px(x, 18, IM)
+    for y in range(16, 19): px(5, y, IH); px(23, y, IM)
+
+    # Base
+    rc(8, 38, 20, 41, ID)
+    for x in range(8, 21): px(x, 38, IM); px(x, 41, ID)
+    for y in range(38, 42): px(8, y, IL); px(20, y, ID)
+
+    return img
+
+
+# =============================================================================
+# 27  CANDELERO DE 7 BRAZOS
+# =============================================================================
+def mk_candelero_7():
+    img, dr, p, px, hl, vl, rc = cv()
+
+    for x in range(3, 45): px(x, 47, SHC)
+
+    # Pie/base
+    rc(12, 42, 36, 46, GDM)
+    for x in range(12, 37): px(x, 42, GDL); px(x, 46, GDK)
+    for y in range(42, 47): px(12, y, GDL); px(36, y, GDK)
+    rc(10, 44, 38, 46, GDD)
+    for x in range(10, 39): px(x, 44, GDL)
+
+    # Fuste central
+    for y in range(14, 42):
+        px(22, y, GDL); px(23, y, GDH); px(24, y, GDM); px(25, y, GDD)
+
+    # Brazos horizontales (3 pares + central)
+    # Brazo largo izq/der (nivel superior)
+    for x in range(6, 22):
+        px(x, 26, GDM); px(x, 27, GDL); px(x, 28, GDD)
+    for x in range(25, 42):
+        px(x, 26, GDM); px(x, 27, GDL); px(x, 28, GDD)
+    # Brazos medios izq/der
+    for x in range(10, 22):
+        px(x, 32, GDM); px(x, 33, GDL); px(x, 34, GDD)
+    for x in range(25, 38):
+        px(x, 32, GDM); px(x, 33, GDL); px(x, 34, GDD)
+    # Brazos cortos izq/der
+    for x in range(14, 22):
+        px(x, 38, GDM); px(x, 39, GDL); px(x, 40, GDD)
+    for x in range(25, 34):
+        px(x, 38, GDM); px(x, 39, GDL); px(x, 40, GDD)
+
+    # Velas (7 en total)
+    candles_x = [6, 10, 14, 23, 33, 37, 41]
+    # Alturas de los brazos donde se apoyan
+    candle_y_base = [26, 32, 38, 14, 38, 32, 26]
+    for i, (cx2, ybase) in enumerate(zip(candles_x, candle_y_base)):
+        draw_candle(px, cx2, ybase - 10, height=10)
+
+    return img
+
+
+# =============================================================================
+# 28  IMAGEN DE SANTO (San José)
+# =============================================================================
+def mk_imagen_santo():
+    img, dr, p, px, hl, vl, rc = cv()
+
+    SKN = (230, 190, 158, 255)
+    SKD = (195, 150, 112, 255)
+    ROB = ( 88,  60,  18, 255)  # ropa marron
+    ROM = (130,  90,  32, 255)
+    ROL = (175, 130,  55, 255)
+    CAP = (185, 168,  95, 255)  # manto crema
+    CAM = (155, 138,  70, 255)
+    LIL = (210, 240, 210, 255)  # lirio blanco
+    LIS = (180, 210, 165, 255)  # lirio sombra
+    GRN = ( 28, 140,  28, 255)  # tallo verde
+    GRD = ( 14,  90,  14, 255)
+
+    for x in range(10, 38): px(x, 47, SHC)
+
+    # Pedestal
+    rc(10, 40, 38, 45, MB)
+    for x in range(10, 39): px(x, 40, MA); px(x, 45, MDK)
+    for y in range(40, 46): px(10, y, IVL); px(38, y, MC)
+    rc( 9, 37, 39, 40, MA)
+    for x in range(9, 40): px(x, 37, IVL)
+
+    # Halo
+    for dx in range(-8, 9):
+        for dy in range(-8, 9):
+            d2 = dx*dx + dy*dy
+            if 49 <= d2 <= 70:
+                px(24+dx, 9+dy, GDL)
+
+    # Cabeza
+    rc(20, 6, 28, 13, SKN)
+    for x in range(20, 29): px(x, 6, SKD)  # cabello/barba arriba
+    # Barba
+    rc(21, 12, 27, 16, SKD)
+    px(22, 16, SKD); px(23, 16, SKD); px(24, 16, SKD); px(25, 16, SKD)
+    # Ojos
+    px(22, 9, SKD); px(26, 9, SKD)
+    # Nariz/boca
+    px(24, 11, SKD); px(23, 12, SKD); px(25, 12, SKD)
+
+    # Cuello
+    for y in range(13, 16): px(23, y, SKN); px(24, y, SKN); px(25, y, SKN)
+
+    # Tunica marrón
+    rc(18, 15, 30, 37, ROM)
+    for y in range(15, 38): px(18, y, ROL); px(30, y, ROB)
+    for y in range(18, 36, 4): px(21, y, ROB); px(27, y, ROB)
+    for x in range(18, 31): px(x, 15, ROL); px(x, 37, ROB)
+
+    # Manto crema (cae por el hombro izquierdo)
+    for y in range(16, 37):
+        for x in range(11, 19): px(x, y, CAP if x > 13 else CAM)
+        for x in range(13, 20): px(x, y, CAP if x > 15 else CAM)
+    for y in range(26, 37):
+        for x in range(11, 22): px(x, y, CAP if x > 13 else CAM)
+    for y in range(20, 36, 4): px(12, y, CAM)
+
+    # Mano derecha (vara con lirio)
+    for y in range(10, 37): px(31, y, GRN); px(32, y, GRD)  # tallo
+    # Flores de lirio (3 pares)
+    for fy in range(10, 25, 6):
+        px(29, fy, LIL); px(30, fy, LIL); px(33, fy, LIL); px(34, fy, LIL)
+        px(30, fy+1, LIS); px(33, fy+1, LIS)
+    # Mano sosteniendo
+    px(29, 28, SKN); px(30, 28, SKN); px(29, 29, SKN); px(30, 29, SKN)
+
+    # Mano izquierda (gesto)
+    px(19, 24, SKN); px(18, 24, SKN); px(18, 25, SKN); px(19, 25, SKN)
+
+    return img
+
+
+# =============================================================================
+# 29  LIBRO DE CORO (cantoral en atril)
+# =============================================================================
+def mk_libro_coro():
+    img, dr, p, px, hl, vl, rc = cv()
+
+    for x in range(4, 44): px(x, 47, SHC)
+
+    # Atril de madera (base)
+    # Patas
+    for y in range(34, 46):
+        px(10, y, WDK); px(11, y, WDD); px(12, y, WDM)
+        px(35, y, WDL); px(36, y, WDD); px(37, y, WDK)
+    # Travesano
+    for x in range(11, 37): px(x, 40, WDK); px(x, 41, WDD)
+    # Soporte diagonal
+    for y in range(20, 34):
+        t = (y-20)/14.0
+        sx = int(22 + t*1.5)
+        px(sx, y, WDM); px(sx+1, y, WDL)
+
+    # Superficie inclinada del atril
+    rc(6, 26, 42, 34, WDL)
+    for x in range(6, 43): px(x, 26, WDH); px(x, 34, WDK)
+    for y in range(26, 35): px(6, y, WDH); px(42, y, WDK)
+    # Listón frontal (evita que el libro caiga)
+    rc(6, 34, 42, 36, WDD)
+    for x in range(6, 43): px(x, 34, WDM); px(x, 36, WDK)
+
+    # Libro de coro (grande, encuadernacion roja oscura)
+    # Cubierta izquierda
+    rc(8, 6, 24, 26, TDK)
+    for x in range(8, 25): px(x, 6, TDM); px(x, 26, TDK)
+    for y in range(6, 27): px(8, y, TDL); px(24, y, TDK)
+    # Cubierta derecha
+    rc(24, 6, 40, 26, TDK)
+    for x in range(24, 41): px(x, 6, TDM); px(x, 26, TDK)
+    for y in range(6, 27): px(24, y, TDL); px(40, y, TDK)
+    # Lomo
+    for y in range(6, 27): px(23, y, WDK); px(24, y, WDD); px(25, y, WDM)
+    # Borde dorado de la encuadernacion
+    for x in range(8, 41): px(x, 7, GDD); px(x, 25, GDD)
+    for y in range(7, 26): px(9, y, GDD); px(39, y, GDD)
+
+    # Paginas abiertas (papel amarillo-crema)
+    # Pagina izquierda
+    rc(10, 8, 22, 24, IVL)
+    for x in range(10, 23): px(x, 8, IVL); px(x, 24, IVD)
+    for y in range(8, 25): px(10, y, IVL); px(22, y, IVD)
+    # Pentagrama musical (5 lineas horizontales)
+    for line_y in range(10, 23, 2):
+        for x in range(11, 22): px(x, line_y, WDK)
+    # Notas musicales (puntos y palitos)
+    for (nx, ny) in [(12,10),(14,12),(16,10),(18,14),(20,12),(13,16),(17,18),(19,16)]:
+        px(nx, ny, WDK); px(nx+1, ny, WDK)
+        px(nx+1, ny-3, WDK); px(nx+1, ny-2, WDK); px(nx+1, ny-1, WDK)
+    # Clave de sol simplificada
+    px(11,9,GDM); px(11,10,GDD); px(12,9,GDM)
+
+    # Pagina derecha
+    rc(26, 8, 38, 24, IVL)
+    for x in range(26, 39): px(x, 8, IVL); px(x, 24, IVD)
+    for y in range(8, 25): px(26, y, IVL); px(38, y, IVD)
+    # Pentagrama der
+    for line_y in range(10, 23, 2):
+        for x in range(27, 38): px(x, line_y, WDK)
+    # Notas
+    for (nx, ny) in [(27,12),(29,10),(31,14),(33,12),(35,10),(28,18),(32,16),(36,18)]:
+        px(nx, ny, WDK); px(nx+1, ny, WDK)
+        px(nx+1, ny-3, WDK); px(nx+1, ny-2, WDK); px(nx+1, ny-1, WDK)
+
+    return img
+
+
+# =============================================================================
+# 30  PUERTA DE IGLESIA (doble hoja)
+# =============================================================================
+def mk_puerta_iglesia():
+    img, dr, p, px, hl, vl, rc = cv()
+
+    # Marco de piedra
+    rc(0, 0, 47, 47, SD)
+    rc(1, 1, 46, 46, SM)
+    # Arco apuntado exterior
+    arch_cx = 24; arch_r = 22
+    for y in range(0, 24):
+        hw = int(math.sqrt(max(0, arch_r**2 - (y-24)**2)))
+        for x in range(0, max(0, arch_cx-hw)): px(x, y, SD)
+        for x in range(min(47, arch_cx+hw+1), 48): px(x, y, SD)
+        px(max(0,arch_cx-hw), y, SM); px(min(47,arch_cx+hw), y, SD)
+
+    # ── Hoja izquierda ────────────────────────────────────────────────────────
+    rc(3, 5, 23, 44, WDD)
+    rc(4, 6, 22, 43, WDM)
+    for y in range(5, 45): px(3, y, WDH); px(23, y, WDK)
+    for x in range(3, 24): px(x, 5, WDH); px(x, 44, WDK)
+
+    # Paneles tallados (hoja izq)
+    rc(5, 8, 21, 20, WDL)
+    for x in range(5, 22): px(x, 8, WDH); px(x, 20, WDK)
+    for y in range(8, 21): px(5, y, WDH); px(21, y, WDK)
+    # Panel inferior izq
+    rc(5, 22, 21, 41, WDL)
+    for x in range(5, 22): px(x, 22, WDH); px(x, 41, WDK)
+    for y in range(22, 42): px(5, y, WDH); px(21, y, WDK)
+    # Cruz en panel superior izq
+    for y in range(10, 19): px(13, y, WDH); px(14, y, WDM)
+    for x in range(7, 20): px(x, 14, WDH); px(x, 15, WDM)
+    # Relleno panel inferior izq (circulo)
+    for dx in range(-5, 6):
+        for dy in range(-6, 7):
+            if dx*dx+dy*dy <= 25:
+                px(13+dx, 31+dy, WDL)
+    for dx in range(-3,4):
+        for dy in range(-4,5):
+            if dx*dx+dy*dy <= 12:
+                px(13+dx, 31+dy, WDH)
+
+    # ── Hoja derecha ──────────────────────────────────────────────────────────
+    rc(24, 5, 44, 44, WDD)
+    rc(25, 6, 43, 43, WDM)
+    for y in range(5, 45): px(24, y, WDH); px(44, y, WDK)
+    for x in range(24, 45): px(x, 5, WDH); px(x, 44, WDK)
+
+    rc(26, 8, 42, 20, WDL)
+    for x in range(26, 43): px(x, 8, WDH); px(x, 20, WDK)
+    for y in range(8, 21): px(26, y, WDH); px(42, y, WDK)
+    rc(26, 22, 42, 41, WDL)
+    for x in range(26, 43): px(x, 22, WDH); px(x, 41, WDK)
+    for y in range(22, 42): px(26, y, WDH); px(42, y, WDK)
+    # Cruz panel superior der
+    for y in range(10, 19): px(34, y, WDH); px(35, y, WDM)
+    for x in range(28, 41): px(x, 14, WDH); px(x, 15, WDM)
+    # Panel inferior der (circulo)
+    for dx in range(-5, 6):
+        for dy in range(-6, 7):
+            if dx*dx+dy*dy <= 25:
+                px(34+dx, 31+dy, WDL)
+    for dx in range(-3,4):
+        for dy in range(-4,5):
+            if dx*dx+dy*dy <= 12:
+                px(34+dx, 31+dy, WDH)
+
+    # ── Herrajes (bisagras y aldabas) ─────────────────────────────────────────
+    # Bisagras izq
+    rc(2, 10, 5, 13, IM); rc(2, 36, 5, 39, IM)
+    for y in (10,36): px(3, y, IL); px(4, y, IL)
+    # Bisagras der
+    rc(43, 10, 46, 13, IM); rc(43, 36, 46, 39, IM)
+    for y in (10,36): px(44, y, IL); px(45, y, IL)
+    # Aldabas (anillos de llamar)
+    px(22, 24, GDD); px(22, 25, GDD); px(23, 23, GDM); px(23, 26, GDM)  # izq
+    px(24, 24, GDD); px(24, 25, GDD); px(25, 23, GDM); px(25, 26, GDM)  # der
+
+    return img
+
+
 # ── Generar todos los items ───────────────────────────────────────────────────
 ITEMS = [
-    ('banca_iglesia',  mk_banca_iglesia ),
-    ('altar_mayor',    mk_altar_mayor   ),
-    ('veladora',       mk_veladora      ),
-    ('atril',          mk_atril         ),
-    ('pila_agua',      mk_pila_agua     ),
-    ('reclinatorio',   mk_reclinatorio  ),
-    ('confesionario',  mk_confesionario ),
-    ('cruz_altar',     mk_cruz_altar    ),
-    ('incensario',     mk_incensario    ),
-    ('organo',         mk_organo        ),
-    ('sagrario',       mk_sagrario      ),
-    ('caliz',          mk_caliz         ),
-    ('candelabro',     mk_candelabro    ),
-    ('virgen',         mk_virgen        ),
-    ('vitral',         mk_vitral        ),
-    ('campanillas',    mk_campanillas   ),
-    ('cirio_pascual',  mk_cirio_pascual ),
-    ('credencia',      mk_credencia     ),
-    ('ambon',          mk_ambon         ),
-    ('retablo',        mk_retablo       ),
+    ('banca_iglesia',    mk_banca_iglesia   ),
+    ('altar_mayor',      mk_altar_mayor     ),
+    ('veladora',         mk_veladora        ),
+    ('atril',            mk_atril           ),
+    ('pila_agua',        mk_pila_agua       ),
+    ('reclinatorio',     mk_reclinatorio    ),
+    ('confesionario',    mk_confesionario   ),
+    ('cruz_altar',       mk_cruz_altar      ),
+    ('incensario',       mk_incensario      ),
+    ('organo',           mk_organo          ),
+    ('sagrario',         mk_sagrario        ),
+    ('caliz',            mk_caliz           ),
+    ('candelabro',       mk_candelabro      ),
+    ('virgen',           mk_virgen          ),
+    ('vitral',           mk_vitral          ),
+    ('campanillas',      mk_campanillas     ),
+    ('cirio_pascual',    mk_cirio_pascual   ),
+    ('credencia',        mk_credencia       ),
+    ('ambon',            mk_ambon           ),
+    ('retablo',          mk_retablo         ),
+    ('custodia',         mk_custodia        ),
+    ('pila_bautismal',   mk_pila_bautismal  ),
+    ('silla_celebrante', mk_silla_celebrante),
+    ('cruz_procesional', mk_cruz_procesional),
+    ('naveta',           mk_naveta          ),
+    ('acetre',           mk_acetre          ),
+    ('candelero_7',      mk_candelero_7     ),
+    ('imagen_santo',     mk_imagen_santo    ),
+    ('libro_coro',       mk_libro_coro      ),
+    ('puerta_iglesia',   mk_puerta_iglesia  ),
 ]
 
 for nombre, fn in ITEMS:
