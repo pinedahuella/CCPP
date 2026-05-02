@@ -620,6 +620,10 @@ for ys in range(11, 16):
 px(f37, 14, 11, SKIN);  px(f37, 13, 11, SKNS)
 px(f37, 14, 10, SKNS)
 draw_chalice(f37, 8, 6)    # rim y06, pie y11
+# Limpiar fragmentos de cara flotantes a la derecha del brazo derecho (y=11-13, x=14-15)
+f37.putpixel((15, 11), (0,0,0,0))
+f37.putpixel((14, 12), (0,0,0,0)); f37.putpixel((15, 12), (0,0,0,0))
+f37.putpixel((14, 13), (0,0,0,0))
 f37.save(os.path.join(DST_DIR, "FRAME37.png"))
 print("FRAME37 — Caliz subiendo 2/3 (rim y06)")
 
@@ -774,10 +778,14 @@ def _hombros_p(img):
 # F43: Padre Nuestro paso 1 — brazos empezando a abrirse (45° hacia abajo-afuera)
 f43 = make_back_view(_f1_priest)
 _limpiar_brazos_p(f43); _hombros_p(f43)
-# Brazo izquierdo: hombro → baja un paso → piel al final (inicio apertura)
-px(f43, 3,15,SOT1); px(f43, 3,16,SOT1); px(f43, 2,17,SKNS); px(f43, 1,17,SKIN)
-# Brazo derecho: simétrico
-px(f43,14,15,SOT1); px(f43,14,16,SOT1); px(f43,15,17,SKNS); px(f43,16,17,SKIN)
+# Brazo izquierdo 2px: hombro baja un paso hacia afuera
+px(f43, 3,15,SOT1); px(f43,2,15,SOT1)
+px(f43, 3,16,SOT1); px(f43,2,16,SOT1)
+px(f43, 2,17,SKNS); px(f43,1,17,SKIN)
+# Brazo derecho 2px: simétrico
+px(f43,14,15,SOT1); px(f43,15,15,SOT1)
+px(f43,14,16,SOT1); px(f43,15,16,SOT1)
+px(f43,15,17,SKNS); px(f43,16,17,SKIN)
 f43.save(os.path.join(DST_DIR, "FRAME43.png"))
 print("FRAME43 — Padre Nuestro paso 1 (brazos empezando a abrirse)")
 
