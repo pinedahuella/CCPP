@@ -85,7 +85,8 @@ def make_priest(src_img):
             dy = y - hy0
 
             if 0 <= dy <= 9 and is_hair(r, g, b, a):
-                img.putpixel((x, y), hair_color(x, dy) if dy <= 7 else HAI1)
+                if x != 0 and x != 17:  # pelo nunca toca el borde
+                    img.putpixel((x, y), hair_color(x, dy) if dy <= 7 else HAI1)
                 continue
             if is_faja(r, g, b, a):
                 shade = SOT1 if (x <= 5 or x >= 13) else (SOT3 if x in (8,9) else SOT2)
@@ -369,7 +370,7 @@ f15.save(os.path.join(DST_DIR, "FRAME15.png"))
 print("FRAME15 guardado — Sosteniendo el libro sagrado")
 
 # Limpiar solo los frames que genera el script (NO tocar F28-F35: hechos a mano)
-for _n in list(range(16, 28)) + list(range(36, 42)):
+for _n in list(range(16, 28)) + list(range(36, 50)):
     _p = os.path.join(DST_DIR, f"FRAME{_n}.png")
     if os.path.exists(_p): os.remove(_p)
 for _pn in ["PREVIEW_PADRE.png", "preview_v3.png"]:
@@ -528,37 +529,51 @@ from PIL import ImageOps
 
 def make_back_view(front_img):
     """
-    Vista trasera: mirror + limpiar cabeza completa + repintar como pelo.
+    Vista trasera: mirror + limpiar cabeza/cuello completo + repintar.
     Se guardan las posiciones exactas del sprite antes de limpiar,
     asi la silueta de cada frame de caminar queda correcta.
+    Proporciones alineadas con el frente:
+      y0-y7   copa del pelo
+      y8-y11  nuca (pelo corto)
+      y12-y14 cuello visible desde atras (piel)
+      y15+    sotana negra (alineado con inicio del cuerpo al frente)
     """
     img = ImageOps.mirror(front_img).copy()
 
-    # Guardar que pixels habia en y0-y13 (silueta real de ese frame)
+    # Guardar pixels en y0-y17 (silueta real del frame incluyendo cuello/hombros)
     head_px = set()
-    for y in range(14):
+    for y in range(18):
         for x in range(W):
             if img.getpixel((x, y))[3] > 0:
                 head_px.add((x, y))
 
-    # Limpiar toda la zona de la cabeza
-    for y in range(14):
+    # Limpiar toda la zona cabeza+cuello+hombros
+    for y in range(18):
         for x in range(W):
             img.putpixel((x, y), (0, 0, 0, 0))
 
-    # Repintar usando la silueta guardada con colores de espalda
+    # Repintar con proporciones correctas
     for (x, y) in head_px:
         if y <= 7:
-            borde = (x <= 1 or x >= 16)
-            img.putpixel((x, y), HAI1 if borde else HAI2)
-        elif y <= 9:
-            # Nuca: piel en el centro, pelo a los lados
-            if 5 <= x <= 12:
-                img.putpixel((x, y), SKNS if x in (8, 9) else SKND)
+            if x == 0 or x >= 16: continue  # copa max x=15
+            # Copa: borde muy oscuro, interior medio, centro brillo
+            if x <= 1 or x >= 15:    c = HAI1
+            elif x <= 3 or x >= 14:  c = HAI2
+            else:                    c = HAI3 if y <= 2 else HAI2
+            img.putpixel((x, y), c)
+        elif y <= 11:
+            if x == 0 or x >= 16: continue  # nuca nunca toca el borde (max x=15)
+            # Nuca: pelo corto cubre toda la parte trasera
+            img.putpixel((x, y), HAI1 if (x <= 2 or x >= 15) else HAI2)
+        elif y <= 14:
+            # Cuello visible desde atras (mismas filas que barbilla al frente)
+            if x <= 3 or x >= 14:
+                img.putpixel((x, y), SKND)
             else:
-                img.putpixel((x, y), HAI1)
+                img.putpixel((x, y), SKNS if y == 12 else SKIN)
         else:
-            # y10-y13: cuello/sotana
+            # y15+: sotana negra (alineado con inicio del cuerpo al frente)
+            if x == 0 or x == 17: continue
             img.putpixel((x, y), SOT1 if (x <= 4 or x >= 13) else SOT2)
 
     return img
@@ -661,7 +676,154 @@ draw_chalice(f39, 8, 2)
 f39.save(os.path.join(DST_DIR, "FRAME39.png"))
 print("FRAME39 — Elevacion completa (manos sostienen base del caliz)")
 
-print(f"\nHOMBRE10 listo: 39 frames")
+# =============================================================================
+# FRAMES 40-43 — Caminando con Biblia (basados en F1-F4)
+# =============================================================================
+def _sot(x):
+    return SOT1 if (x <= 5 or x >= 13) else (SOT3 if x in (8,9) else SOT2)
+
+def _draw_bible_padre(out):
+    px(out,  4,15,SOT2); px(out,  5,15,SOT1)
+    px(out,  4,16,SOT2); px(out,  5,16,SOT1)
+    px(out, 13,15,SOT2); px(out, 12,15,SOT1)
+    px(out, 13,16,SOT2); px(out, 12,16,SOT1)
+    px(out,  4,17,SKNS); px(out,  4,18,SKND)
+    px(out, 13,17,SKNS); px(out, 13,18,SKND)
+    for _bx in range(5, 13):
+        for _by in range(17, 22):
+            if   _bx in (5,12):   _c = BOOK1
+            elif _by in (17,21):  _c = BOOK1
+            elif _bx in (6,11):   _c = BOOK2
+            else:                 _c = BOOKP
+            px(out, _bx, _by, _c)
+    px(out, 8,18,BOOKX); px(out, 8,19,BOOKX); px(out, 8,20,BOOKX)
+    px(out, 7,19,BOOKX); px(out, 9,19,BOOKX)
+
+for _i in range(1, 2):   # solo F40 (F41/F42 eliminados, F43 = Padre Nuestro paso 1)
+    _p = os.path.join(DST_DIR, f"FRAME{_i}.png")
+    if not os.path.exists(_p): continue
+    _src = Image.open(_p).convert("RGBA")
+    _frm = _src.copy()
+    for _y in range(15, H):
+        for _x in range(W):
+            _r, _g, _b, _a = _src.getpixel((_x, _y))
+            if _a == 0 or not is_skin(_r, _g, _b, _a): continue
+            _frm.putpixel((_x, _y), _sot(_x))
+    _draw_bible_padre(_frm)
+    _frm.save(os.path.join(DST_DIR, f"FRAME{39+_i}.png"))
+    print(f"FRAME{39+_i} — Caminando con Biblia (base F{_i})")
+for _fn in [41, 42]:
+    _fp = os.path.join(DST_DIR, f"FRAME{_fn}.png")
+    if os.path.exists(_fp): os.remove(_fp)
+
+# =============================================================================
+# FRAMES 44-45 — Cantando (levanta/agacha + boca)
+# =============================================================================
+def _shift_up_p(src):
+    out = Image.new("RGBA", (W, H), (0,0,0,0))
+    for _y in range(1, H):
+        for _x in range(W):
+            out.putpixel((_x, _y-1), src.getpixel((_x, _y)))
+    return out
+
+_f1_priest = Image.open(os.path.join(DST_DIR, "FRAME1.png")).convert("RGBA")
+MOT = (0x28, 0x10, 0x08, 255)
+_ym = 11  # F1 no esta desplazado (hy0=0)
+
+f45 = _shift_up_p(_f1_priest)
+px(f45, 8, _ym,   MOT)
+px(f45, 8, _ym-1, MOT)
+f45.save(os.path.join(DST_DIR, "FRAME45.png"))
+print("FRAME45 — Cantando: boca abierta 2px")
+
+f44 = f45.copy()
+for _cy in range(9, H):
+    for _cx in range(4):      f44.putpixel((_cx,_cy),(0,0,0,0))
+    for _cx in range(14, W): f44.putpixel((_cx,_cy),(0,0,0,0))
+for _cy in range(16, H):
+    for _cx in range(4, 14):
+        _r,_g,_b,_a = f44.getpixel((_cx,_cy))
+        if _a > 0 and is_skin(_r,_g,_b,_a): f44.putpixel((_cx,_cy),(0,0,0,0))
+px(f44, 3,14,SOT1); px(f44, 2,13,SOT1)
+px(f44, 1,12,SOT2); px(f44, 0,11,SKNS); px(f44, 0,10,SKIN)
+px(f44,14,14,SOT1); px(f44,15,13,SOT1)
+px(f44,16,12,SOT2); px(f44,17,11,SKNS); px(f44,17,10,SKIN)
+f44.save(os.path.join(DST_DIR, "FRAME44.png"))
+print("FRAME44 — Cantando: boca 2px + brazos levantados")
+
+# ── helpers limpieza para poses F43/F46-F49 ──────────────────────────────────
+def _limpiar_brazos_p(img, y0=15, y1=22):
+    for _cy in range(y0, y1):
+        for _cx in range(4):      img.putpixel((_cx,_cy),(0,0,0,0))
+        for _cx in range(14, W): img.putpixel((_cx,_cy),(0,0,0,0))
+    for _cy in range(max(y0, 18), y1):
+        for _cx in range(4, 14):
+            _r,_g,_b,_a = img.getpixel((_cx,_cy))
+            if _a > 0 and is_skin(_r,_g,_b,_a):
+                img.putpixel((_cx,_cy),(0,0,0,0))
+
+def _hombros_p(img):
+    for _cy in range(15, 18):
+        px(img, 4,_cy,SOT1); px(img,13,_cy,SOT1)
+
+# F43: Padre Nuestro paso 1 — brazos empezando a abrirse (45° hacia abajo-afuera)
+f43 = make_back_view(_f1_priest)
+_limpiar_brazos_p(f43); _hombros_p(f43)
+# Brazo izquierdo: hombro → baja un paso → piel al final (inicio apertura)
+px(f43, 3,15,SOT1); px(f43, 3,16,SOT1); px(f43, 2,17,SKNS); px(f43, 1,17,SKIN)
+# Brazo derecho: simétrico
+px(f43,14,15,SOT1); px(f43,14,16,SOT1); px(f43,15,17,SKNS); px(f43,16,17,SKIN)
+f43.save(os.path.join(DST_DIR, "FRAME43.png"))
+print("FRAME43 — Padre Nuestro paso 1 (brazos empezando a abrirse)")
+
+# F46: Levantar manos paso 1 — brazos a mitad (~45° arriba)
+f46 = make_back_view(_f1_priest)
+_limpiar_brazos_p(f46, 9, 22); _hombros_p(f46)
+# Brazo izquierdo sube en diagonal hasta y=11
+px(f46, 3,15,SOT1); px(f46, 3,14,SOT1); px(f46, 2,13,SOT1)
+px(f46, 1,12,SOT2); px(f46, 0,11,SKNS)
+# Brazo derecho simétrico
+px(f46,14,15,SOT1); px(f46,14,14,SOT1); px(f46,15,13,SOT1)
+px(f46,16,12,SOT2); px(f46,17,11,SKNS)
+f46.save(os.path.join(DST_DIR, "FRAME46.png"))
+print("FRAME46 — Levantar manos paso 1 (brazos a 45° arriba)")
+
+# F47: Padre Nuestro completo — brazos completamente horizontales
+f47 = make_back_view(_f1_priest)
+_limpiar_brazos_p(f47); _hombros_p(f47)
+px(f47,3,15,SOT1); px(f47,2,15,SOT1); px(f47,1,15,SKNS); px(f47,0,15,SKIN)
+px(f47,2,16,SOT1); px(f47,1,16,SKND)
+px(f47,14,15,SOT1); px(f47,15,15,SOT1); px(f47,16,15,SKNS); px(f47,17,15,SKIN)
+px(f47,15,16,SOT1); px(f47,16,16,SKND)
+f47.save(os.path.join(DST_DIR, "FRAME47.png"))
+print("FRAME47 — Padre Nuestro completo (brazos horizontales)")
+
+# F48: Dar la paz iniciando — brazo apenas empezando a extenderse
+f48 = make_back_view(_f1_priest)
+_limpiar_brazos_p(f48); _hombros_p(f48)
+# Brazo derecho: apenas sale del hombro, un paso hacia adelante-afuera
+px(f48,14,15,SOT1); px(f48,15,15,SOT1)
+px(f48,15,16,SOT1); px(f48,16,16,SKNS)
+f48.save(os.path.join(DST_DIR, "FRAME48.png"))
+print("FRAME48 — Dar la paz iniciando (brazo apenas saliendo)")
+
+# F49: Levantar manos completo — ambos brazos completamente arriba
+f49 = make_back_view(_f1_priest)
+_limpiar_brazos_p(f49, 9, 22); _hombros_p(f49)
+px(f49,3,15,SOT1); px(f49,3,14,SOT1); px(f49,2,13,SOT1)
+px(f49,2,12,SOT1); px(f49,1,11,SOT2); px(f49,0,10,SKNS); px(f49,0,9,SKIN)
+px(f49,14,15,SOT1); px(f49,14,14,SOT1); px(f49,15,13,SOT1)
+px(f49,15,12,SOT1); px(f49,16,11,SOT2); px(f49,17,10,SKNS); px(f49,17,9,SKIN)
+f49.save(os.path.join(DST_DIR, "FRAME49.png"))
+print("FRAME49 — Levantar manos completo (brazos arriba)")
+
+print(f"\nHOMBRE10 listo: 49 frames")
+print(f"  F40-F42  Caminando con Biblia (3 pasos)")
+print(f"  F43      Padre Nuestro paso 1 (brazos empezando a abrirse)")
+print(f"  F46      Levantar manos paso 1 (brazos a 45° arriba)")
+print(f"  F47      Padre Nuestro completo (brazos horizontales)")
+print(f"  F48      Dar la paz iniciando")
+print(f"  F49      Levantar manos completo")
 print(f"  F01-F08  Caminar (frente)")
 print(f"  F10-F15  Gestos liturgicos")
 print(f"  F16-F27  Señal de la Cruz (12 frames suaves)")
@@ -670,5 +832,8 @@ print(f"  F30-F34  Caminata de espaldas [manuales]")
 print(f"  F35      Sentado de espaldas [manual]")
 print(f"  F36-F37  Caliz: intermedios 1/3 y 2/3")
 print(f"  F38-F39  Caliz: pecho y elevacion completa")
+print(f"  F40-F43  Caminando con Biblia (F1-F4)")
+print(f"  F44      Cantando: levanta, 1px boca")
+print(f"  F45      Cantando: boca abierta, 2px vertical")
 print(f"  Orden animacion caliz: F38 -> F36 -> F37 -> F29/F39")
 print(f"  {DST_DIR}")
