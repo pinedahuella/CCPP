@@ -1,0 +1,173 @@
+﻿using UnityEngine;
+using System.Collections;
+
+/// <summary>
+/// Controlador del minijuego de saludo de mano.
+/// Dos botones, uno correcto aleatorio, tiempo limitado.
+/// Éxito → valor 1. Fallo → valor 0.
+/// </summary>
+[RequireComponent(typeof(MinijuegoSaludoData))]
+public class MinijuegoSaludoController : MonoBehaviour
+{
+    private MinijuegoSaludoData _data;
+    private bool _esperandoRespuesta = false;
+    private float _tiempoRestante;
+
+    // ──────────────────────────────────────────────────────────────
+    #region Unity Callbacks
+
+    private void Awake()
+    {
+        _data = GetComponent<MinijuegoSaludoData>();
+    }
+
+    private void Update()
+    {
+        if (!_esperandoRespuesta) return;
+
+        _tiempoRestante -= Time.deltaTime;
+        if (_tiempoRestante <= 0f)
+        {
+            _esperandoRespuesta = false;
+            StartCoroutine(Terminar(false));
+        }
+    }
+
+    #endregion
+
+    // ──────────────────────────────────────────────────────────────
+    #region API Pública
+
+    public void Iniciar()
+    {
+        if (!ValidarReferencias()) return;
+
+        LimpiarEstado();
+        AsignarManoAleatoria();
+        ConfigurarBotones();
+
+        if (_data.imagenExito != null)
+            _data.imagenExito.SetActive(false);
+
+        _tiempoRestante = _data.tiempoLimite;
+        _esperandoRespuesta = true;
+        _data.panelSaludo.SetActive(true);
+    }
+
+    #endregion
+
+    // ──────────────────────────────────────────────────────────────
+    #region Lógica
+
+    private void AsignarManoAleatoria()
+    {
+        _data.botonCorrectoEsArriba = Random.value > 0.5f;
+
+        Transform padreCorrect = _data.botonCorrectoEsArriba
+            ? _data.botonArriba.transform
+            : _data.botonAbajo.transform;
+
+        Transform padreIncorrecto = _data.botonCorrectoEsArriba
+            ? _data.botonAbajo.transform
+            : _data.botonArriba.transform;
+
+        if (_data.imagenManoOtro != null)
+            _data.imagenManoOtro.transform.SetParent(padreCorrect, false);
+
+        if (_data.imagenManoJugador != null)
+            _data.imagenManoJugador.transform.SetParent(padreIncorrecto, false);
+    }
+
+    private void ConfigurarBotones()
+    {
+        LimpiarBotones();
+
+        if (_data.botonArriba != null)
+            _data.botonArriba.onClick.AddListener(() => AlPresionar(true));
+
+        if (_data.botonAbajo != null)
+            _data.botonAbajo.onClick.AddListener(() => AlPresionar(false));
+    }
+
+    private void AlPresionar(bool esArriba)
+    {
+        if (!_esperandoRespuesta) return;
+        _esperandoRespuesta = false;
+
+        bool acerto = esArriba == _data.botonCorrectoEsArriba;
+        StartCoroutine(Terminar(acerto));
+    }
+
+    private IEnumerator Terminar(bool acerto)
+    {
+        LimpiarBotones();
+
+        if (acerto)
+        {
+            // Ocultar botones y mostrar imagen de éxito
+            _data.botonArriba.gameObject.SetActive(false);
+            _data.botonAbajo.gameObject.SetActive(false);
+
+            if (_data.imagenExito != null)
+                _data.imagenExito.SetActive(true);
+
+            yield return new WaitForSeconds(_data.tiempoExito);
+        }
+
+        _data.panelSaludo.SetActive(false);
+        ReactivarBotones();
+        Reportar(acerto ? 1 : 0);
+    }
+
+    private void Reportar(int valor)
+    {
+        string descripcion = valor == 1 ? "Éxito - Saludo correcto" : "Fallo - Saludo incorrecto";
+        Debug.Log($"[MinijuegoSaludo] {descripcion} → TipoAccion.Mano valor={valor}");
+
+        AccionResultado resultado = new AccionResultado(TipoAccion.Mano, valor);
+        if (MisionesGlobal.Instancia != null)
+            MisionesGlobal.Instancia.ReportarResultado(resultado);
+        else
+            Debug.LogWarning("[MinijuegoSaludoController] MisionesGlobal no encontrado.");
+    }
+
+    #endregion
+
+    // ──────────────────────────────────────────────────────────────
+    #region Helpers
+
+    private void LimpiarEstado()
+    {
+        _esperandoRespuesta = false;
+        ReactivarBotones();
+    }
+
+    private void LimpiarBotones()
+    {
+        if (_data.botonArriba != null) _data.botonArriba.onClick.RemoveAllListeners();
+        if (_data.botonAbajo != null) _data.botonAbajo.onClick.RemoveAllListeners();
+    }
+
+    private void ReactivarBotones()
+    {
+        if (_data.botonArriba != null) _data.botonArriba.gameObject.SetActive(true);
+        if (_data.botonAbajo != null) _data.botonAbajo.gameObject.SetActive(true);
+    }
+
+    private bool ValidarReferencias()
+    {
+        if (_data.panelSaludo == null)
+        {
+            Debug.LogError("[MinijuegoSaludoController] panelSaludo no asignado.");
+            return false;
+        }
+        if (_data.botonArriba == null || _data.botonAbajo == null)
+        {
+            Debug.LogError("[MinijuegoSaludoController] Botones no asignados.");
+            return false;
+        }
+        return true;
+    }
+
+    #endregion
+}
