@@ -2,21 +2,24 @@
 
 /// <summary>
 /// Escucha el evento de selección de parte del cuerpo
-/// y dispara el minijuego correspondiente.
-/// Agregar nuevos minijuegos aquí conforme se implementen.
+/// y dispara el minijuego o panel correspondiente.
 /// </summary>
 public class MinijuegoManager : MonoBehaviour
 {
-    // ── Referencias a minijuegos ───────────────────────────────────
     [Header("Minijuegos")]
-    [Tooltip("Controlador del minijuego de pierna")]
     public MinijuegoPiernaController minijuegoPierna;
+    public MinijuegoPechoController minijuegoPecho;
+    public MinijuegoCerebroController minijuegoCerebro;
 
-    // Agregar aquí los demás conforme se implementen:
-    // public MinijuegoPechoController    minijuegoPecho;
-    // public MinijuegoCabezaController   minijuegoCabeza;
-    // public MinijuegoBocaController     minijuegoBoca;
-    // public MinijuegomanoDerechaController minijuegoManoDerecha;
+    [Header("Mano")]
+    public PanelManoController panelMano;
+    public MinijuegoSaludoController minijuegoSaludo;
+    public MinijuegoSenalController minijuegoSenal;
+
+    [Header("Boca")]
+    public PanelBocaController panelBoca;
+    public MinijuegoResponderController minijuegoResponder;
+    public MinijuegoCantoController minijuegoCanto;
 
     // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
@@ -24,11 +27,19 @@ public class MinijuegoManager : MonoBehaviour
     private void OnEnable()
     {
         CuerpoUIController.OnParteSeleccionada += AlSeleccionarParte;
+        PanelManoController.OnSaludoSeleccionado += AlSeleccionarSaludo;
+        PanelManoController.OnSenalSeleccionada += AlSeleccionarSenal;
+        PanelBocaController.OnResponderSeleccionado += AlSeleccionarResponder;
+        PanelBocaController.OnCantarSeleccionado += AlSeleccionarCantar;
     }
 
     private void OnDisable()
     {
         CuerpoUIController.OnParteSeleccionada -= AlSeleccionarParte;
+        PanelManoController.OnSaludoSeleccionado -= AlSeleccionarSaludo;
+        PanelManoController.OnSenalSeleccionada -= AlSeleccionarSenal;
+        PanelBocaController.OnResponderSeleccionado -= AlSeleccionarResponder;
+        PanelBocaController.OnCantarSeleccionado -= AlSeleccionarCantar;
     }
 
     #endregion
@@ -41,22 +52,29 @@ public class MinijuegoManager : MonoBehaviour
         switch (parte)
         {
             case ParteCuerpo.Piernas:
-                IniciarMinijuego(minijuegoPierna, parte);
+                if (minijuegoPierna == null) { Advertir(parte); return; }
+                minijuegoPierna.Iniciar();
                 break;
 
-            // Descomentar conforme se implementen:
-            // case ParteCuerpo.Pecho:
-            //     IniciarMinijuego(minijuegoPecho, parte);
-            //     break;
-            // case ParteCuerpo.Cabeza:
-            //     IniciarMinijuego(minijuegoCabeza, parte);
-            //     break;
-            // case ParteCuerpo.Boca:
-            //     IniciarMinijuego(minijuegoBoca, parte);
-            //     break;
-            // case ParteCuerpo.ManoDerecha:
-            //     IniciarMinijuego(minijuegoManoDerecha, parte);
-            //     break;
+            case ParteCuerpo.Pecho:
+                if (minijuegoPecho == null) { Advertir(parte); return; }
+                minijuegoPecho.Iniciar();
+                break;
+
+            case ParteCuerpo.Cabeza:
+                if (minijuegoCerebro == null) { Advertir(parte); return; }
+                minijuegoCerebro.Iniciar();
+                break;
+
+            case ParteCuerpo.ManoDerecha:
+                if (panelMano == null) { Advertir(parte); return; }
+                panelMano.AbrirPanel();
+                break;
+
+            case ParteCuerpo.Boca:
+                if (panelBoca == null) { Advertir(parte); return; }
+                panelBoca.AbrirPanel();
+                break;
 
             default:
                 Debug.LogWarning($"[MinijuegoManager] No hay minijuego implementado para: {parte}");
@@ -64,18 +82,33 @@ public class MinijuegoManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Valida la referencia antes de iniciar para evitar errores de nulo.
-    /// </summary>
-    private void IniciarMinijuego(MinijuegoPiernaController controlador, ParteCuerpo parte)
+    private void AlSeleccionarSaludo()
     {
-        if (controlador == null)
-        {
-            Debug.LogWarning($"[MinijuegoManager] El minijuego de {parte} no está asignado en el Inspector.");
-            return;
-        }
+        if (minijuegoSaludo == null) { Debug.LogWarning("[MinijuegoManager] minijuegoSaludo no asignado."); return; }
+        minijuegoSaludo.Iniciar();
+    }
 
-        controlador.Iniciar();
+    private void AlSeleccionarSenal()
+    {
+        if (minijuegoSenal == null) { Debug.LogWarning("[MinijuegoManager] minijuegoSenal no asignado."); return; }
+        minijuegoSenal.Iniciar();
+    }
+
+    private void AlSeleccionarResponder()
+    {
+        if (minijuegoResponder == null) { Debug.LogWarning("[MinijuegoManager] minijuegoResponder no asignado."); return; }
+        minijuegoResponder.Iniciar();
+    }
+
+    private void AlSeleccionarCantar()
+    {
+        if (minijuegoCanto == null) { Debug.LogWarning("[MinijuegoManager] minijuegoCanto no asignado."); return; }
+        minijuegoCanto.Iniciar();
+    }
+
+    private void Advertir(ParteCuerpo parte)
+    {
+        Debug.LogWarning($"[MinijuegoManager] El minijuego de {parte} no está asignado en el Inspector.");
     }
 
     #endregion

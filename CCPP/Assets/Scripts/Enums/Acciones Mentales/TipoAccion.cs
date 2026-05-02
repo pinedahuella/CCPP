@@ -5,5 +5,8 @@
 public enum TipoAccion
 {
     Postura,
-    Mano
+    Mano,
+    Pecho,
+    Cabeza,
+    Boca
 }

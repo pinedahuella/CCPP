@@ -8,27 +8,21 @@
 /// </summary>
 public class Mision01 : MonoBehaviour
 {
-    // ── Referencias ────────────────────────────────────────────────
     [Header("Diálogos")]
-    [Tooltip("Diálogo que se muestra al iniciar la misión")]
     public DialogoData dialogoInicial;
-
-    [Tooltip("Diálogo que se muestra si el jugador falla")]
     public DialogoData dialogoFallo;
-
-    [Tooltip("Diálogo que se muestra si el jugador acierta")]
     public DialogoData dialogoExito;
 
     [Header("Referencias")]
-    [Tooltip("GameObject PENSAMIENTOJUGADOR con el TriggerCuerpoUI")]
     public GameObject pensamientoJugador;
 
-    [Header("Logicas DE activacion")]
-    [Tooltip("al finalizar de forma correcta")]
+    [Header("Lógicas de activación")]
     public JugadorController controladorJugador;
+    public AudioSource jugadorAudioSource;
     public GameObject[] VisualesJugador;
+    public GameObject[] VisualesJugadorDesactivadas;
+    public GameObject BurbujaEspaciadora;
 
-    // ── Controlador de diálogo ─────────────────────────────────────
     private DialogoController _dialogoController;
 
     // ──────────────────────────────────────────────────────────────
@@ -55,8 +49,6 @@ public class Mision01 : MonoBehaviour
 
     private void IniciarDialogoInicial()
     {
-        if (!ValidarDialogo(dialogoInicial, "dialogoInicial")) return;
-
         DialogoController.OnDialogoTerminado += AlTerminarDialogoInicial;
         _dialogoController.Iniciar(dialogoInicial);
     }
@@ -67,15 +59,11 @@ public class Mision01 : MonoBehaviour
         SuscribirMision();
     }
 
-    // ──────────────────────────────────────────────────────────────
-
     private void SuscribirMision()
     {
         MisionPosicion mision = new MisionPosicion(
-            TipoAccion.Postura,
-            1, // parado
-            AlAcertar,
-            AlFallar
+            TipoAccion.Postura, 1,
+            AlAcertar, AlFallar
         );
 
         if (MisionesGlobal.Instancia == null)
@@ -86,16 +74,14 @@ public class Mision01 : MonoBehaviour
 
         MisionesGlobal.Instancia.AsignarMision(mision);
         ActivarPensamiento();
-    }
 
-    // ──────────────────────────────────────────────────────────────
+        if (BurbujaEspaciadora != null)
+            BurbujaEspaciadora.SetActive(true);
+    }
 
     private void AlFallar()
     {
         DesactivarPensamiento();
-
-        if (!ValidarDialogo(dialogoFallo, "dialogoFallo")) return;
-
         DialogoController.OnDialogoTerminado += AlTerminarDialogoFallo;
         _dialogoController.Iniciar(dialogoFallo);
     }
@@ -106,14 +92,9 @@ public class Mision01 : MonoBehaviour
         SuscribirMision();
     }
 
-    // ──────────────────────────────────────────────────────────────
-
     private void AlAcertar()
     {
         DesactivarPensamiento();
-
-        if (!ValidarDialogo(dialogoExito, "dialogoExito")) return;
-
         DialogoController.OnDialogoTerminado += AlTerminarDialogoExito;
         _dialogoController.Iniciar(dialogoExito);
     }
@@ -121,13 +102,18 @@ public class Mision01 : MonoBehaviour
     private void AlTerminarDialogoExito()
     {
         DialogoController.OnDialogoTerminado -= AlTerminarDialogoExito;
-        // Resto de lógica a cargo del diseñador
 
-        controladorJugador.enabled = true;
+        if (controladorJugador != null)
+            controladorJugador.enabled = true;
+
         foreach (var item in VisualesJugador)
-        {
-            item.SetActive(true);
-        }
+            if (item != null) item.SetActive(true);
+
+        foreach (var item in VisualesJugadorDesactivadas)
+            if (item != null) item.SetActive(false);
+
+        if (jugadorAudioSource != null)
+            jugadorAudioSource.enabled = true;
     }
 
     #endregion
@@ -137,28 +123,14 @@ public class Mision01 : MonoBehaviour
 
     private void ActivarPensamiento()
     {
-        if (pensamientoJugador == null)
-        {
-            Debug.LogWarning("[Mision01] pensamientoJugador no asignado.");
-            return;
-        }
-        pensamientoJugador.SetActive(true);
+        if (pensamientoJugador != null)
+            pensamientoJugador.SetActive(true);
     }
 
     private void DesactivarPensamiento()
     {
-        if (pensamientoJugador == null) return;
-        pensamientoJugador.SetActive(false);
-    }
-
-    private bool ValidarDialogo(DialogoData dialogo, string nombre)
-    {
-        if (dialogo == null)
-        {
-            Debug.LogWarning($"[Mision01] {nombre} no asignado.");
-            return false;
-        }
-        return true;
+        if (pensamientoJugador != null)
+            pensamientoJugador.SetActive(false);
     }
 
     #endregion
