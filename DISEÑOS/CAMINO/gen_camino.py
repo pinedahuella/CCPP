@@ -10,8 +10,9 @@ from PIL import Image
 #   "piedra"         — piedras con curvas + mortero gris
 #   "piedra_relleno" — piedras con curvas, huecos transparentes
 #   "monte"          — camino de pasto/grama, patron de cuadros verdes
+#   "ladrillo"       — camino de ladrillos rojos con mortero
 
-TIPO = "monte"
+TIPO = "ladrillo"
 
 # ==============================================================================
 # COMUN — bordes curvos (tileable)
@@ -48,6 +49,44 @@ def mud_color(x, lx, rx):
     elif t < 0.50: return MUD_LIGHT
     elif t < 0.75: return MUD_BASE
     else:          return MUD_DARK
+
+# ==============================================================================
+# LADRILLO — patron clasico de ladrillos offset fila a fila, tileable
+# ==============================================================================
+# Brick: 7px ancho x 3px alto + 1px mortero = celda 8x4 tileable en 32x64
+BRK_LIGHT  = (0xCC, 0x60, 0x38, 255)   # cara iluminada
+BRK_MID    = (0xB0, 0x48, 0x24, 255)   # cuerpo
+BRK_DARK   = (0x88, 0x30, 0x14, 255)   # sombra inferior/derecha
+BRK_MORTAR = (0xC8, 0xB8, 0x98, 255)   # junta beige
+BRK_EDGE   = (0x48, 0x18, 0x08, 255)   # contorno del camino
+
+def brick_pixel(x, y):
+    # Fila: cada 4px. Columna: offset de 4px en filas impares
+    row    = (y % 64) // 4
+    dy     = (y % 64) % 4          # 0-3 dentro de la fila
+    offset = 4 if (row % 2) else 0
+    col    = ((x + offset) % 32) // 8
+    dx     = ((x + offset) % 32) % 8  # 0-7 dentro del ladrillo
+
+    # Mortero horizontal (dy==3) y vertical (dx==7)
+    if dy == 3 or dx == 7:
+        return BRK_MORTAR
+
+    # Variacion de tono por ladrillo (hash simple)
+    tone = (row * 7 + col * 13 + row * col * 3) % 3
+
+    # Gradiente: fila superior luz, inferior sombra, laterales
+    if dy == 0:
+        base = BRK_LIGHT
+    elif dy == 2:
+        base = BRK_DARK
+    else:
+        base = BRK_MID
+
+    # Ajuste sutil por tono de ladrillo
+    r, g, b, a = base
+    adj = (tone - 1) * 12   # -12, 0, +12
+    return (max(0,min(255,r+adj)), max(0,min(255,g+adj)), max(0,min(255,b+adj)), 255)
 
 # ==============================================================================
 # MONTE (pasto/grama) — patron de cuadros verdes como referencia
@@ -130,7 +169,10 @@ for y in range(H):
         on_edge = (x < lx+1 or x > rx-1 or
                    not (lx_u <= x <= rx_u) or not (lx_d <= x <= rx_d))
 
-        if TIPO == "monte":
+        if TIPO == "ladrillo":
+            img.putpixel((x,y), BRK_EDGE if on_edge else brick_pixel(x,y))
+
+        elif TIPO == "monte":
             img.putpixel((x,y), GRASS_EDGE if on_edge else grass_pixel(x,y))
 
         elif TIPO == "lodo":
@@ -162,6 +204,7 @@ nombres = {
     "piedra":         "camino_piedra.png",
     "piedra_relleno": "camino_piedra_relleno.png",
     "monte":          "camino_monte.png",
+    "ladrillo":       "camino_ladrillo.png",
 }
 nombre = nombres[TIPO]
 dst1 = rf"C:\Users\memit\OneDrive - Universidad del Istmo\CCPP\DISEÑOS\CAMINO\{nombre}"

@@ -1,0 +1,258 @@
+ALFOMBRAS DE PROCESION CATOLICA — DOCUMENTACION
+=================================================
+Archivo generador: gen_camino_recto.py  (TIPO = "procesionX")
+Tamano de cada tile: 32 x 64 pixeles
+Estructura: 3 carriles verticales separados por linea dorada en x=10 y x=21
+Todos los tiles conectan entre si arriba y abajo (tileable verticalmente)
+
+
+=====================================================================
+PROCESION 1  →  camino_procesion1_recto.png
+=====================================================================
+
+CARRIL IZQUIERDO — MORADO (Penitencia / Cuaresma)
+  Color principal : Violeta oscuro (#260238)
+  Motivo          : Cruz dorada centrada, repite cada 8px
+  Significado     : El morado es el color de la penitencia y la conversion.
+                    Se usa en Cuaresma (40 dias antes de Pascua) y en Adviento.
+                    La cruz representa el sacrificio de Cristo.
+
+CARRIL CENTRAL — CARMESI (Sangre de Cristo)
+  Color principal : Rojo carmesi oscuro (#460404)
+  Motivo          : Medallon con rombo dorado + cruz interior, repite cada 16px
+  Significado     : El rojo sangre representa la Pasion y muerte de Jesucristo,
+                    y tambien al Espiritu Santo. Se usa en Viernes Santo,
+                    Pentecostes y fiestas de martires.
+
+CARRIL DERECHO — AZUL REAL (Virgen Maria / Esperanza)
+  Color principal : Azul real oscuro (#041852)
+  Motivo          : Estrella de 4 puntas con brazos diagonales, repite cada 8px
+  Significado     : El azul es el color de la Virgen Maria, simbolo de pureza
+                    y esperanza celestial. La estrella representa a Maria como
+                    "Estrella del Mar" (Stella Maris).
+
+
+=====================================================================
+PROCESION 2  →  camino_procesion2_recto.png
+=====================================================================
+
+CARRIL IZQUIERDO — AMBAR/DORADO (Gloria / Tiempo Pascual)
+  Color principal : Ambar oscuro (#6C4402)
+  Motivo          : Rombos brillantes consecutivos, repite cada 8px
+  Significado     : El dorado representa la gloria de Dios, la divinidad
+                    y la resurreccion. Se usa en el Tiempo Pascual (50 dias
+                    despues de Pascua) y en grandes solemnidades.
+
+CARRIL CENTRAL — VERDE (Esperanza / Tiempo Ordinario)
+  Color principal : Verde oscuro (#043006)
+  Motivo          : Flor de 4 petalos en diagonal (dorada), repite cada 8px
+  Significado     : El verde es el color del Tiempo Ordinario, que representa
+                    la esperanza, el crecimiento espiritual y la vida. Es el
+                    color mas frecuente del ano liturgico.
+
+CARRIL DERECHO — VINO/BORGONA (Martires / Adviento)
+  Color principal : Vino oscuro (#280210)
+  Motivo          : Cruz en X dorada (aspa), repite cada 8px
+  Significado     : El vino o borgona es una variante del morado usado en
+                    Adviento (espera del nacimiento de Cristo). La cruz en
+                    aspa recuerda a San Andres y los martires de la fe.
+
+
+=====================================================================
+PROCESION 3  →  camino_procesion3_recto.png
+=====================================================================
+
+CARRIL IZQUIERDO — ROSA (Gaudete / Laetare — alegria en la penitencia)
+  Color principal : Rosa oscuro (#5C062C)
+  Motivo          : Cadena de pequenos rombos conectados, repite cada 8px
+  Significado     : El rosa solo se usa dos domingos al ano: Gaudete (3er
+                    domingo de Adviento) y Laetare (4to de Cuaresma). Simboliza
+                    la alegria a mitad del tiempo de penitencia. La cadena
+                    de rombos representa continuidad y conexion.
+
+CARRIL CENTRAL — NEGRO/GRIS (Viernes Santo — solemnidad maxima)
+  Color principal : Negro azulado (#0C080C)
+  Motivo          : Arco gotico apuntado, repite cada 16px
+  Significado     : El negro es el color del luto y la muerte. En Viernes
+                    Santo y Misas de difuntos se puede usar negro o morado.
+                    El arco gotico apuntado evoca las catedrales medievales
+                    y la arquitectura sagrada de la Iglesia.
+
+CARRIL DERECHO — CELESTE (Inmaculada Concepcion)
+  Color principal : Celeste oscuro (#043070)
+  Motivo          : Estrella de 8 puntas (cruz + aspa combinadas), repite cada 8px
+  Significado     : El celeste es el color exclusivo de la Inmaculada Concepcion
+                    de Maria (8 de diciembre). La estrella de 8 puntas es
+                    simbolo mariano antiguo que representa perfeccion y gloria.
+
+
+=====================================================================
+PROCESION 4  →  camino_procesion4_recto.png
+=====================================================================
+
+CARRIL IZQUIERDO — MARFIL/BLANCO (Navidad / Pascua / Matrimonio)
+  Color principal : Marfil oscuro (#887848)
+  Motivo          : Cruz solemne grande centrada, repite cada 16px
+  Significado     : El blanco y el marfil son colores de pureza, alegria y
+                    gloria. Se usan en Navidad, Pascua, matrimonios, bautismos
+                    y primeras comuniones. La cruz grande central es el
+                    simbolo mas sagrado del cristianismo.
+
+CARRIL CENTRAL — COBRE/TERRACOTA (Festivo / Accion de Gracias)
+  Color principal : Cobre oscuro (#4C1C04)
+  Motivo          : Reticulado diagonal de rombos (lattice), repite cada 4px
+  Significado     : El cobre y la terracota evocan la tierra, la cosecha y
+                    el agradecimiento a Dios por los frutos de la creacion.
+                    El patron de lattice (celosia) representa la interconexion
+                    de la comunidad de fe.
+
+CARRIL DERECHO — GRIS PERLA (Angeles / Gloria celestial)
+  Color principal : Gris azulado oscuro (#283044)
+  Motivo          : Zigzag dorado continuo (onda), repite cada 8px
+  Significado     : El gris perla y plateado representan a los angeles y
+                    la gloria celestial. La onda continua simboliza el flujo
+                    eterno de la gracia divina y el Espiritu Santo que sopla
+                    donde quiere.
+
+
+=====================================================================
+PROCESION 5  →  camino_procesion5_recto.png
+=====================================================================
+
+CARRIL IZQUIERDO — AZUL MARINO (Bautismo / Agua viva)
+  Color principal : Azul marino oscuro (#040C3C)
+  Motivo          : Ola de agua continua (cresta dorada), repite cada 8px
+  Significado     : El azul marino profundo representa el agua del bautismo,
+                    primer sacramento que nos incorpora a la Iglesia. La ola
+                    dorada simboliza el Espiritu que se movia sobre las aguas
+                    en la creacion (Genesis 1:2).
+
+CARRIL CENTRAL — VERDE ESMERALDA (Eucaristia / Santisimo Sacramento)
+  Color principal : Esmeralda oscuro (#023018)
+  Motivo          : Caliz con hostia (simplificados en pixel art), repite cada 16px
+  Significado     : El verde esmeralda intenso representa la Eucaristia, centro
+                    de la fe catolica. El caliz contiene la Sangre de Cristo y
+                    la hostia es el Cuerpo de Cristo. Es el sacramento mas
+                    importante de la procesion.
+
+CARRIL DERECHO — DORADO PURO (Cristo Rey / Santisima Trinidad)
+  Color principal : Dorado muy oscuro (#4C2C02)
+  Motivo          : Rombos concentricos girados 45 grados, repite cada 8px
+  Significado     : El dorado puro representa la realeza de Cristo Rey
+                    (ultima solemnidad del ano liturgico) y la gloria de la
+                    Santisima Trinidad. Los rombos concentricos simbolizan
+                    la perfeccion divina irradiando desde el centro.
+
+
+=====================================================================
+PROCESION 6  →  camino_procesion6_recto.png
+=====================================================================
+
+CARRIL IZQUIERDO — TURQUESA (Espiritu Santo / Paloma de la Paz)
+  Color principal : Turquesa oscuro (#0A3844)
+  Motivo          : Chevron dorado (Lambda Λ): punta arriba, brazos se abren, repite cada 8px
+  Significado     : El turquesa evoca el agua del bautismo y el soplo del Espiritu Santo.
+                    La forma de Lambda (Λ) representa a la Paloma que descendio sobre Jesus
+                    en su bautismo en el Jordan (Lucas 3:22). Los dos brazos que se abren
+                    simbolizan las dos naturalezas de Cristo: divina y humana.
+
+CARRIL CENTRAL — NARANJA QUEMADO (Pentecostes / Fuego del Espiritu)
+  Color principal : Naranja oscuro (#5C2402)
+  Motivo          : Llama dorada ascendente: punta estrecha arriba, base ancha abajo, repite cada 16px
+  Significado     : El naranja quemado representa el fuego del Espiritu Santo que descendio
+                    sobre los apostoles en Pentecostes (Hechos 2:3). La llama que sube
+                    simboliza la oracion que asciende a Dios y la fe que purifica el alma.
+                    Pentecostes es el "nacimiento" de la Iglesia.
+
+CARRIL DERECHO — LAVANDA/LILA (Adviento contemplativo / Santisima Trinidad)
+  Color principal : Lavanda oscuro (#3C1060)
+  Motivo          : Trefoil dorado: 3 circulos conectados (Trinidad), repite cada 16px
+  Significado     : La lavanda o lila es una variante suave del morado que evoca la
+                    contemplacion y la espera silenciosa del Adviento. El trefoil
+                    (tres circulos entrelazados) es el simbolo visual mas antiguo de
+                    la Santisima Trinidad: Padre, Hijo y Espiritu Santo — un solo Dios
+                    en tres Personas distintas.
+
+
+=====================================================================
+PROCESION 7  →  camino_procesion7_recto.png
+=====================================================================
+
+CARRIL IZQUIERDO — INDIGO PROFUNDO (Misterio Divino / Cielo Nocturno)
+  Color principal : Indigo oscuro (#080640)
+  Motivo          : Rayos de sol: 8 rayos dorados desde el centro del segmento, repite cada 16px
+  Significado     : El indigo profundo representa el misterio insondable de Dios, la noche
+                    oscura del alma (San Juan de la Cruz) y el firmamento celestial. Los
+                    8 rayos desde el centro evocan la estrella de Belen y la luz de Cristo
+                    que penetra toda oscuridad. El numero 8 simboliza la resurreccion
+                    (el octavo dia, mas alla del ciclo de la semana).
+
+CARRIL CENTRAL — BRONCE DORADO (Canonizacion / Corona de los Santos)
+  Color principal : Bronce oscuro (#3C2408)
+  Motivo          : Corona de tres puntas con copa y base: punta central alta, dos laterales, repite cada 16px
+  Significado     : El bronce y el oro viejo representan la gloria imperecedera de los Santos
+                    canonizados. La corona de tres puntas alude a la Trinidad y al triple
+                    ministerio de Cristo (Rey, Sacerdote, Profeta). En la liturgia, los santos
+                    son los que ya terminaron su carrera y recibieron la "corona de justicia"
+                    (2 Timoteo 4:8).
+
+CARRIL DERECHO — ROJO PENTECOSTES (Sangre / Fuego del Espiritu Santo)
+  Color principal : Rojo oscuro pentecostes (#580808)
+  Motivo          : Llama pequena ascendente (diferente de procesion6), repite cada 8px
+  Significado     : Este rojo brillante, distinto del carmesi de procesion1, representa
+                    el fuego vivo del Espiritu Santo en Pentecostes y la sangre de los
+                    martires que dieron su vida por la fe. La llama pequena y repetida
+                    evoca la constancia en la fe: no grandes gestos, sino el fuego
+                    cotidiano que nunca se apaga en el corazon del creyente.
+
+
+=====================================================================
+PROCESION 8  →  camino_procesion8_recto.png   (EL ULTIMO — MAS SOLEMNE)
+=====================================================================
+
+CARRIL IZQUIERDO — BLANCO/PLATA (Resurreccion / Gloria Eterna)
+  Color principal : Gris plata oscuro (#787880) / Blanco plateado (#E0E0E8)
+  Motivo          : Cruz griega con nimbo circular dorado (halo), repite cada 16px
+  Significado     : El blanco puro y la plata representan la Resurreccion de Cristo,
+                    la gloria celestial y la vida eterna. La cruz griega (brazos iguales)
+                    dentro del nimbo circular es el "Crismón" o monograma sagrado
+                    mas antiguo del cristianismo. El halo dorado que rodea la cruz
+                    simboliza que la muerte fue vencida y Cristo reina en gloria eterna.
+
+CARRIL CENTRAL — NEGRO SAGRADO (Vigilia Pascual / Alfa y Omega)
+  Color principal : Negro casi puro (#06060A)
+  Motivo          : Letra A (Alfa) arriba y arco Omega abajo, separador dorado, repite cada 16px
+  Significado     : El negro profundo, iluminado por el oro, representa el misterio
+                    supremo de la Vigilia Pascual: la noche mas sagrada del ano liturgico,
+                    cuando la Iglesia espera la Resurreccion. El Alfa (A) y el Omega son
+                    las palabras del Apocalipsis: "Yo soy el Alfa y la Omega, el Primero
+                    y el Ultimo, el Principio y el Fin" (Apocalipsis 22:13). Juntos
+                    abarcan toda la historia de la salvacion: de la Creacion a la Parousia.
+
+CARRIL DERECHO — DORADO GLORIOSO (Parousia / Cristo Rey en Gloria)
+  Color principal : Dorado oscuro (#6C4C08) / Dorado brillante (#F0B820)
+  Motivo          : Enrejado diagonal de barras cruzadas en X (heraldica real), repite cada 8px
+  Significado     : El dorado puro y glorioso representa la Segunda Venida de Cristo
+                    (Parousia), la solemnidad de Cristo Rey (ultima del ano liturgico)
+                    y la Jerusalen Celestial descrita en el Apocalipsis con calles de
+                    oro puro. El enrejado diagonal heraldico (barras en X) simboliza
+                    la realeza de Cristo sobre todo el cosmos: cielo y tierra, tiempo
+                    y eternidad. Es el ultimo carril de la ultima alfombra: el fin
+                    del camino es la Gloria.
+
+
+=====================================================================
+NOTAS DE USO
+=====================================================================
+
+- Todos los tiles son de 32 x 64 pixeles, RGBA con fondo opaco.
+- Los 3 carriles siempre tienen divisores dorados en x=10 y x=21.
+- Se pueden combinar en cualquier orden verticalmente.
+- Para una procesion larga: alternar los 8 tiles.
+- Sugerencia de orden liturgico completo (inicio → fin del Ano):
+  Adviento(1/2/6) → Navidad(4) → Cuaresma(1/3) → Pascua(2/4/5) → Ordinario(2) → Reyes/Santos(7) → Fin del Ano(8)
+- Orden dramatico sugerido para procesion maxima:
+  8 → 3 → 1 → 7 → 5 → 6 → 2 → 4
+  (Gloria→Luto→Penitencia→Misterio→Bautismo→Fuego→Resurreccion→Cosecha)
+
+Generado con gen_camino_recto.py — CCPP Proyecto
