@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
 /// <summary>
-/// Al colisionar con el jugador dispara la cinemática final:
-/// desactiva objetos → paneles automáticos con fade → video con fade de audio
+/// Al colisionar con el jugador dispara la cinematica final:
+/// desactiva objetos → paneles automaticos con fade → video con fade de audio
 /// → pantalla de gracias → escena de inicio.
 /// </summary>
 [RequireComponent(typeof(Collider))]
@@ -45,7 +45,6 @@ public class FinalJuego : MonoBehaviour
 
     private bool _disparado = false;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -77,9 +76,12 @@ public class FinalJuego : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Secuencia Final
 
+    /// <summary>
+    /// Orquesta la secuencia final del juego: bloquea al jugador, hace fade,
+    /// muestra paneles, reproduce el video y carga la escena de inicio.
+    /// </summary>
     private IEnumerator SecuenciaFinal()
     {
         // 1 — Bloquear jugador
@@ -97,7 +99,7 @@ public class FinalJuego : MonoBehaviour
             foreach (GameObject obj in objetosAActivar)
                 if (obj != null) obj.SetActive(true);
 
-        // 4 — Paneles automáticos
+        // 4 — Paneles automaticos
         yield return StartCoroutine(MostrarPaneles());
 
         // 5 — Video
@@ -116,6 +118,9 @@ public class FinalJuego : MonoBehaviour
         SceneManager.LoadScene(nombreEscenaInicio);
     }
 
+    /// <summary>
+    /// Muestra cada panel de la secuencia final con fade in/out y tiempo de espera entre ellos.
+    /// </summary>
     private IEnumerator MostrarPaneles()
     {
         if (paneles == null) yield break;
@@ -137,6 +142,10 @@ public class FinalJuego : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reproduce el VideoPlayer con fade de audio al final del clip
+    /// para una transicion suave hacia la pantalla de gracias.
+    /// </summary>
     private IEnumerator ReproducirVideo()
     {
         if (videoPlayer == null) yield break;
@@ -182,9 +191,13 @@ public class FinalJuego : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Fade
 
+    /// <summary>
+    /// Anima el alpha de la imagen negra desde un valor hasta otro para crear transiciones.
+    /// </summary>
+    /// <param name="desde">Alpha inicial (0 = transparente, 1 = opaco).</param>
+    /// <param name="hasta">Alpha final deseado.</param>
     private IEnumerator FadeNegra(float desde, float hasta)
     {
         if (imagenNegra == null) yield break;
@@ -203,6 +216,10 @@ public class FinalJuego : MonoBehaviour
         SetAlphaNegra(hasta);
     }
 
+    /// <summary>
+    /// Aplica directamente el valor de alpha a la imagen negra.
+    /// </summary>
+    /// <param name="alpha">Valor de alpha a asignar (0-1).</param>
     private void SetAlphaNegra(float alpha)
     {
         if (imagenNegra == null) return;

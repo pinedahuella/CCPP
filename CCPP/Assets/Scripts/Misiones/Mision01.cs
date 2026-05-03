@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 /// <summary>
-/// Primera misión del juego.
-/// Flujo: diálogo inicial → suscribe misión + activa PENSAMIENTOJUGADOR
-/// → si falla: diálogo fallo → vuelve a suscribir + activar
-/// → si acierta: diálogo éxito → resto de lógica a cargo del diseñador
+/// Primera mision del juego.
+/// Flujo: dialogo inicial → suscribe mision + activa PENSAMIENTOJUGADOR
+/// → si falla: dialogo fallo → vuelve a suscribir + activar
+/// → si acierta: dialogo exito → resto de logica a cargo del disenador
 /// </summary>
 public class Mision01 : MonoBehaviour
 {
@@ -25,7 +25,6 @@ public class Mision01 : MonoBehaviour
 
     private DialogoController _dialogoController;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Start()
@@ -44,21 +43,26 @@ public class Mision01 : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Flujo de Misión
 
+    /// <summary>Suscribe el handler de fin de dialogo e inicia el dialogo de introduccion.</summary>
     private void IniciarDialogoInicial()
     {
         DialogoController.OnDialogoTerminado += AlTerminarDialogoInicial;
         _dialogoController.Iniciar(dialogoInicial);
     }
 
+    /// <summary>Se llama al terminar el dialogo inicial; desuscribe el handler y activa la mision.</summary>
     private void AlTerminarDialogoInicial()
     {
         DialogoController.OnDialogoTerminado -= AlTerminarDialogoInicial;
         SuscribirMision();
     }
 
+    /// <summary>
+    /// Crea y asigna una MisionPosicion de tipo Postura=1 (parado),
+    /// activa el pensamiento del jugador y muestra la burbuja de espacio.
+    /// </summary>
     private void SuscribirMision()
     {
         MisionPosicion mision = new MisionPosicion(
@@ -79,6 +83,7 @@ public class Mision01 : MonoBehaviour
             BurbujaEspaciadora.SetActive(true);
     }
 
+    /// <summary>Se llama cuando el minijuego reporta un resultado incorrecto; inicia el dialogo de fallo.</summary>
     private void AlFallar()
     {
         DesactivarPensamiento();
@@ -86,12 +91,14 @@ public class Mision01 : MonoBehaviour
         _dialogoController.Iniciar(dialogoFallo);
     }
 
+    /// <summary>Se llama al terminar el dialogo de fallo; vuelve a suscribir la mision para reintentar.</summary>
     private void AlTerminarDialogoFallo()
     {
         DialogoController.OnDialogoTerminado -= AlTerminarDialogoFallo;
         SuscribirMision();
     }
 
+    /// <summary>Se llama cuando el minijuego reporta el resultado correcto; inicia el dialogo de exito.</summary>
     private void AlAcertar()
     {
         DesactivarPensamiento();
@@ -99,6 +106,10 @@ public class Mision01 : MonoBehaviour
         _dialogoController.Iniciar(dialogoExito);
     }
 
+    /// <summary>
+    /// Se llama al terminar el dialogo de exito; reactiva al jugador,
+    /// muestra sus visuales finales y habilita el AudioSource de caminata.
+    /// </summary>
     private void AlTerminarDialogoExito()
     {
         DialogoController.OnDialogoTerminado -= AlTerminarDialogoExito;
@@ -118,15 +129,16 @@ public class Mision01 : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Helpers
 
+    /// <summary>Activa el panel de pensamiento del jugador para indicarle que debe elegir una postura.</summary>
     private void ActivarPensamiento()
     {
         if (pensamientoJugador != null)
             pensamientoJugador.SetActive(true);
     }
 
+    /// <summary>Desactiva el panel de pensamiento del jugador.</summary>
     private void DesactivarPensamiento()
     {
         if (pensamientoJugador != null)

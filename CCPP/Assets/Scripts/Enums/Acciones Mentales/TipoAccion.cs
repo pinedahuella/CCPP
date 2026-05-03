@@ -1,6 +1,6 @@
 /// <summary>
-/// Tipos de acción que un minijuego puede devolver.
-/// Agregar nuevos tipos aquí según se expanda el juego.
+/// Tipos de accion que un minijuego puede devolver.
+/// Agregar nuevos tipos aqui segun se expanda el juego.
 /// </summary>
 public enum TipoAccion
 {

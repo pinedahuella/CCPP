@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Misión genérica reutilizable.
+/// Mision generica reutilizable.
 /// Configura TipoAccion y respuestaEsperada desde el Inspector.
 /// </summary>
 public class MisionMinijuego : MonoBehaviour
@@ -42,13 +42,11 @@ public class MisionMinijuego : MonoBehaviour
     public List<GameObject> objetosADesactivar;
     public List<GameObject> objetosAActivar;
 
-    // ── Estado ────────────────────────────────────────────────────
     private bool _jugadorDentro = false;
     private bool _misionActiva = false;
     private JugadorData _jugadorData;
     private DialogoController _dialogoController;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -81,9 +79,12 @@ public class MisionMinijuego : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Flujo
 
+    /// <summary>
+    /// Espera un frame para evitar que el Space que activa la mision sea consumido
+    /// por el DialogoController, luego bloquea al jugador e inicia el dialogo.
+    /// </summary>
     private IEnumerator IniciarMisionSiguienteFrame()
     {
         _misionActiva = true;
@@ -96,6 +97,10 @@ public class MisionMinijuego : MonoBehaviour
         _dialogoController.Iniciar(dialogoInicial);
     }
 
+    /// <summary>
+    /// Se llama al terminar el dialogo inicial; desbloquea la habilidad si corresponde
+    /// y registra la mision en MisionesGlobal.
+    /// </summary>
     private void AlTerminarDialogoInicial()
     {
         DialogoController.OnDialogoTerminado -= AlTerminarDialogoInicial;
@@ -109,6 +114,10 @@ public class MisionMinijuego : MonoBehaviour
         SuscribirMision();
     }
 
+    /// <summary>
+    /// Activa el flag de habilidad correspondiente en JugadorHabilidadesData
+    /// segun la parte del cuerpo configurada en el Inspector.
+    /// </summary>
     private void DesbloquearHabilidad()
     {
         switch (habilidadADesbloquear)
@@ -121,6 +130,10 @@ public class MisionMinijuego : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Crea y asigna en MisionesGlobal una MisionPosicion con el tipo y valor esperados,
+    /// luego activa el pensamiento del jugador.
+    /// </summary>
     private void SuscribirMision()
     {
         MisionPosicion mision = new MisionPosicion(
@@ -137,6 +150,7 @@ public class MisionMinijuego : MonoBehaviour
             pensamientoJugador.SetActive(true);
     }
 
+    /// <summary>Se llama cuando el minijuego devuelve un resultado incorrecto; muestra el dialogo de fallo.</summary>
     private void AlFallar()
     {
         if (pensamientoJugador != null) pensamientoJugador.SetActive(false);
@@ -144,6 +158,7 @@ public class MisionMinijuego : MonoBehaviour
         _dialogoController.Iniciar(dialogoFallo);
     }
 
+    /// <summary>Se llama al terminar el dialogo de fallo; reactiva el movimiento y permite reintentar.</summary>
     private void AlTerminarDialogoFallo()
     {
         DialogoController.OnDialogoTerminado -= AlTerminarDialogoFallo;
@@ -151,6 +166,10 @@ public class MisionMinijuego : MonoBehaviour
         StartCoroutine(ReactivarSiguienteFrame());
     }
 
+    /// <summary>
+    /// Espera dos frames antes de desmarcar la mision como activa
+    /// para evitar que el jugador la reactive el mismo frame que termino el dialogo.
+    /// </summary>
     private IEnumerator ReactivarSiguienteFrame()
     {
         yield return null;
@@ -158,6 +177,7 @@ public class MisionMinijuego : MonoBehaviour
         _misionActiva = false;
     }
 
+    /// <summary>Se llama cuando el minijuego devuelve el resultado correcto; muestra el dialogo de exito.</summary>
     private void AlAcertar()
     {
         if (pensamientoJugador != null) pensamientoJugador.SetActive(false);
@@ -165,6 +185,7 @@ public class MisionMinijuego : MonoBehaviour
         _dialogoController.Iniciar(dialogoExito);
     }
 
+    /// <summary>Se llama al terminar el dialogo de exito; lanza la cinematica de transicion.</summary>
     private void AlTerminarDialogoExito()
     {
         DialogoController.OnDialogoTerminado -= AlTerminarDialogoExito;
@@ -173,9 +194,12 @@ public class MisionMinijuego : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Cinemática
 
+    /// <summary>
+    /// Ejecuta la cinematica de transicion: baja cortina, hace swap de sprites,
+    /// sube cortina, activa/desactiva objetos finales y reactiva al jugador.
+    /// </summary>
     private IEnumerator Cinematica()
     {
         yield return StartCoroutine(MoverCuadro(0f));
@@ -202,6 +226,10 @@ public class MisionMinijuego : MonoBehaviour
         this.enabled = false;
     }
 
+    /// <summary>
+    /// Intercambia la visibilidad de los grupos de sprites para simular el cambio de atuendo del jugador.
+    /// </summary>
+    /// <param name="primerSwap">Si es true aplica el primer intercambio; si es false lo invierte.</param>
     private void SwapSprites(bool primerSwap)
     {
         foreach (SpriteRenderer sr in spritesDesactivar)
@@ -211,6 +239,11 @@ public class MisionMinijuego : MonoBehaviour
             if (sr != null) sr.enabled = primerSwap;
     }
 
+    /// <summary>
+    /// Mueve el cuadro negro suavemente hasta la posicion Y indicada.
+    /// Y = 0 cubre la pantalla, Y = 2 la descubre.
+    /// </summary>
+    /// <param name="yDestino">Posicion Y local de destino del cuadro negro.</param>
     private IEnumerator MoverCuadro(float yDestino)
     {
         if (cuadroNegro == null) yield break;

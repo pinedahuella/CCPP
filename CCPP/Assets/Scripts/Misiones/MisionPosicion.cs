@@ -2,15 +2,22 @@ using UnityEngine;
 using System;
 
 /// <summary>
-/// Misión que espera una postura específica.
+/// Mision que espera una postura especifica.
 /// Acepta callbacks de acierto y fallo para que
-/// cada misión concreta defina qué hacer en cada caso.
+/// cada mision concreta defina que hacer en cada caso.
 /// </summary>
 public class MisionPosicion : MisionBase
 {
     private readonly Action _onAcierto;
     private readonly Action _onFallo;
 
+    /// <summary>
+    /// Crea una mision de postura con callbacks para acierto y fallo.
+    /// </summary>
+    /// <param name="tipo">Tipo de accion esperada (Postura, Mano, etc.).</param>
+    /// <param name="valor">Codigo de postura correcta (1=parado, 2=sentado, 3=arrodillado).</param>
+    /// <param name="onAcierto">Accion que se ejecuta cuando el resultado coincide.</param>
+    /// <param name="onFallo">Accion que se ejecuta cuando el resultado no coincide.</param>
     public MisionPosicion(TipoAccion tipo, int valor, Action onAcierto, Action onFallo)
         : base(tipo, valor)
     {

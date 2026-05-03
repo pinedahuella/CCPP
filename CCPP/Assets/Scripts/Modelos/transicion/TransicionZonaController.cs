@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
-/// Trigger de transición entre zonas.
+/// Trigger de transicion entre zonas.
 /// Al chocar el jugador: bloquea movimiento, baja cuadro negro,
 /// teletransporta, intercambia zonas, sube cuadro negro y reactiva movimiento.
 /// Requiere: Collider con isTrigger = true en el mismo GameObject.
@@ -11,12 +11,10 @@ using System.Collections;
 [RequireComponent(typeof(Collider))]
 public class TransicionZonaController : MonoBehaviour
 {
-    // ── Referencias ────────────────────────────────────────────────
     private TransicionZonaData _data;
     private JugadorData _jugadorData;
     private bool _enTransicion = false;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -45,9 +43,11 @@ public class TransicionZonaController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Inicialización
 
+    /// <summary>
+    /// Garantiza que el Collider tenga isTrigger = true, corrigiendolo automaticamente si no lo esta.
+    /// </summary>
     private void AsegurarTrigger()
     {
         Collider col = GetComponent<Collider>();
@@ -58,6 +58,8 @@ public class TransicionZonaController : MonoBehaviour
         }
     }
 
+    /// <summary>Verifica que el cuadro negro, los puntos de teletransporte y la camara esten asignados.</summary>
+    /// <returns>True si todas las referencias son validas para ejecutar la transicion.</returns>
     private bool ValidarReferencias()
     {
         if (_data.cuadroNegro == null)
@@ -85,9 +87,13 @@ public class TransicionZonaController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Transición
 
+    /// <summary>
+    /// Ejecuta la secuencia de transicion: bloquea movimiento, baja el cuadro negro,
+    /// teletransporta jugador y camara, intercambia zonas y sube el cuadro negro.
+    /// </summary>
+    /// <param name="jugador">Transform del jugador que activo el trigger.</param>
     private IEnumerator EjecutarTransicion(Transform jugador)
     {
         _enTransicion = true;
@@ -101,7 +107,7 @@ public class TransicionZonaController : MonoBehaviour
         // 2 — Bajar cuadro negro hasta Y = 0
         yield return StartCoroutine(MoverCuadro(0f));
 
-        // 3 — Teletransportar jugador y cámara
+        // 3 — Teletransportar jugador y camara
         jugador.position = _data.puntoJugador.position;
         _data.camara.position = _data.puntoCamara.position;
 

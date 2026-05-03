@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 /// <summary>
 /// Datos del minijuego de responder.
-/// Solo datos, sin lógica.
+/// Solo datos, sin logica.
 /// </summary>
 public class MinijuegoResponderData : MonoBehaviour
 {
@@ -43,7 +43,6 @@ public class MinijuegoResponderData : MonoBehaviour
     [Tooltip("Tiempo total para responder en segundos")]
     public float tiempoLimite = 10f;
 
-    // ── Contenido de la pregunta (cambiar por misión) ──────────────
     [Header("Contenido")]
     [Tooltip("Texto de los 3 botones")]
     public string[] textoBotones = new string[3] { "Opción A", "Opción B", "Opción C" };
@@ -54,7 +53,6 @@ public class MinijuegoResponderData : MonoBehaviour
     [Tooltip("Texto que revela la ayuda")]
     public string textoAyudaContenido = "La respuesta es...";
 
-    // ── Estado ────────────────────────────────────────────────────
     [HideInInspector] public float tiempoRestante;
     [HideInInspector] public float multiplicadorVelocidad = 1f;
     [HideInInspector] public bool esperandoRespuesta = false;

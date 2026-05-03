@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -13,20 +13,19 @@ public class DistractorCerebro : MonoBehaviour
     [Tooltip("Botón para que el jugador pueda hacer click")]
     public Button boton;
 
-    // ── Estado ────────────────────────────────────────────────────
     [HideInInspector] public Vector2 posicionOriginal;
     [HideInInspector] public float velocidadActual;
     [HideInInspector] public bool activo = false;
 
     private void Awake()
     {
-        // Forzamos a que el RectTransform se asiente si está dentro de un LayoutGroup
+        // Forzamos a que el RectTransform se asiente si esta dentro de un LayoutGroup
         Canvas.ForceUpdateCanvases();
         posicionOriginal = GetComponent<RectTransform>().anchoredPosition;
     }
 
     /// <summary>
-    /// Resetea el distractor a su posición original con nueva velocidad.
+    /// Resetea el distractor a su posicion original con nueva velocidad.
     /// </summary>
     public void Resetear(float nuevaVelocidad)
     {
@@ -39,7 +38,7 @@ public class DistractorCerebro : MonoBehaviour
     }
 
     /// <summary>
-    /// Vuelve a posición original al ser clickeado.
+    /// Vuelve a posicion original al ser clickeado.
     /// </summary>
     public void AlClickear(float velocidadMin, float velocidadMax)
     {

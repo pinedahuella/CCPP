@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// Datos del minijuego de pierna.
-/// Sin lógica, solo referencias y estado.
+/// Sin logica, solo referencias y estado.
 /// </summary>
 public class MinijuegoPiernaData : MonoBehaviour
 {
@@ -41,7 +41,6 @@ public class MinijuegoPiernaData : MonoBehaviour
     [Tooltip("Segundos de espera antes de reportar el resultado")]
     public float tiempoEspera = 1.2f;
 
-    // ── Estado interno (solo lectura desde el Inspector) ───────────
     [Header("Estado (solo lectura)")]
     [Tooltip("Índice de la parte que toca colocar ahora (0=primera del orden)")]
     public int turnoActual = 0;
@@ -49,7 +48,6 @@ public class MinijuegoPiernaData : MonoBehaviour
     [Tooltip("Orden aleatorio generado al iniciar")]
     public PartePierna[] ordenAleatorio = new PartePierna[3];
 
-    // ──────────────────────────────────────────────────────────────
     #region Helpers
 
     /// <summary>
@@ -69,7 +67,7 @@ public class MinijuegoPiernaData : MonoBehaviour
     }
 
     /// <summary>
-    /// Devuelve la imagen del slot de orden según índice (0,1,2).
+    /// Devuelve la imagen del slot de orden segun indice (0,1,2).
     /// </summary>
     public Image ObtenerImagenOrden(int indice)
     {

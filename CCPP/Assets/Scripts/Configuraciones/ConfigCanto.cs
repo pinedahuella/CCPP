@@ -1,14 +1,14 @@
 using UnityEngine;
 
 /// <summary>
-/// Al activarse aplica configuración específica al minijuego de canto.
+/// Al activarse aplica configuracion especifica al minijuego de canto.
 /// </summary>
 public class ConfigCanto : MonoBehaviour
 {
     [Header("Referencia")]
     public MinijuegoCantoData data;
 
-    [Header("Configuración")]
+    [Header("Configuracion")]
     public float velocidadMin = 150f;
     public float velocidadMax = 280f;
     public float posYInicial = 400f;
@@ -17,6 +17,10 @@ public class ConfigCanto : MonoBehaviour
     public int notasParaGanar = 8;
     public int fallosPermitidos = 3;
 
+    /// <summary>
+    /// Copia los valores serializados de este Config al MinijuegoCantoData de referencia.
+    /// Se ejecuta cada vez que este GameObject se activa en escena.
+    /// </summary>
     private void OnEnable()
     {
         if (data == null) { Debug.LogWarning("[ConfigCanto] data no asignado."); return; }

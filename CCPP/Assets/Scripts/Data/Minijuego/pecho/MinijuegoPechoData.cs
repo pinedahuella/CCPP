@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// Datos del minijuego de ritmo del pecho.
-/// Solo datos, sin lógica.
+/// Solo datos, sin logica.
 /// </summary>
 public class MinijuegoPechoData : MonoBehaviour
 {
@@ -39,7 +39,6 @@ public class MinijuegoPechoData : MonoBehaviour
     [Tooltip("Velocidad máxima de achicamiento")]
     public float velocidadMax = 180f;
 
-    // ── Estado ────────────────────────────────────────────────────
     [HideInInspector] public int rondaActual = 0;
     [HideInInspector] public float tamanoActual = 0f;
     [HideInInspector] public float velocidadActual = 0f;

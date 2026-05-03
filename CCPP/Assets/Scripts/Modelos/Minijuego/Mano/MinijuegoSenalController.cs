@@ -1,13 +1,13 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
 /// <summary>
-/// Controlador del minijuego de señal.
+/// Controlador del minijuego de senal.
 /// Modo simple: 4 botones en orden fijo.
-/// Modo complejo: más botones en orden fijo, distintos GameObjects.
+/// Modo complejo: mas botones en orden fijo, distintos GameObjects.
 /// Barra de tiempo en ambos modos.
-/// Éxito → valor 2. Fallo → valor 0.
+/// Exito → valor 2. Fallo → valor 0.
 /// </summary>
 [RequireComponent(typeof(MinijuegoSenalData))]
 public class MinijuegoSenalController : MonoBehaviour
@@ -16,10 +16,9 @@ public class MinijuegoSenalController : MonoBehaviour
     private bool _esperandoRespuesta = false;
     private float _tiempoRestante;
 
-    // Botones activos según el modo
+    // Botones activos segun el modo
     private Button[] _botonesActivos;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -43,9 +42,13 @@ public class MinijuegoSenalController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region API Pública
 
+    /// <summary>
+    /// Inicializa y abre el minijuego de senal de la cruz.
+    /// Configura el modo simple o complejo, genera el orden y activa el panel.
+    /// Llamado desde MinijuegoManager cuando el jugador elige Senal en el panel de mano.
+    /// </summary>
     public void Iniciar()
     {
         if (!ValidarReferencias()) return;
@@ -63,9 +66,12 @@ public class MinijuegoSenalController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Modo
 
+    /// <summary>
+    /// Activa los objetos del modo simple o complejo segun la configuracion y
+    /// establece el array de botones activos y el orden a seguir.
+    /// </summary>
     private void ConfigurarModo()
     {
         if (_data.esCompleja)
@@ -98,6 +104,11 @@ public class MinijuegoSenalController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Genera un array de indices en orden secuencial (0, 1, 2, ...) para definir el orden de la senal.
+    /// </summary>
+    /// <param name="cantidad">Numero de botones del modo activo.</param>
+    /// <returns>Array de indices en orden natural.</returns>
     private int[] GenerarOrden(int cantidad)
     {
         int[] indices = new int[cantidad];
@@ -107,9 +118,9 @@ public class MinijuegoSenalController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Barra
 
+    /// <summary>Actualiza el ancho de la barra de tiempo proporcional al tiempo restante.</summary>
     private void ActualizarBarra()
     {
         if (_data.barraTiempo == null) return;
@@ -117,6 +128,7 @@ public class MinijuegoSenalController : MonoBehaviour
         _data.barraTiempo.sizeDelta = new Vector2(_data.anchoBarraInicial * t, _data.barraTiempo.sizeDelta.y);
     }
 
+    /// <summary>Restaura la barra de tiempo a su ancho inicial al comenzar el minijuego.</summary>
     private void ResetearBarra()
     {
         if (_data.barraTiempo == null) return;
@@ -125,9 +137,11 @@ public class MinijuegoSenalController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Lógica
 
+    /// <summary>
+    /// Escribe en el texto de cada boton el numero de posicion que le corresponde en el orden de la senal.
+    /// </summary>
     private void MostrarOrdenVisual()
     {
         for (int i = 0; i < _botonesActivos.Length; i++)
@@ -149,6 +163,7 @@ public class MinijuegoSenalController : MonoBehaviour
         }
     }
 
+    /// <summary>Asigna los listeners de click a cada boton activo del modo configurado.</summary>
     private void ConfigurarBotones()
     {
         LimpiarBotones();
@@ -165,6 +180,11 @@ public class MinijuegoSenalController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Verifica si el boton presionado corresponde al siguiente en el orden correcto.
+    /// Si es incorrecto termina con fallo; si se completan todos, con exito.
+    /// </summary>
+    /// <param name="indiceBoton">Indice del boton que presiono el jugador.</param>
     private void AlPresionar(int indiceBoton)
     {
         if (!_esperandoRespuesta) return;
@@ -188,6 +208,10 @@ public class MinijuegoSenalController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Limpia los botones, cierra el panel y reporta el resultado a MisionesGlobal con TipoAccion.Mano.
+    /// </summary>
+    /// <param name="acerto">True si el jugador completo el orden correcto; false si fallo o se acabo el tiempo.</param>
     private IEnumerator Terminar(bool acerto)
     {
         LimpiarBotones();
@@ -206,15 +230,16 @@ public class MinijuegoSenalController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Helpers
 
+    /// <summary>Resetea el indice actual y la bandera de espera antes de iniciar.</summary>
     private void LimpiarEstado()
     {
         _data.indiceActual = 0;
         _esperandoRespuesta = false;
     }
 
+    /// <summary>Elimina todos los listeners de los botones activos del modo actual.</summary>
     private void LimpiarBotones()
     {
         if (_botonesActivos == null) return;
@@ -222,6 +247,8 @@ public class MinijuegoSenalController : MonoBehaviour
             if (b != null) b.onClick.RemoveAllListeners();
     }
 
+    /// <summary>Verifica que el panel y los botones del modo configurado esten asignados en el Inspector.</summary>
+    /// <returns>True si todas las referencias son validas.</returns>
     private bool ValidarReferencias()
     {
         if (_data.panelSenal == null)

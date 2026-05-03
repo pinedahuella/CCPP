@@ -1,13 +1,13 @@
 using UnityEngine;
 
 /// <summary>
-/// Datos de una línea de diálogo.
-/// Struct puro, sin lógica.
+/// Datos de una linea de dialogo.
+/// Struct puro, sin logica.
 /// </summary>
 [System.Serializable]
 public struct DialogoLinea
 {
-    [Tooltip("Texto de esta línea de diálogo")]
+    [Tooltip("Texto de esta lÃ­nea de diÃ¡logo")]
     [TextArea]
     public string texto;
 

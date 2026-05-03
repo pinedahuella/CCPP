@@ -1,20 +1,19 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 /// <summary>
 /// Controlador del panel intermedio de la mano.
-/// Muestra dos opciones al jugador: Saludo o Señal.
+/// Muestra dos opciones al jugador: Saludo o Senal.
 /// </summary>
 [RequireComponent(typeof(PanelManoData))]
 public class PanelManoController : MonoBehaviour
 {
-    // ── Referencias ────────────────────────────────────────────────
     private PanelManoData _data;
 
-    // ── Eventos ───────────────────────────────────────────────────
+    /// <summary>Se dispara cuando el jugador elige la opcion Saludo en el panel de mano.</summary>
     public static event System.Action OnSaludoSeleccionado;
+    /// <summary>Se dispara cuando el jugador elige la opcion Senal en el panel de mano.</summary>
     public static event System.Action OnSenalSeleccionada;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -29,9 +28,12 @@ public class PanelManoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region API Pública
 
+    /// <summary>
+    /// Abre el panel de mano y configura los botones de Saludo y Senal.
+    /// Llamado por MinijuegoManager cuando el jugador selecciona la parte ManoDerecha.
+    /// </summary>
     public void AbrirPanel()
     {
         if (_data.panelMano == null)
@@ -44,6 +46,9 @@ public class PanelManoController : MonoBehaviour
         _data.panelMano.SetActive(true);
     }
 
+    /// <summary>
+    /// Cierra el panel de mano y limpia los listeners de los botones.
+    /// </summary>
     public void CerrarPanel()
     {
         if (_data.panelMano == null) return;
@@ -53,9 +58,9 @@ public class PanelManoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Botones
 
+    /// <summary>Asigna los listeners a los botones de Saludo y Senal.</summary>
     private void ConfigurarBotones()
     {
         LimpiarBotones();
@@ -67,6 +72,7 @@ public class PanelManoController : MonoBehaviour
             _data.botonSenal.onClick.AddListener(AlSeleccionarSenal);
     }
 
+    /// <summary>Elimina todos los listeners de los botones de Saludo y Senal.</summary>
     private void LimpiarBotones()
     {
         if (_data.botonSaludo != null)
@@ -76,12 +82,14 @@ public class PanelManoController : MonoBehaviour
             _data.botonSenal.onClick.RemoveAllListeners();
     }
 
+    /// <summary>Cierra el panel y dispara el evento OnSaludoSeleccionado.</summary>
     private void AlSeleccionarSaludo()
     {
         CerrarPanel();
         OnSaludoSeleccionado?.Invoke();
     }
 
+    /// <summary>Cierra el panel y dispara el evento OnSenalSeleccionada.</summary>
     private void AlSeleccionarSenal()
     {
         CerrarPanel();

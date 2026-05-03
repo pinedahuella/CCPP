@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
@@ -9,7 +9,6 @@ using System.Collections;
 /// </summary>
 public class GestorMisa : MonoBehaviour
 {
-    // ── Referencias globales ───────────────────────────────────────
     [Header("Referencias")]
     public Transform cuadroNegro;
     public float velocidadCuadro = 3f;
@@ -39,13 +38,11 @@ public class GestorMisa : MonoBehaviour
     [Header("Escenas")]
     public EscenaMisa[] escenas;
 
-    // ── Estado ────────────────────────────────────────────────────
     private int _escenaActual = 0;
     private bool _jugadorDentro = false;
     private bool _enFlujo = false;
     private DialogoController _dialogoController;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -86,9 +83,12 @@ public class GestorMisa : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Flujo Principal
 
+    /// <summary>
+    /// Arranca el flujo completo de la misa: bloquea movimiento, oculta al jugador
+    /// y ejecuta la primera escena.
+    /// </summary>
     private IEnumerator IniciarFlujo()
     {
         _enFlujo = true;
@@ -99,6 +99,11 @@ public class GestorMisa : MonoBehaviour
         yield return StartCoroutine(EjecutarEscena(_escenaActual));
     }
 
+    /// <summary>
+    /// Ejecuta la escena de la misa en el indice dado: configura objetos, musica,
+    /// animacion del sacerdote, titulo y dialogo inicial antes de esperar la mision.
+    /// </summary>
+    /// <param name="indice">Indice de la escena dentro del array de escenas.</param>
     private IEnumerator EjecutarEscena(int indice)
     {
         if (indice >= escenas.Length)
@@ -130,6 +135,11 @@ public class GestorMisa : MonoBehaviour
         yield return StartCoroutine(EsperarMision(escena));
     }
 
+    /// <summary>
+    /// Muestra los visuales del jugador, crea y asigna la mision de postura
+    /// y espera hasta recibir el resultado antes de continuar al acierto o fallo.
+    /// </summary>
+    /// <param name="escena">Escena actual cuya mision se va a ejecutar.</param>
     private IEnumerator EsperarMision(EscenaMisa escena)
     {
         if (escena.visualesJugador != null)
@@ -167,6 +177,10 @@ public class GestorMisa : MonoBehaviour
             yield return StartCoroutine(AlFallar(escena));
     }
 
+    /// <summary>
+    /// Muestra el dialogo de exito y avanza a la siguiente escena de la misa.
+    /// </summary>
+    /// <param name="escena">Escena que el jugador acabo de completar correctamente.</param>
     private IEnumerator AlAcertar(EscenaMisa escena)
     {
         yield return StartCoroutine(EsperarDialogo(escena.dialogoExito));
@@ -174,6 +188,11 @@ public class GestorMisa : MonoBehaviour
         yield return StartCoroutine(EjecutarEscena(_escenaActual));
     }
 
+    /// <summary>
+    /// Muestra el dialogo de fallo, baja la cortina negra, reposiciona al jugador
+    /// y reintenta la escena actual.
+    /// </summary>
+    /// <param name="escena">Escena en la que el jugador fallo.</param>
     private IEnumerator AlFallar(EscenaMisa escena)
     {
         yield return StartCoroutine(EsperarDialogo(escena.dialogoFallo));
@@ -192,9 +211,12 @@ public class GestorMisa : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Ganar / Reiniciar
 
+    /// <summary>
+    /// Activa el objeto de comunion, oculta la barra de vidas,
+    /// devuelve el control al jugador y termina el flujo de la misa.
+    /// </summary>
     private IEnumerator Ganar()
     {
         if (objetoGanar != null) objetoGanar.SetActive(true);
@@ -207,6 +229,10 @@ public class GestorMisa : MonoBehaviour
         yield break;
     }
 
+    /// <summary>
+    /// Reinicia el flujo completo de la misa: resetea vidas y escenas,
+    /// reposiciona al jugador y vuelve a ejecutar desde la escena 0.
+    /// </summary>
     private IEnumerator Reiniciar()
     {
         yield return StartCoroutine(MoverCuadro(0f));
@@ -226,9 +252,13 @@ public class GestorMisa : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Helpers
 
+    /// <summary>
+    /// Inicia un dialogo y espera hasta que el DialogoController dispare OnDialogoTerminado.
+    /// No hace nada si el dialogo es null.
+    /// </summary>
+    /// <param name="dialogo">Datos del dialogo a reproducir.</param>
     private IEnumerator EsperarDialogo(DialogoData dialogo)
     {
         if (dialogo == null) yield break;
@@ -241,6 +271,10 @@ public class GestorMisa : MonoBehaviour
         DialogoController.OnDialogoTerminado -= handler;
     }
 
+    /// <summary>
+    /// Muestra el panel de titulo con el texto indicado durante 2.5 segundos y luego lo oculta.
+    /// </summary>
+    /// <param name="texto">Texto del titulo de la escena a mostrar.</param>
     private IEnumerator MostrarTitulo(string texto)
     {
         if (panelTitulo == null) yield break;
@@ -250,6 +284,10 @@ public class GestorMisa : MonoBehaviour
         panelTitulo.SetActive(false);
     }
 
+    /// <summary>
+    /// Activa e inactiva los GameObjects configurados en la escena de la misa.
+    /// </summary>
+    /// <param name="escena">Escena cuya lista de objetos se va a procesar.</param>
     private void ConfigurarObjetos(EscenaMisa escena)
     {
         if (escena.activar != null)
@@ -261,6 +299,10 @@ public class GestorMisa : MonoBehaviour
                 if (obj != null) obj.SetActive(false);
     }
 
+    /// <summary>
+    /// Mueve al sacerdote hacia el punto de destino de la escena a velocidad constante.
+    /// </summary>
+    /// <param name="escena">Escena que contiene el punto destino y la velocidad del sacerdote.</param>
     private IEnumerator MoverSacerdote(EscenaMisa escena)
     {
         while (Vector3.Distance(sacerdote.position, escena.puntoDestino.position) > 0.05f)
@@ -275,6 +317,11 @@ public class GestorMisa : MonoBehaviour
         sacerdote.position = escena.puntoDestino.position;
     }
 
+    /// <summary>
+    /// Mueve el cuadro negro suavemente hasta la posicion Y indicada para crear transiciones cinematicas.
+    /// Y = 0 lo baja (pantalla negra), Y = 2 lo sube (revela la escena).
+    /// </summary>
+    /// <param name="yDestino">Posicion Y local de destino del cuadro negro.</param>
     private IEnumerator MoverCuadro(float yDestino)
     {
         if (cuadroNegro == null) yield break;

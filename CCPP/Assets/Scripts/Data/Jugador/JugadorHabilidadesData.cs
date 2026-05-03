@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 /// <summary>
-/// Fuente de verdad sobre qué partes del cuerpo tiene desbloqueadas el jugador.
-/// Solo datos, sin lógica.
+/// Fuente de verdad sobre que partes del cuerpo tiene desbloqueadas el jugador.
+/// Solo datos, sin logica.
 /// Vive en el mismo GameObject que JugadorData y JugadorController.
 /// </summary>
 public class JugadorHabilidadesData : MonoBehaviour
@@ -23,12 +23,11 @@ public class JugadorHabilidadesData : MonoBehaviour
     [Tooltip("El jugador puede usar su mano derecha")]
     public bool tieneManoDerecha = true;
 
-    // ──────────────────────────────────────────────────────────────
     #region API Pública
 
     /// <summary>
-    /// Devuelve si una parte específica está desbloqueada.
-    /// Útil para consultar por enum sin exponer los bools directamente.
+    /// Devuelve si una parte especifica esta desbloqueada.
+    /// Util para consultar por enum sin exponer los bools directamente.
     /// </summary>
     public bool EstaDesbloqueada(ParteCuerpo parte)
     {

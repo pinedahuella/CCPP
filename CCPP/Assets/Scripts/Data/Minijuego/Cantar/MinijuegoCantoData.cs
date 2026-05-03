@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// Datos del minijuego de canto.
-/// Solo datos, sin lógica.
+/// Solo datos, sin logica.
 /// </summary>
 public class MinijuegoCantoData : MonoBehaviour
 {
@@ -36,7 +36,6 @@ public class MinijuegoCantoData : MonoBehaviour
     public int notasParaGanar = 8;
     public int fallosPermitidos = 3;
 
-    // ── Estado ────────────────────────────────────────────────────
     [HideInInspector] public int notasAcertadas = 0;
     [HideInInspector] public int fallosActuales = 0;
     [HideInInspector] public float timerNota = 0f;

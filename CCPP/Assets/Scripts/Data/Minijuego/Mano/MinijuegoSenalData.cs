@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Datos del minijuego de señal.
-/// Soporta modo simple (4 botones) y modo complejo (más botones).
-/// Solo datos, sin lógica.
+/// Datos del minijuego de senal.
+/// Soporta modo simple (4 botones) y modo complejo (mas botones).
+/// Solo datos, sin logica.
 /// </summary>
 public class MinijuegoSenalData : MonoBehaviour
 {
@@ -32,7 +32,6 @@ public class MinijuegoSenalData : MonoBehaviour
     [Header("Configuración")]
     public float tiempoLimite = 5f;
 
-    // ── Estado ────────────────────────────────────────────────────
     [HideInInspector] public int indiceActual = 0;
     [HideInInspector] public int[] ordenAleatorio = new int[4];
 }

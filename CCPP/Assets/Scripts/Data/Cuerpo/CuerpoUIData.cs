@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Datos de la UI del cuerpo.
 /// Expone el panel y el array de partes con sus botones.
-/// Sin lÛgica, solo referencias.
+/// Sin logica, solo referencias.
 /// </summary>
 public class CuerpoUIData : MonoBehaviour
 {
@@ -12,13 +12,13 @@ public class CuerpoUIData : MonoBehaviour
     public GameObject panelCuerpo;
 
     [Header("Partes del cuerpo")]
-    [Tooltip("Arrastrar aquÌ los GameObjects que tengan el componente ParteCuerpoData")]
+    [Tooltip("Arrastrar aqu√≠ los GameObjects que tengan el componente ParteCuerpoData")]
     public ParteCuerpoData[] partes;
 
     [Header("Colores de estado")]
-    [Tooltip("Color del botÛn cuando la parte est· desbloqueada")]
+    [Tooltip("Color del bot√≥n cuando la parte est√° desbloqueada")]
     public Color colorDesbloqueado = Color.white;
 
-    [Tooltip("Color del botÛn cuando la parte est· bloqueada")]
+    [Tooltip("Color del bot√≥n cuando la parte est√° bloqueada")]
     public Color colorBloqueado = Color.gray;
 }

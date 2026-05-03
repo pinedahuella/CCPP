@@ -1,21 +1,19 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 /// <summary>
-/// Manager global de misiones. Gestiona una sola misión activa a la vez.
-/// Recibe el resultado del minijuego, evalúa la misión activa y la limpia al cumplirse.
+/// Manager global de misiones. Gestiona una sola mision activa a la vez.
+/// Recibe el resultado del minijuego, evalua la mision activa y la limpia al cumplirse.
 /// Protegido contra referencias nulas en todos los puntos de entrada.
 /// </summary>
 public class MisionesGlobal : MonoBehaviour
 {
-    // ── Singleton ──────────────────────────────────────────────────
     public static MisionesGlobal Instancia { get; private set; }
 
-    // ── Estado ────────────────────────────────────────────────────
     private MisionBase _misionActiva;
 
+    /// <summary>True si hay una mision pendiente de resolver en este momento.</summary>
     public bool TieneMisionActiva => _misionActiva != null;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -25,9 +23,12 @@ public class MisionesGlobal : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Inicialización
 
+    /// <summary>
+    /// Aplica el patron Singleton: si ya existe una instancia destruye este duplicado,
+    /// de lo contrario se registra como instancia global y persiste entre escenas.
+    /// </summary>
     private void ConfigurarSingleton()
     {
         if (Instancia != null && Instancia != this)
@@ -43,11 +44,10 @@ public class MisionesGlobal : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region API Pública
 
     /// <summary>
-    /// Asigna una nueva misión activa.
+    /// Asigna una nueva mision activa.
     /// </summary>
     public void AsignarMision(MisionBase nuevaMision)
     {
@@ -65,8 +65,8 @@ public class MisionesGlobal : MonoBehaviour
 
     /// <summary>
     /// Llamado por el minijuego al terminar.
-    /// Si coincide llama Actuar(), si no llama ActuarFallo() si la misión lo soporta.
-    /// En ambos casos limpia la misión activa.
+    /// Si coincide llama Actuar(), si no llama ActuarFallo() si la mision lo soporta.
+    /// En ambos casos limpia la mision activa.
     /// </summary>
     public void ReportarResultado(AccionResultado resultado)
     {
@@ -89,14 +89,14 @@ public class MisionesGlobal : MonoBehaviour
                       $"valor={misionResuelta.ValorEsperado}. " +
                       $"Recibido tipo={resultado.tipo} valor={resultado.valor}.");
 
-            // Si la misión soporta fallo lo notifica
+            // Si la mision soporta fallo lo notifica
             if (misionResuelta is MisionPosicion misionPosicion)
                 misionPosicion.ActuarFallo();
         }
     }
 
     /// <summary>
-    /// Cancela la misión activa sin ejecutarla.
+    /// Cancela la mision activa sin ejecutarla.
     /// </summary>
     public void CancelarMision()
     {

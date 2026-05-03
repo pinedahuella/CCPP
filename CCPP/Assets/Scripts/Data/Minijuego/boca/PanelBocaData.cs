@@ -4,7 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Datos del panel intermedio de la boca.
 /// El jugador elige entre Responder o Cantar.
-/// Solo datos, sin lógica.
+/// Solo datos, sin logica.
 /// </summary>
 public class PanelBocaData : MonoBehaviour
 {

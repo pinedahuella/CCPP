@@ -1,13 +1,13 @@
 using UnityEngine;
 
 /// <summary>
-/// Datos de la transición de zona.
-/// Sin lógica, solo referencias y configuración.
+/// Datos de la transicion de zona.
+/// Sin logica, solo referencias y configuracion.
 /// </summary>
 public class TransicionZonaData : MonoBehaviour
 {
     [Header("Cuadro negro")]
-    [Tooltip("Transform del cuadro negro hijo de la cámara")]
+    [Tooltip("Transform del cuadro negro hijo de la cÃ¡mara")]
     public Transform cuadroNegro;
 
     [Tooltip("Velocidad a la que sube y baja el cuadro negro")]
@@ -24,17 +24,17 @@ public class TransicionZonaData : MonoBehaviour
     [Tooltip("Punto donde se teletransporta el jugador")]
     public Transform puntoJugador;
 
-    [Tooltip("Punto donde se teletransporta la cámara")]
+    [Tooltip("Punto donde se teletransporta la cÃ¡mara")]
     public Transform puntoCamara;
 
     [Header("Referencias")]
-    [Tooltip("Transform de la cámara principal")]
+    [Tooltip("Transform de la cÃ¡mara principal")]
     public Transform camara;
 
 
 
     [Header("Audio")]
-    [Tooltip("AudioSource que reproduce el sonido de transición")]
+    [Tooltip("AudioSource que reproduce el sonido de transiciÃ³n")]
     public AudioSource audioTransicion;
 
     [Tooltip("Nuevo AudioClip de caminata para la zona destino")]

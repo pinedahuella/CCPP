@@ -1,14 +1,14 @@
 using UnityEngine;
 
 /// <summary>
-/// Al activarse aplica configuración específica al minijuego de responder.
+/// Al activarse aplica configuracion especifica al minijuego de responder.
 /// </summary>
 public class ConfigResponder : MonoBehaviour
 {
     [Header("Referencia")]
     public MinijuegoResponderData data;
 
-    [Header("Configuración")]
+    [Header("Configuracion")]
     public float tiempoLimite = 10f;
     public float anchoBarraInicial = 600f;
     public float alphaAyudaPorEspacio = 0.15f;
@@ -16,11 +16,16 @@ public class ConfigResponder : MonoBehaviour
     public int indiceRespuestaCorrecta = 0;
 
     [Header("Contenido")]
-    public string textoBoton0 = "Opción A";
-    public string textoBoton1 = "Opción B";
-    public string textoBoton2 = "Opción C";
+    public string textoBoton0 = "Opcion A";
+    public string textoBoton1 = "Opcion B";
+    public string textoBoton2 = "Opcion C";
     public string textoAyudaContenido = "La respuesta es...";
 
+    /// <summary>
+    /// Copia los valores serializados de este Config al MinijuegoResponderData de referencia,
+    /// incluyendo el texto de los tres botones y la ayuda.
+    /// Se ejecuta cada vez que este GameObject se activa en escena.
+    /// </summary>
     private void OnEnable()
     {
         if (data == null) { Debug.LogWarning("[ConfigResponder] data no asignado."); return; }

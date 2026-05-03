@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 /// <summary>
 /// Vive en la Sphere hija del jugador.
@@ -6,10 +6,8 @@
 /// </summary>
 public class TriggerCuerpoUI : MonoBehaviour
 {
-    // ── Referencias ────────────────────────────────────────────────
     private CuerpoUIController _uiController;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -25,7 +23,6 @@ public class TriggerCuerpoUI : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Inicialización
 
     private void ObtenerReferencias()
@@ -38,7 +35,6 @@ public class TriggerCuerpoUI : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Lógica
 
     private void AbrirUI()

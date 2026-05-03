@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class VidaUI : MonoBehaviour
 {
-    [Tooltip("Los 3 corazones en orden, el último es el primero en perderse")]
+    [Tooltip("Los 3 corazones en orden, el ultimo es el primero en perderse")]
     public GameObject[] corazones;
 
     private int _vidasActuales;
@@ -16,6 +16,9 @@ public class VidaUI : MonoBehaviour
         Resetear();
     }
 
+    /// <summary>
+    /// Restaura todos los corazones a su estado visible y reinicia el contador de vidas.
+    /// </summary>
     public void Resetear()
     {
         _vidasActuales = corazones.Length;
@@ -23,6 +26,10 @@ public class VidaUI : MonoBehaviour
             if (c != null) c.SetActive(true);
     }
 
+    /// <summary>
+    /// Descuenta una vida y desactiva el corazon correspondiente.
+    /// No hace nada si ya no quedan vidas.
+    /// </summary>
     public void PerderVida()
     {
         if (_vidasActuales <= 0) return;
@@ -30,5 +37,6 @@ public class VidaUI : MonoBehaviour
         corazones[_vidasActuales].SetActive(false);
     }
 
+    /// <summary>True cuando el jugador ha perdido todas sus vidas.</summary>
     public bool SinVidas => _vidasActuales <= 0;
 }

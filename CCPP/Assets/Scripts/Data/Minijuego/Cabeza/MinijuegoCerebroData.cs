@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// Datos del minijuego de cerebro.
-/// Solo datos, sin lógica.
+/// Solo datos, sin logica.
 /// </summary>
 public class MinijuegoCerebroData : MonoBehaviour
 {
@@ -39,7 +39,6 @@ public class MinijuegoCerebroData : MonoBehaviour
     [Tooltip("Segundos que debe sobrevivir para ganar")]
     public float tiempoSobrevivir = 15f;
 
-    // ── Estado ────────────────────────────────────────────────────
     [HideInInspector] public float tiempoTranscurrido = 0f;
     [HideInInspector] public bool minijuegoActivo = false;
 }

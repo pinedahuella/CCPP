@@ -1,29 +1,25 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 /// <summary>
-/// Gestiona la reproducción de diálogos línea por línea.
+/// Gestiona la reproduccion de dialogos linea por linea.
 /// Completamente independiente del resto del juego.
 /// Recibe un DialogoData, lo ejecuta y dispara OnDialogoTerminado al acabar.
 /// </summary>
 [RequireComponent(typeof(DialogoUIData))]
 public class DialogoController : MonoBehaviour
 {
-    // ── Referencias ────────────────────────────────────────────────
     private DialogoUIData _data;
 
-    // ── Estado ────────────────────────────────────────────────────
     private DialogoData _dialogoActual;
     private int _indiceActual;
     private bool _dialogoActivo;
 
-    // ── Evento ────────────────────────────────────────────────────
     /// <summary>
-    /// Se dispara cuando el diálogo actual termina completamente.
-    /// Cualquier sistema que inicie un diálogo puede suscribirse aquí.
+    /// Se dispara cuando el dialogo actual termina completamente.
+    /// Cualquier sistema que inicie un dialogo puede suscribirse aqui.
     /// </summary>
     public static event System.Action OnDialogoTerminado;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -41,12 +37,11 @@ public class DialogoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region API Pública
 
     /// <summary>
-    /// Inicia un diálogo dado un DialogoData.
-    /// Si hay un diálogo activo lo interrumpe y comienza el nuevo.
+    /// Inicia un dialogo dado un DialogoData.
+    /// Si hay un dialogo activo lo interrumpe y comienza el nuevo.
     /// </summary>
     public void Iniciar(DialogoData dialogo)
     {
@@ -72,11 +67,10 @@ public class DialogoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Lógica
 
     /// <summary>
-    /// Avanza a la siguiente línea o termina el diálogo.
+    /// Avanza a la siguiente linea o termina el dialogo.
     /// </summary>
     private void Avanzar()
     {
@@ -92,7 +86,7 @@ public class DialogoController : MonoBehaviour
     }
 
     /// <summary>
-    /// Muestra la línea actual en la UI.
+    /// Muestra la linea actual en la UI.
     /// </summary>
     private void MostrarLineaActual()
     {
@@ -103,7 +97,7 @@ public class DialogoController : MonoBehaviour
         // Texto
         _data.textoDialogo.text = linea.texto;
 
-        // Imágenes — se muestra solo la del lado activo
+        // Imagenes — se muestra solo la del lado activo
         if (linea.esIzquierda)
         {
             MostrarImagen(_data.imagenIzquierda, linea.imagen);

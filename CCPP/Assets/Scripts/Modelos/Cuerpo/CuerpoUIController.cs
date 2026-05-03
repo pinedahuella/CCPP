@@ -1,26 +1,23 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 /// <summary>
 /// Controlador de la UI del cuerpo.
 /// Abre el panel al llamarse desde el trigger del jugador,
-/// activa o desactiva botones según las habilidades desbloqueadas,
-/// y notifica qué parte fue seleccionada.
+/// activa o desactiva botones segun las habilidades desbloqueadas,
+/// y notifica que parte fue seleccionada.
 /// </summary>
 [RequireComponent(typeof(CuerpoUIData))]
 public class CuerpoUIController : MonoBehaviour
 {
-    // ── Referencias ────────────────────────────────────────────────
     private CuerpoUIData _data;
     private JugadorHabilidadesData _habilidades;
 
-    // ── Evento ────────────────────────────────────────────────────
     /// <summary>
     /// Se dispara cuando el jugador selecciona una parte del cuerpo.
     /// El minijuego correspondiente se suscribe a este evento.
     /// </summary>
     public static event System.Action<ParteCuerpo> OnParteSeleccionada;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -36,7 +33,6 @@ public class CuerpoUIController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Inicialización
 
     private void ObtenerReferencias()
@@ -59,11 +55,10 @@ public class CuerpoUIController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region API Pública
 
     /// <summary>
-    /// Abre el panel y configura los botones según las habilidades del jugador.
+    /// Abre el panel y configura los botones segun las habilidades del jugador.
     /// Llamado por el trigger del jugador al recibir click.
     /// </summary>
     public void AbrirPanel()
@@ -92,12 +87,11 @@ public class CuerpoUIController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Botones
 
     /// <summary>
-    /// Recorre el array de partes, activa o desactiva cada botón
-    /// según el estado de habilidades del jugador, y asigna listeners.
+    /// Recorre el array de partes, activa o desactiva cada boton
+    /// segun el estado de habilidades del jugador, y asigna listeners.
     /// </summary>
     private void ConfigurarBotones()
     {

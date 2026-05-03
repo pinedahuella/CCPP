@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// Datos del minijuego de saludo de mano.
-/// Solo datos, sin lógica.
+/// Solo datos, sin logica.
 /// </summary>
 public class MinijuegoSaludoData : MonoBehaviour
 {
@@ -33,6 +33,5 @@ public class MinijuegoSaludoData : MonoBehaviour
     public float tiempoLimite = 3f;
     public float tiempoExito = 1.2f;
 
-    // ── Estado ────────────────────────────────────────────────────
     [HideInInspector] public bool botonCorrectoEsArriba;
 }

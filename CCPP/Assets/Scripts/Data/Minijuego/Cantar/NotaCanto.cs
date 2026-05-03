@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -10,7 +10,6 @@ public class NotaCanto : MonoBehaviour
     [Tooltip("Image de la nota")]
     public Image imagen;
 
-    // ── Estado ────────────────────────────────────────────────────
     [HideInInspector] public int carril;
     [HideInInspector] public float velocidad;
     [HideInInspector] public bool activa = false;
@@ -26,6 +25,12 @@ public class NotaCanto : MonoBehaviour
         _rect = GetComponent<RectTransform>();
     }
 
+    /// <summary>
+    /// Activa esta nota en el carril indicado con la velocidad dada,
+    /// restaurando su posicion inicial y mostrando su imagen.
+    /// </summary>
+    /// <param name="carrilAsignado">Indice del carril (0-3) al que pertenece la nota.</param>
+    /// <param name="velocidadAsignada">Pixeles por segundo a los que cae la nota.</param>
     public void Activar(int carrilAsignado, float velocidadAsignada)
     {
         if (_rect == null)
@@ -40,6 +45,9 @@ public class NotaCanto : MonoBehaviour
             imagen.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Desactiva esta nota: oculta la imagen y restaura la posicion inicial.
+    /// </summary>
     public void Desactivar()
     {
         activa = false;
@@ -53,8 +61,13 @@ public class NotaCanto : MonoBehaviour
             imagen.gameObject.SetActive(false);
     }
 
+    /// <summary>Posicion anclada actual del RectTransform de esta nota.</summary>
     public Vector2 PosicionActual => GetComponent<RectTransform>().anchoredPosition;
 
+    /// <summary>
+    /// Desplaza la nota hacia abajo en el canvas segun su velocidad y el delta de tiempo.
+    /// </summary>
+    /// <param name="delta">Time.deltaTime del frame actual.</param>
     public void MoverAbajo(float delta)
     {
         if (_rect == null)

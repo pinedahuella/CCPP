@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
 /// <summary>
 /// Controlador del minijuego de canto.
-/// 4 pools independientes por carril. Detección por Y mundial.
-/// Éxito → valor 2. Fallo → valor 0.
+/// 4 pools independientes por carril. Deteccion por Y mundial.
+/// Exito → valor 2. Fallo → valor 0.
 /// </summary>
 [RequireComponent(typeof(MinijuegoCantoData))]
 public class MinijuegoCantoController : MonoBehaviour
@@ -13,7 +13,6 @@ public class MinijuegoCantoController : MonoBehaviour
     private MinijuegoCantoData _data;
     private Coroutine[] _flashCoroutines = new Coroutine[4];
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -31,9 +30,13 @@ public class MinijuegoCantoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region API Pública
 
+    /// <summary>
+    /// Inicializa y abre el minijuego de canto.
+    /// Resetea el estado, desactiva notas previas, configura botones y activa el panel.
+    /// Llamado desde MinijuegoManager cuando el jugador elige Cantar en el panel de boca.
+    /// </summary>
     public void Iniciar()
     {
         if (!ValidarReferencias()) return;
@@ -49,9 +52,11 @@ public class MinijuegoCantoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Notas
 
+    /// <summary>
+    /// Desplaza todas las notas activas hacia abajo y detecta cuando una nota pasa el margen del boton sin ser presionada.
+    /// </summary>
     private void MoverNotas()
     {
         for (int carril = 0; carril < 4; carril++)
@@ -79,6 +84,7 @@ public class MinijuegoCantoController : MonoBehaviour
         }
     }
 
+    /// <summary>Reduce el temporizador y lanza una nueva nota cuando llega a cero, reiniciando el intervalo.</summary>
     private void ActualizarTimerNota()
     {
         _data.timerNota -= Time.deltaTime;
@@ -89,6 +95,9 @@ public class MinijuegoCantoController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Elige un carril aleatorio, busca una nota inactiva en su pool y la activa con velocidad aleatoria.
+    /// </summary>
     private void LanzarNota()
     {
         int carril = Random.Range(0, 4);
@@ -113,6 +122,7 @@ public class MinijuegoCantoController : MonoBehaviour
         }
     }
 
+    /// <summary>Desactiva todas las notas de todos los carriles para dejar el minijuego en estado limpio.</summary>
     private void DesactivarTodasLasNotas()
     {
         for (int i = 0; i < 4; i++)
@@ -124,6 +134,11 @@ public class MinijuegoCantoController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Devuelve el array de notas del carril especificado.
+    /// </summary>
+    /// <param name="carril">Indice del carril (0-3).</param>
+    /// <returns>Array de NotaCanto del carril o null si el indice es invalido.</returns>
     private NotaCanto[] ObtenerPool(int carril)
     {
         switch (carril)
@@ -140,9 +155,9 @@ public class MinijuegoCantoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Botones
 
+    /// <summary>Asigna los listeners de click a cada boton de carril segun su indice.</summary>
     private void ConfigurarBotones()
     {
         LimpiarBotones();
@@ -154,6 +169,11 @@ public class MinijuegoCantoController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Evalua si hay una nota en la zona de acierto del carril presionado.
+    /// Registra acierto o fallo segun la posicion de la nota.
+    /// </summary>
+    /// <param name="carril">Indice del carril cuyo boton fue presionado.</param>
     private void AlPresionarBoton(int carril)
     {
         if (!_data.minijuegoActivo) return;
@@ -191,6 +211,7 @@ public class MinijuegoCantoController : MonoBehaviour
         RegistrarFallo($"botón {carril} sin nota en zona");
     }
 
+    /// <summary>Elimina todos los listeners de los botones de carril.</summary>
     private void LimpiarBotones()
     {
         if (_data.botones == null) return;
@@ -198,6 +219,7 @@ public class MinijuegoCantoController : MonoBehaviour
             if (b != null) b.onClick.RemoveAllListeners();
     }
 
+    /// <summary>Restaura el color blanco de todos los botones de carril al iniciar o terminar el minijuego.</summary>
     private void ResetearColoresBotones()
     {
         for (int i = 0; i < 4; i++)
@@ -212,9 +234,12 @@ public class MinijuegoCantoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Flash Rojo
 
+    /// <summary>
+    /// Cancela el flash anterior del carril (si existe) y lanza uno nuevo para indicar error.
+    /// </summary>
+    /// <param name="carril">Indice del carril donde ocurrio el fallo.</param>
     private void DispararFlashRojo(int carril)
     {
         // Cancelar corrutina anterior del mismo carril si existe
@@ -224,6 +249,10 @@ public class MinijuegoCantoController : MonoBehaviour
         _flashCoroutines[carril] = StartCoroutine(FlashRojo(carril));
     }
 
+    /// <summary>
+    /// Pone el boton del carril en rojo durante 0.3 segundos y luego lo devuelve a blanco.
+    /// </summary>
+    /// <param name="carril">Indice del carril a iluminar en rojo.</param>
     private IEnumerator FlashRojo(int carril)
     {
         if (_data.botones[carril] == null) yield break;
@@ -240,9 +269,12 @@ public class MinijuegoCantoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Fallo y Fin
 
+    /// <summary>
+    /// Incrementa el contador de fallos y termina el minijuego si se supero el limite permitido.
+    /// </summary>
+    /// <param name="motivo">Descripcion del fallo para el log de depuracion.</param>
     private void RegistrarFallo(string motivo)
     {
         if (!_data.minijuegoActivo) return;
@@ -257,6 +289,10 @@ public class MinijuegoCantoController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Limpia el estado del minijuego, cierra el panel y reporta el resultado a MisionesGlobal con TipoAccion.Boca.
+    /// </summary>
+    /// <param name="acerto">True si el jugador acierto las notas necesarias; false si supero los fallos.</param>
     private IEnumerator Terminar(bool acerto)
     {
         LimpiarBotones();
@@ -277,9 +313,9 @@ public class MinijuegoCantoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Helpers
 
+    /// <summary>Resetea contadores de notas, fallos, timer y la lista de corrutinas de flash.</summary>
     private void LimpiarEstado()
     {
         _data.notasAcertadas = 0;
@@ -291,6 +327,8 @@ public class MinijuegoCantoController : MonoBehaviour
             _flashCoroutines[i] = null;
     }
 
+    /// <summary>Verifica que el panel y los 4 botones de carril esten asignados en el Inspector.</summary>
+    /// <returns>True si todas las referencias son validas.</returns>
     private bool ValidarReferencias()
     {
         if (_data.panelCanto == null)

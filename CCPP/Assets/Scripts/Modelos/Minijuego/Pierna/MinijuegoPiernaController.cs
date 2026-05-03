@@ -1,24 +1,21 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// Controlador del minijuego de pierna.
-/// Genera el orden aleatorio, gestiona los clicks en la cuadrícula,
+/// Genera el orden aleatorio, gestiona los clicks en la cuadricula,
 /// actualiza las conexiones visuales y reporta el resultado a MisionesGlobal.
 /// </summary>
 [RequireComponent(typeof(MinijuegoPiernaData))]
 public class MinijuegoPiernaController : MonoBehaviour
 {
-    // ── Referencias ────────────────────────────────────────────────
     private MinijuegoPiernaData _data;
 
-    // ── Posiciones colocadas (para calcular conexiones) ────────────
     private RectTransform _posicionCadera;
     private RectTransform _posicionRodilla;
     private RectTransform _posicionPie;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -28,7 +25,6 @@ public class MinijuegoPiernaController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region API Pública
 
     /// <summary>
@@ -51,9 +47,10 @@ public class MinijuegoPiernaController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Inicialización
 
+    /// <summary>Verifica que el panel y el array de 9 celdas esten asignados en el Inspector.</summary>
+    /// <returns>True si las referencias son validas; false si falta alguna.</returns>
     private bool ValidarReferencias()
     {
         if (_data.panelMinijuego == null)
@@ -84,7 +81,7 @@ public class MinijuegoPiernaController : MonoBehaviour
             if (celda != null)
             {
                 celda.Limpiar();
-                // Agregar estas dos líneas:
+                // Agregar estas dos lineas:
                 if (celda.boton != null)
                 {
                     celda.boton.gameObject.SetActive(true);
@@ -150,6 +147,7 @@ public class MinijuegoPiernaController : MonoBehaviour
         }
     }
 
+    /// <summary>Desactiva las imagenes de linea entre partes al iniciar para que no se muestren de antemano.</summary>
     private void OcultarConexiones()
     {
         if (_data.lineaCaderaRodilla != null)
@@ -161,9 +159,13 @@ public class MinijuegoPiernaController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Lógica de Clicks
 
+    /// <summary>
+    /// Gestiona el click en una celda: coloca la parte en turno, desvanece su imagen de orden,
+    /// guarda su posicion para conexiones visuales y avanza el turno.
+    /// </summary>
+    /// <param name="celda">Celda que el jugador acabo de seleccionar.</param>
     private void AlClickearCelda(CeldaCuadriculaData celda)
     {
         if (celda == null) return;
@@ -178,7 +180,7 @@ public class MinijuegoPiernaController : MonoBehaviour
         // Desvanecer imagen del panel de orden
         DesvanecerImagenOrden(_data.turnoActual);
 
-        // Guardar posición para conexiones
+        // Guardar posicion para conexiones
         GuardarPosicion(parteActual, celda.GetComponent<RectTransform>());
 
         // Actualizar conexiones visuales
@@ -191,6 +193,11 @@ public class MinijuegoPiernaController : MonoBehaviour
             StartCoroutine(EsperarYReportar());
     }
 
+    /// <summary>
+    /// Asigna la parte a la celda y muestra el sprite correspondiente en la imagen de la celda.
+    /// </summary>
+    /// <param name="celda">Celda donde se coloca la parte.</param>
+    /// <param name="parte">Parte de la pierna a colocar.</param>
     private void ColocarParteEnCelda(CeldaCuadriculaData celda, PartePierna parte)
     {
         celda.parteOcupante = parte;
@@ -202,6 +209,10 @@ public class MinijuegoPiernaController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reduce el alpha de la imagen del panel de orden al 25% para indicar que esa parte ya fue colocada.
+    /// </summary>
+    /// <param name="indice">Indice del slot de orden (0-2) a desvanecer.</param>
     private void DesvanecerImagenOrden(int indice)
     {
         UnityEngine.UI.Image img = _data.ObtenerImagenOrden(indice);
@@ -212,6 +223,12 @@ public class MinijuegoPiernaController : MonoBehaviour
         img.color = c;
     }
 
+    /// <summary>
+    /// Guarda el RectTransform de la celda donde se coloco cada parte
+    /// para poder calcular las conexiones visuales entre ellas.
+    /// </summary>
+    /// <param name="parte">Parte de la pierna que se acaba de colocar.</param>
+    /// <param name="rect">RectTransform de la celda donde fue colocada.</param>
     private void GuardarPosicion(PartePierna parte, RectTransform rect)
     {
         switch (parte)
@@ -224,13 +241,12 @@ public class MinijuegoPiernaController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Conexiones Visuales
 
     /// <summary>
-    /// Actualiza posición y visibilidad de las líneas de conexión
-    /// según qué partes ya han sido colocadas.
-    /// Usa el punto medio entre dos RectTransform como posición de la línea
+    /// Actualiza posicion y visibilidad de las lineas de conexion
+    /// segun que partes ya han sido colocadas.
+    /// Usa el punto medio entre dos RectTransform como posicion de la linea
     /// y rota la imagen para apuntar de uno al otro.
     /// </summary>
     private void ActualizarConexiones()
@@ -242,6 +258,12 @@ public class MinijuegoPiernaController : MonoBehaviour
             ActualizarLinea(_data.lineaRodillaPie, _posicionRodilla, _posicionPie);
     }
 
+    /// <summary>
+    /// Posiciona, rota y redimensiona la imagen de linea para que conecte visualmente dos RectTransforms.
+    /// </summary>
+    /// <param name="linea">Imagen de linea a actualizar.</param>
+    /// <param name="desde">RectTransform de la parte origen.</param>
+    /// <param name="hasta">RectTransform de la parte destino.</param>
     private void ActualizarLinea(UnityEngine.UI.Image linea, RectTransform desde, RectTransform hasta)
     {
         if (linea == null || desde == null || hasta == null) return;
@@ -269,9 +291,11 @@ public class MinijuegoPiernaController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Reporte
 
+    /// <summary>
+    /// Espera el tiempo configurado, cierra el panel y reporta el resultado de postura a MisionesGlobal.
+    /// </summary>
     private IEnumerator EsperarYReportar()
     {
         DesactivarBotones();
@@ -287,6 +311,9 @@ public class MinijuegoPiernaController : MonoBehaviour
             Debug.LogWarning("[MinijuegoPiernaController] MisionesGlobal no encontrado al reportar.");
     }
 
+    /// <summary>
+    /// Desactiva la interaccion de todos los botones de celda sin opacar las imagenes ya colocadas.
+    /// </summary>
     private void DesactivarBotones()
     {
         foreach (CeldaCuadriculaData celda in _data.celdas)
@@ -310,6 +337,11 @@ public class MinijuegoPiernaController : MonoBehaviour
 
     #region Reporte
 
+    /// <summary>
+    /// Evalua la disposicion de las partes de la pierna en la cuadricula
+    /// y devuelve el codigo de postura: 1=parado, 2=sentado, 3=arrodillado, 0=no reconocida.
+    /// </summary>
+    /// <returns>Codigo de postura reconocida o 0 si no coincide con ninguna valida.</returns>
     private int EvaluarPostura()
     {
         // Obtener fila y columna de cada parte

@@ -1,15 +1,14 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Misión de postura parado.
+/// Mision de postura parado.
 /// Trigger detecta al jugador, muestra indicador de space,
-/// lanza diálogos, suscribe misión y maneja cinemática de éxito/fallo.
+/// lanza dialogos, suscribe mision y maneja cinematica de exito/fallo.
 /// </summary>
 public class MisionPosturaParado : MonoBehaviour
 {
-    // ── Referencias ────────────────────────────────────────────────
     [Header("Referencias")]
     [Tooltip("Sprite hijo que indica al jugador que presione space")]
     public GameObject indicadorSpace;
@@ -42,13 +41,11 @@ public class MisionPosturaParado : MonoBehaviour
     public float tiempoAntesSegundoBajada = 0.8f;
     public float tiempoEntreSwapFinalYSubida = 0.5f;
 
-    // ── Estado ────────────────────────────────────────────────────
     private bool _jugadorDentro = false;
     private bool _misionActiva = false;
     private JugadorData _jugadorData;
     private DialogoController _dialogoController;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -90,12 +87,11 @@ public class MisionPosturaParado : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Flujo de Misión
 
     /// <summary>
-    /// Espera un frame antes de abrir el diálogo para evitar que el mismo
-    /// Space que inicia la misión lo consuma el DialogoController.
+    /// Espera un frame antes de abrir el dialogo para evitar que el mismo
+    /// Space que inicia la mision lo consuma el DialogoController.
     /// </summary>
     private IEnumerator IniciarMisionSiguienteFrame()
     {
@@ -113,12 +109,17 @@ public class MisionPosturaParado : MonoBehaviour
         _dialogoController.Iniciar(dialogoInicial);
     }
 
+    /// <summary>Se llama al terminar el dialogo inicial; registra la mision de postura parado.</summary>
     private void AlTerminarDialogoInicial()
     {
         DialogoController.OnDialogoTerminado -= AlTerminarDialogoInicial;
         SuscribirMision();
     }
 
+    /// <summary>
+    /// Crea y asigna en MisionesGlobal una MisionPosicion que espera Postura=1 (parado).
+    /// Activa el pensamiento del jugador una vez registrada la mision.
+    /// </summary>
     private void SuscribirMision()
     {
         MisionPosicion mision = new MisionPosicion(
@@ -133,13 +134,13 @@ public class MisionPosturaParado : MonoBehaviour
         else
             Debug.LogError("[MisionPosturaParado] MisionesGlobal no encontrado.");
 
-        // Se activa DESPUÉS de que termina el diálogo inicial
+        // Se activa DESPUES de que termina el dialogo inicial
         if (pensamientoJugador != null)
             pensamientoJugador.SetActive(true);
     }
 
-    // ──────────────────────────────────────────────────────────────
 
+    /// <summary>Se llama cuando la postura elegida no es la correcta; muestra el dialogo de fallo.</summary>
     private void AlFallar()
     {
         if (pensamientoJugador != null)
@@ -149,6 +150,7 @@ public class MisionPosturaParado : MonoBehaviour
         _dialogoController.Iniciar(dialogoFallo);
     }
 
+    /// <summary>Se llama al terminar el dialogo de fallo; reactiva el movimiento para reintentar.</summary>
     private void AlTerminarDialogoFallo()
     {
         DialogoController.OnDialogoTerminado -= AlTerminarDialogoFallo;
@@ -159,8 +161,8 @@ public class MisionPosturaParado : MonoBehaviour
         _misionActiva = false;
     }
 
-    // ──────────────────────────────────────────────────────────────
 
+    /// <summary>Se llama cuando la postura elegida es correcta; muestra el dialogo de exito.</summary>
     private void AlAcertar()
     {
         if (pensamientoJugador != null)
@@ -170,6 +172,7 @@ public class MisionPosturaParado : MonoBehaviour
         _dialogoController.Iniciar(dialogoExito);
     }
 
+    /// <summary>Se llama al terminar el dialogo de exito; lanza la cinematica de cambio de sprites.</summary>
     private void AlTerminarDialogoExito()
     {
         DialogoController.OnDialogoTerminado -= AlTerminarDialogoExito;
@@ -178,7 +181,6 @@ public class MisionPosturaParado : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Cinemática
 
     private IEnumerator Cinematica()

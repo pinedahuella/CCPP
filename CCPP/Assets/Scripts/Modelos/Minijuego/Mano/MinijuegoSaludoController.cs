@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
 /// Controlador del minijuego de saludo de mano.
 /// Dos botones, uno correcto aleatorio, tiempo limitado con barra visual.
-/// Éxito → valor 1. Fallo → valor 0.
+/// Exito → valor 1. Fallo → valor 0.
 /// </summary>
 [RequireComponent(typeof(MinijuegoSaludoData))]
 public class MinijuegoSaludoController : MonoBehaviour
@@ -13,7 +13,6 @@ public class MinijuegoSaludoController : MonoBehaviour
     private bool _esperandoRespuesta = false;
     private float _tiempoRestante;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -37,9 +36,13 @@ public class MinijuegoSaludoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region API Pública
 
+    /// <summary>
+    /// Inicializa y abre el minijuego de saludo de mano.
+    /// Elige aleatoriamente el boton correcto, configura listeners y activa el panel.
+    /// Llamado desde MinijuegoManager cuando el jugador elige Saludo en el panel de mano.
+    /// </summary>
     public void Iniciar()
     {
         if (!ValidarReferencias()) return;
@@ -59,9 +62,9 @@ public class MinijuegoSaludoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Barra
 
+    /// <summary>Actualiza el ancho de la barra de tiempo proporcional al tiempo restante.</summary>
     private void ActualizarBarra()
     {
         if (_data.barraTiempo == null) return;
@@ -69,6 +72,7 @@ public class MinijuegoSaludoController : MonoBehaviour
         _data.barraTiempo.sizeDelta = new Vector2(_data.anchoBarraInicial * t, _data.barraTiempo.sizeDelta.y);
     }
 
+    /// <summary>Restaura la barra de tiempo a su ancho inicial al comenzar el minijuego.</summary>
     private void ResetearBarra()
     {
         if (_data.barraTiempo == null) return;
@@ -77,9 +81,12 @@ public class MinijuegoSaludoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Lógica
 
+    /// <summary>
+    /// Elige aleatoriamente cual boton (arriba o abajo) es el correcto y
+    /// reasigna las imagenes de manos para que la del otro personaje este en el boton correcto.
+    /// </summary>
     private void AsignarManoAleatoria()
     {
         _data.botonCorrectoEsArriba = Random.value > 0.5f;
@@ -94,6 +101,7 @@ public class MinijuegoSaludoController : MonoBehaviour
             _data.imagenManoJugador.transform.SetParent(padreIncorrecto, false);
     }
 
+    /// <summary>Asigna los listeners a los botones de arriba y abajo para detectar la eleccion del jugador.</summary>
     private void ConfigurarBotones()
     {
         LimpiarBotones();
@@ -101,6 +109,10 @@ public class MinijuegoSaludoController : MonoBehaviour
         if (_data.botonAbajo != null) _data.botonAbajo.onClick.AddListener(() => AlPresionar(false));
     }
 
+    /// <summary>
+    /// Compara el boton presionado con el boton correcto aleatorio y lanza la rutina de terminar.
+    /// </summary>
+    /// <param name="esArriba">True si el jugador presiono el boton de arriba.</param>
     private void AlPresionar(bool esArriba)
     {
         if (!_esperandoRespuesta) return;
@@ -108,6 +120,10 @@ public class MinijuegoSaludoController : MonoBehaviour
         StartCoroutine(Terminar(esArriba == _data.botonCorrectoEsArriba));
     }
 
+    /// <summary>
+    /// Muestra la imagen de exito si acierta, cierra el panel y reporta el resultado a MisionesGlobal con TipoAccion.Mano.
+    /// </summary>
+    /// <param name="acerto">True si el jugador presiono el boton correcto.</param>
     private IEnumerator Terminar(bool acerto)
     {
         LimpiarBotones();
@@ -135,27 +151,31 @@ public class MinijuegoSaludoController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Helpers
 
+    /// <summary>Resetea la bandera de espera y reactiva ambos botones antes de iniciar.</summary>
     private void LimpiarEstado()
     {
         _esperandoRespuesta = false;
         ReactivarBotones();
     }
 
+    /// <summary>Elimina todos los listeners de los botones arriba y abajo.</summary>
     private void LimpiarBotones()
     {
         if (_data.botonArriba != null) _data.botonArriba.onClick.RemoveAllListeners();
         if (_data.botonAbajo != null) _data.botonAbajo.onClick.RemoveAllListeners();
     }
 
+    /// <summary>Reactiva la visibilidad de ambos botones para el siguiente intento.</summary>
     private void ReactivarBotones()
     {
         if (_data.botonArriba != null) _data.botonArriba.gameObject.SetActive(true);
         if (_data.botonAbajo != null) _data.botonAbajo.gameObject.SetActive(true);
     }
 
+    /// <summary>Verifica que el panel y los dos botones esten asignados en el Inspector.</summary>
+    /// <returns>True si todas las referencias son validas.</returns>
     private bool ValidarReferencias()
     {
         if (_data.panelSaludo == null) { Debug.LogError("[MinijuegoSaludoController] panelSaludo no asignado."); return false; }

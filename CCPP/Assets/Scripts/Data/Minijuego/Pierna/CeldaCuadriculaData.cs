@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Datos de una celda de la cuadrícula del minijuego de pierna.
+/// Datos de una celda de la cuadricula del minijuego de pierna.
 /// MonoBehaviour, vive en cada uno de los 9 GameObjects de celda.
-/// Sin lógica, solo estado y referencias.
+/// Sin logica, solo estado y referencias.
 /// </summary>
 public class CeldaCuadriculaData : MonoBehaviour
 {
@@ -29,11 +29,14 @@ public class CeldaCuadriculaData : MonoBehaviour
     [Tooltip("Sprite por defecto de la celda cuando está vacía")]
     public Sprite spriteDefault;
 
-    // ──────────────────────────────────────────────────────────────
     #region API Pública
 
+    /// <summary>Devuelve true si hay alguna parte de pierna colocada en esta celda.</summary>
     public bool EstaOcupada => parteOcupante.HasValue;
 
+    /// <summary>
+    /// Vacia la celda: elimina la parte ocupante y restaura el sprite por defecto.
+    /// </summary>
     public void Limpiar()
     {
         parteOcupante = null;

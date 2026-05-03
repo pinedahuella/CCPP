@@ -7,24 +7,24 @@ using UnityEngine;
 [System.Serializable]
 public class EscenaMisa
 {
-    [Header("Identificación")]
+    [Header("Identificacion")]
     public string nombreEscena;
 
-    [Tooltip("Si es true muestra el título grande antes del diálogo inicial")]
+    [Tooltip("Si es true muestra el ttulo grande antes del dialogo inicial")]
     public bool mostrarTitulo;
     public string textoTitulo;
 
-    [Header("Diálogos")]
+    [Header("Dialogos")]
     public DialogoData dialogoInicial;
     public DialogoData dialogoExito;
     public DialogoData dialogoFallo;
 
-    [Header("Misión")]
+    [Header("Mision")]
     public TipoAccion tipoAccion;
     public int valorEsperado;
 
-    [Header("Música")]
-    [Tooltip("Si no es null cambia la música al iniciar esta escena")]
+    [Header("Msica")]
+    [Tooltip("Si no es null cambia la msica al iniciar esta escena")]
     public AudioClip musicaOpcional;
 
     [Header("Sacerdote")]

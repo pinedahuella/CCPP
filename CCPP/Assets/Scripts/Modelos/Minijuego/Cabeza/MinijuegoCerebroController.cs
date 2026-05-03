@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -12,7 +12,6 @@ public class MinijuegoCerebroController : MonoBehaviour
 {
     private MinijuegoCerebroData _data;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -31,9 +30,13 @@ public class MinijuegoCerebroController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region API Pública
 
+    /// <summary>
+    /// Inicializa y abre el minijuego de concentracion del cerebro.
+    /// Resetea el estado, configura los distractores y activa el panel.
+    /// Llamado desde MinijuegoManager cuando el jugador selecciona la parte Cabeza.
+    /// </summary>
     public void Iniciar()
     {
         if (!ValidarReferencias()) return;
@@ -44,15 +47,17 @@ public class MinijuegoCerebroController : MonoBehaviour
         _data.panelCerebro.SetActive(true);
         _data.minijuegoActivo = true;
 
-        // Alpha inicial del cerebro al máximo
+        // Alpha inicial del cerebro al maximo
         SetAlphaCerebro(1f);
     }
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Update Logic
 
+    /// <summary>
+    /// Incrementa el temporizador y comprueba si el jugador ha sobrevivido el tiempo necesario.
+    /// </summary>
     private void ActualizarTiempo()
     {
         _data.tiempoTranscurrido += Time.deltaTime;
@@ -65,6 +70,10 @@ public class MinijuegoCerebroController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reduce el alpha del cerebro cada frame y lo incrementa si el jugador presiona espacio.
+    /// Detecta fallo cuando el alpha llega a cero.
+    /// </summary>
     private void ActualizarCerebro()
     {
         // Perder alpha constantemente
@@ -90,6 +99,9 @@ public class MinijuegoCerebroController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Mueve cada distractor activo hacia el cerebro y detecta colision por distancia.
+    /// </summary>
     private void ActualizarDisstractores()
     {
         if (_data.distractores == null) return;
@@ -106,7 +118,7 @@ public class MinijuegoCerebroController : MonoBehaviour
             Vector2 direccion = (posCerebro - rect.anchoredPosition).normalized;
             rect.anchoredPosition += direccion * distractor.velocidadActual * Time.deltaTime;
 
-            // Detectar colisión por distancia
+            // Detectar colision por distancia
             float distancia = Vector2.Distance(rect.anchoredPosition, posCerebro);
             if (distancia <= _data.radioColision)
             {
@@ -120,9 +132,12 @@ public class MinijuegoCerebroController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Configuración
 
+    /// <summary>
+    /// Resetea y configura cada distractor con una velocidad aleatoria
+    /// y les asigna el listener de click para que reboten al ser presionados.
+    /// </summary>
     private void ConfigurarDisstractores()
     {
         if (_data.distractores == null) return;
@@ -131,8 +146,8 @@ public class MinijuegoCerebroController : MonoBehaviour
         {
             if (distractor == null) continue;
 
-            // SEGURO ADICIONAL: Si por alguna razón la posición es cero, 
-            // intentar capturarla de nuevo si sabemos que no debería ser el centro.
+            // SEGURO ADICIONAL: Si por alguna razon la posicion es cero, 
+            // intentar capturarla de nuevo si sabemos que no deberia ser el centro.
             if (distractor.posicionOriginal == Vector2.zero)
             {
                 distractor.posicionOriginal = distractor.GetComponent<RectTransform>().anchoredPosition;
@@ -141,7 +156,7 @@ public class MinijuegoCerebroController : MonoBehaviour
             float velocidad = Random.Range(_data.velocidadMin, _data.velocidadMax);
             distractor.Resetear(velocidad);
 
-            // Configurar botón
+            // Configurar boton
             distractor.boton.onClick.RemoveAllListeners();
             DistractorCerebro capturado = distractor;
             distractor.boton.onClick.AddListener(() =>
@@ -151,9 +166,12 @@ public class MinijuegoCerebroController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Terminar
 
+    /// <summary>
+    /// Cierra el panel y reporta el resultado a MisionesGlobal con TipoAccion.Cabeza.
+    /// </summary>
+    /// <param name="acerto">True si el jugador sobrevivio el tiempo; false si fallo.</param>
     private IEnumerator Terminar(bool acerto)
     {
         // Desactivar botones de distractores
@@ -178,15 +196,19 @@ public class MinijuegoCerebroController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Helpers
 
+    /// <summary>Resetea el temporizador y la bandera de minijuego activo al estado inicial.</summary>
     private void LimpiarEstado()
     {
         _data.tiempoTranscurrido = 0f;
         _data.minijuegoActivo = false;
     }
 
+    /// <summary>
+    /// Aplica directamente el valor de alpha a la imagen del cerebro.
+    /// </summary>
+    /// <param name="alpha">Valor de alpha a asignar (0 = invisible, 1 = opaco).</param>
     private void SetAlphaCerebro(float alpha)
     {
         Color c = _data.imagenCerebro.color;
@@ -194,6 +216,8 @@ public class MinijuegoCerebroController : MonoBehaviour
         _data.imagenCerebro.color = c;
     }
 
+    /// <summary>Verifica que el panel, la imagen del cerebro, el RectTransform y los 4 distractores esten asignados.</summary>
+    /// <returns>True si todas las referencias son validas.</returns>
     private bool ValidarReferencias()
     {
         if (_data.panelCerebro == null)

@@ -1,18 +1,17 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
 /// Controlador del minijuego de responder.
 /// 3 botones con respuesta correcta definida por int.
 /// Espacio transparenta ayuda pero acelera el tiempo.
-/// Éxito → valor 1. Fallo → valor 0.
+/// Exito → valor 1. Fallo → valor 0.
 /// </summary>
 [RequireComponent(typeof(MinijuegoResponderData))]
 public class MinijuegoResponderController : MonoBehaviour
 {
     private MinijuegoResponderData _data;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -30,9 +29,13 @@ public class MinijuegoResponderController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region API Pública
 
+    /// <summary>
+    /// Inicializa y abre el minijuego de responder preguntas sobre la misa.
+    /// Carga el contenido de la pregunta, configura botones y activa el panel.
+    /// Llamado desde MinijuegoManager cuando el jugador elige Responder en el panel de boca.
+    /// </summary>
     public void Iniciar()
     {
         if (!ValidarReferencias()) return;
@@ -48,9 +51,12 @@ public class MinijuegoResponderController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Update
 
+    /// <summary>
+    /// Reduce el tiempo restante aplicando el multiplicador de velocidad y actualiza el ancho de la barra.
+    /// Si el tiempo se agota, termina con fallo.
+    /// </summary>
     private void ActualizarBarra()
     {
         _data.tiempoRestante -= Time.deltaTime * _data.multiplicadorVelocidad;
@@ -67,6 +73,10 @@ public class MinijuegoResponderController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Detecta si el jugador presiona espacio para revelar parcialmente la ayuda
+    /// y acelera la barra como penalizacion.
+    /// </summary>
     private void DetectarAyuda()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -90,9 +100,9 @@ public class MinijuegoResponderController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Configuración
 
+    /// <summary>Aplica el texto de los botones y el texto de ayuda al estado actual del Data.</summary>
     private void ConfigurarContenido()
     {
         if (_data.textoBoton0 != null) _data.textoBoton0.text = _data.textoBotones[0];
@@ -103,6 +113,7 @@ public class MinijuegoResponderController : MonoBehaviour
             _data.textoAyuda.text = _data.textoAyudaContenido;
     }
 
+    /// <summary>Asigna los listeners de click a los tres botones de respuesta.</summary>
     private void ConfigurarBotones()
     {
         LimpiarBotones();
@@ -111,6 +122,7 @@ public class MinijuegoResponderController : MonoBehaviour
         if (_data.boton2 != null) _data.boton2.onClick.AddListener(() => AlResponder(2));
     }
 
+    /// <summary>Restaura el alpha de la imagen de ayuda a 1 (completamente opaca) al iniciar.</summary>
     private void ResetearAyuda()
     {
         if (_data.imagenAyuda != null)
@@ -123,9 +135,12 @@ public class MinijuegoResponderController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Lógica
 
+    /// <summary>
+    /// Compara el boton presionado con el indice de respuesta correcta y termina el minijuego.
+    /// </summary>
+    /// <param name="indice">Indice del boton presionado (0, 1 o 2).</param>
     private void AlResponder(int indice)
     {
         if (!_data.esperandoRespuesta) return;
@@ -141,6 +156,10 @@ public class MinijuegoResponderController : MonoBehaviour
         StartCoroutine(Terminar(correcto));
     }
 
+    /// <summary>
+    /// Cierra el panel y reporta el resultado a MisionesGlobal con TipoAccion.Boca.
+    /// </summary>
+    /// <param name="acerto">True si el jugador eligio la respuesta correcta.</param>
     private IEnumerator Terminar(bool acerto)
     {
         LimpiarBotones();
@@ -159,9 +178,9 @@ public class MinijuegoResponderController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Helpers
 
+    /// <summary>Resetea el tiempo restante, el multiplicador de velocidad y la barra al ancho inicial.</summary>
     private void LimpiarEstado()
     {
         _data.tiempoRestante = _data.tiempoLimite;
@@ -172,6 +191,7 @@ public class MinijuegoResponderController : MonoBehaviour
             _data.barraTiempo.sizeDelta = new Vector2(_data.anchoBarraInicial, _data.barraTiempo.sizeDelta.y);
     }
 
+    /// <summary>Elimina todos los listeners de los tres botones de respuesta.</summary>
     private void LimpiarBotones()
     {
         if (_data.boton0 != null) _data.boton0.onClick.RemoveAllListeners();
@@ -179,6 +199,8 @@ public class MinijuegoResponderController : MonoBehaviour
         if (_data.boton2 != null) _data.boton2.onClick.RemoveAllListeners();
     }
 
+    /// <summary>Verifica que el panel y la barra de tiempo esten asignados en el Inspector.</summary>
+    /// <returns>True si todas las referencias son validas.</returns>
     private bool ValidarReferencias()
     {
         if (_data.panelResponder == null)

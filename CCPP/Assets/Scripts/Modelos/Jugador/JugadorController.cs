@@ -1,18 +1,16 @@
-﻿using UnityEngine;
+using UnityEngine;
 /// <summary>
 /// Controlador de movimiento del jugador.
-/// Lee input en Update y aplica física en FixedUpdate.
+/// Lee input en Update y aplica fisica en FixedUpdate.
 /// Requiere: Rigidbody, JugadorData en el mismo GameObject.
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(JugadorData))]
 public class JugadorController : MonoBehaviour
 {
-    // ── Referencias ────────────────────────────────────────────────
     private JugadorData _data;
     private Rigidbody _rb;
 
-    // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
 
     private void Awake()
@@ -36,7 +34,6 @@ public class JugadorController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Inicialización
 
     private void ObtenerReferencias()
@@ -46,7 +43,7 @@ public class JugadorController : MonoBehaviour
     }
 
     /// <summary>
-    /// Congela rotación para que la física no tumbe al jugador.
+    /// Congela rotacion para que la fisica no tumbe al jugador.
     /// </summary>
     private void ConfigurarRigidbody()
     {
@@ -55,12 +52,11 @@ public class JugadorController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Input
 
     /// <summary>
-    /// Detecta WASD y almacena la dirección normalizada en el plano XZ.
-    /// Llamado en Update — no afecta la física directamente.
+    /// Detecta WASD y almacena la direccion normalizada en el plano XZ.
+    /// Llamado en Update — no afecta la fisica directamente.
     /// </summary>
     private void LeerInput()
     {
@@ -71,22 +67,21 @@ public class JugadorController : MonoBehaviour
 
     #endregion
 
-    // ──────────────────────────────────────────────────────────────
     #region Física
 
     /// <summary>
-    /// Mueve al jugador con aceleración y desaceleración suaves,
-    /// respetando la velocidad máxima sin importar los FPS.
+    /// Mueve al jugador con aceleracion y desaceleracion suaves,
+    /// respetando la velocidad maxima sin importar los FPS.
     ///
-    /// Por qué NO usamos AddForce aquí:
+    /// Por que NO usamos AddForce aqui:
     ///   AddForce acumula indefinidamente; para limitar la velocidad
     ///   hay que cancelar/ajustar la fuerza cada frame, lo que es
-    ///   equivalente (y más claro) a manejar la velocidad directamente.
+    ///   equivalente (y mas claro) a manejar la velocidad directamente.
     ///
-    /// Por qué es frame-rate independent:
-    ///   Todo el cálculo vive en FixedUpdate, que Unity llama a intervalos
+    /// Por que es frame-rate independent:
+    ///   Todo el calculo vive en FixedUpdate, que Unity llama a intervalos
     ///   fijos (Time.fixedDeltaTime). MoveTowards avanza la misma cantidad
-    ///   de unidades por segundo sin importar cuántos frames renders haya.
+    ///   de unidades por segundo sin importar cuantos frames renders haya.
     /// </summary>
     private void AplicarMovimiento()
     {
@@ -99,7 +94,7 @@ public class JugadorController : MonoBehaviour
 
         if (_data.direccionInput != Vector3.zero)
         {
-            // Hay input → acelerar hacia la dirección deseada
+            // Hay input → acelerar hacia la direccion deseada
             velObjetivo = _data.direccionInput * _data.velocidadMaxima;
             tasa = _data.aceleracion * Time.fixedDeltaTime;
         }
@@ -120,7 +115,7 @@ public class JugadorController : MonoBehaviour
 
         bool moviendose = _data.direccionInput != Vector3.zero;
 
-        // Animación
+        // Animacion
         _data.animador.Play(moviendose ? _data.animCaminando : _data.animQuieto);
 
         // Audio

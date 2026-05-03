@@ -2,18 +2,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Datos de una parte del cuerpo vinculada a un botón de la UI.
+/// Datos de una parte del cuerpo vinculada a un boton de la UI.
 /// MonoBehaviour para poder asignarse como componente en el Inspector.
-/// Solo datos, sin lógica.
+/// Solo datos, sin logica.
 /// </summary>
 public class ParteCuerpoData : MonoBehaviour
 {
-    [Tooltip("Qué parte del cuerpo representa este componente")]
+    [Tooltip("QuÃ© parte del cuerpo representa este componente")]
     public ParteCuerpo parte;
 
-    [Tooltip("Botón de la UI asociado a esta parte")]
+    [Tooltip("BotÃ³n de la UI asociado a esta parte")]
     public Button boton;
 
-    [Tooltip("Imagen del botón para feedback visual de bloqueado/desbloqueado")]
+    [Tooltip("Imagen del botÃ³n para feedback visual de bloqueado/desbloqueado")]
     public Image imagenBoton;
 }
