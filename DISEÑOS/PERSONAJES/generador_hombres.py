@@ -2,7 +2,7 @@ import sys, os
 sys.stdout.reconfigure(encoding='utf-8')
 from PIL import Image, ImageOps
 
-HOMBRES_DIR = r"C:\Users\memit\OneDrive - Universidad del Istmo\CCPP\DISEÑOS\PERSONAJES\HOMBRES"
+HOMBRES_DIR = r"C:\Users\memit\OneDrive - Universidad del Istmo\CCPP\DISEÑOS\PERSONAJES"
 HOMBRE1_DIR = os.path.join(HOMBRES_DIR, "HOMBRE1")
 W, H = 18, 25
 
@@ -718,4 +718,196 @@ Generacion completa — 49 frames por personaje
   F48     dar la paz de espaldas (brazo derecho)
   F49     levantar manos de espaldas
 Personajes procesados: HOMBRE1-HOMBRE9
+===============================================================""")
+
+# ==============================================================================
+# MUJER1 — mismo generador que HOMBRES, pelo largo y colores femeninos
+# ==============================================================================
+PERSONAJES_DIR  = r"C:\Users\memit\OneDrive - Universidad del Istmo\CCPP\DISEÑOS\PERSONAJES"
+HOMBRE1_SRC_DIR = os.path.join(PERSONAJES_DIR, "HOMBRE1")
+MUJER1_DIR      = os.path.join(PERSONAJES_DIR, "MUJER1")
+os.makedirs(MUJER1_DIR, exist_ok=True)
+
+# ── Pelo largo mujer: marron calido ───────────────────────────────────────────
+MH1 = (0x1C, 0x08, 0x02, 255)   # shadow muy oscuro
+MH2 = (0x48, 0x22, 0x08, 255)   # base marron
+MH3 = (0x80, 0x46, 0x16, 255)   # luz marron/caoba
+
+# Top igual al hombre (dy0-dy7) + lados largos que bajan por la cara (dy8-dy13)
+HAIR_MAP_MUJER = [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],  # dy0
+    [0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0],  # dy1: tope
+    [0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0],  # dy2
+    [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0],  # dy3
+    [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0],  # dy4
+    [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],  # dy5
+    [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],  # dy6
+    [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0],  # dy7 hairline
+    [0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],  # dy8  pelo largo: solo lados
+    [0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],  # dy9
+    [0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],  # dy10
+    [0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],  # dy11
+    [0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],  # dy12
+    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],  # dy13 termina al hombro
+]
+
+def hair_color_mujer(x, dy):
+    hard_edge = x <= 1 or x >= 16
+    vert_side  = (x <= 2 or x >= 14) and dy >= 2
+    soft_edge  = x <= 3 or x >= 14
+    if dy >= 8:               return MH1   # lados largos siempre sombra
+    if hard_edge:             return MH1
+    if vert_side:             return MH1
+    if dy >= 4 and soft_edge: return MH1
+    if dy == 1:               return MH3   # tope = luz
+    return MH2
+
+# ── Camisa/vestido rosa — mapea los rojos de HOMBRE1 a rosas ─────────────────
+FAJA_MAP_M = {
+    (0xF2,0x31,0x17,255): (0xF0,0x78,0xA0,255),   # rojo vivo  → rosa medio
+    (0xF2,0x2B,0x13,255): (0xE8,0x6C,0x94,255),
+    (0xF1,0x32,0x13,255): (0xEC,0x74,0x9C,255),
+    (0xD9,0x2B,0x14,255): (0xCE,0x58,0x80,255),   # rojo oscuro → rosa oscuro
+    (0xAA,0x20,0x0F,255): (0xA8,0x3C,0x64,255),   # borgoña → rosa profundo
+    (0xC7,0x28,0x12,255): (0xBC,0x4C,0x74,255),
+    (0xF1,0x32,0x17,255): (0xF0,0x78,0xA0,255),
+    (0xF2,0x31,0x13,255): (0xEE,0x76,0x9E,255),
+}
+
+# ── Zapatos color vino/morado femenino ────────────────────────────────────────
+SHOE_MAP_M = {
+    (0x9B,0x09,0x08,255): (0x50,0x18,0x38,255),
+    (0xF2,0x2B,0x13,255): (0x80,0x28,0x58,255),
+    (0x7B,0x07,0x05,255): (0x3C,0x10,0x2C,255),
+    (0xB6,0x10,0x11,255): (0x60,0x20,0x44,255),
+    (0x72,0x07,0x05,255): (0x38,0x0E,0x28,255),
+    (0x61,0x06,0x04,255): (0x30,0x0C,0x22,255),
+    (0x70,0x07,0x05,255): (0x36,0x0E,0x28,255),
+    (0x81,0x07,0x05,255): (0x40,0x12,0x2E,255),
+    (0x61,0x04,0x04,255): (0x30,0x0C,0x22,255),
+    (0xAA,0x20,0x0F,255): (0x5C,0x1C,0x40,255),
+}
+
+def make_mujer(src_img):
+    """Recolorea un frame de HOMBRE1 fuente para MUJER1."""
+    img = src_img.copy()
+    hy0 = 1 if is_shifted(src_img) else 0
+
+    # Guardar ojos
+    eye_pixels = {}
+    for dy in range(10):
+        y = hy0 + dy
+        if y >= H: break
+        for x in range(W):
+            r, g, b, a = src_img.getpixel((x, y))
+            if is_eye(r, g, b, a):
+                eye_pixels[(x, y)] = (r, g, b, a)
+
+    # Borrar pelo fuente (solo primeras 10 filas donde esta el pelo marron)
+    for dy in range(10):
+        y = hy0 + dy
+        if y >= H: break
+        for x in range(W):
+            r, g, b, a = src_img.getpixel((x, y))
+            if is_hair_src(r, g, b, a):
+                img.putpixel((x, y), (0, 0, 0, 0))
+
+    # Dibujar pelo largo segun HAIR_MAP_MUJER
+    for dy in range(len(HAIR_MAP_MUJER)):
+        y = hy0 + dy
+        if y >= H: break
+        for x in range(W):
+            if HAIR_MAP_MUJER[dy][x] == 1:
+                img.putpixel((x, y), hair_color_mujer(x, dy))
+
+    # Restaurar ojos
+    for (x, y), c in eye_pixels.items():
+        img.putpixel((x, y), c)
+
+    # Camisa rosa y zapatos vino
+    for y in range(H):
+        for x in range(W):
+            r, g, b, a = src_img.getpixel((x, y))
+            if a == 0: continue
+            if x == 0 or x == 17: continue
+            if is_shoe(r, g, b, a):
+                img.putpixel((x, y), SHOE_MAP_M.get((r,g,b,a), (0x40,0x14,0x30,255)))
+            elif is_faja(r, g, b, a):
+                img.putpixel((x, y), FAJA_MAP_M.get((r,g,b,a), (0xD0,0x60,0x88,255)))
+
+    return img
+
+def make_back_mujer(src_img, s1m, s2m):
+    """Vista de espaldas con pelo largo para MUJER1."""
+    img = ImageOps.mirror(src_img).copy()
+    head_px = set()
+    for y in range(20):
+        for x in range(W):
+            if img.getpixel((x, y))[3] > 0:
+                head_px.add((x, y))
+    for y in range(20):
+        for x in range(W):
+            img.putpixel((x, y), (0, 0, 0, 0))
+    for (x, y) in head_px:
+        if y <= 7:
+            if x == 0 or x >= 16: continue
+            if x <= 1 or x >= 15:   c = MH1
+            elif x <= 3 or x >= 14: c = MH2
+            else:                   c = MH3 if y <= 2 else MH2
+            img.putpixel((x, y), c)
+        elif y <= 11:
+            if x == 0 or x >= 16: continue
+            img.putpixel((x, y), MH1 if (x <= 2 or x >= 15) else MH2)
+        elif y <= 13:
+            # Pelo largo: nuca cae por los lados hasta y=13
+            if x <= 2 or (14 <= x <= 15):
+                img.putpixel((x, y), MH1)
+            elif 3 <= x <= 4 or 13 <= x <= 14:
+                img.putpixel((x, y), SKND)
+            else:
+                img.putpixel((x, y), SKIN if y == 12 else SKNS)
+        elif y <= 14:
+            if x <= 3 or x >= 14: c = SKND
+            else:                 c = SKNS if y == 12 else SKIN
+            img.putpixel((x, y), c)
+        else:
+            if x == 0 or x == 17: continue
+            img.putpixel((x, y), s1m if (x <= 4 or x >= 13) else s2m)
+    return img
+
+# ── Generar F1-F8 MUJER1 ──────────────────────────────────────────────────────
+print("\n=== MUJER1 (pelo largo, camisa rosa, zapatos vino) ===")
+for i in range(1, 9):
+    src = Image.open(os.path.join(HOMBRE1_SRC_DIR, f"FRAME{i}.png")).convert("RGBA")
+    make_mujer(src).save(os.path.join(MUJER1_DIR, f"FRAME{i}.png"))
+    print(f"  F{i} walk")
+
+f1m = Image.open(os.path.join(MUJER1_DIR, "FRAME1.png")).convert("RGBA")
+s1m, s2m, s3m = detect_body_shades(f1m)
+gen_animations(MUJER1_DIR, f1m, MH1, MH2, MH3, s1m, s2m, s3m)
+print("  F9-F49 animaciones")
+
+# ── Regenerar vistas de espaldas con pelo largo ───────────────────────────────
+for i in range(1, 6):
+    p = os.path.join(MUJER1_DIR, f"FRAME{i}.png")
+    if not os.path.exists(p): continue
+    src = Image.open(p).convert("RGBA")
+    make_back_mujer(src, s1m, s2m).save(os.path.join(MUJER1_DIR, f"FRAME{27+i}.png"))
+
+make_back_mujer(f1m, s1m, s2m).save(os.path.join(MUJER1_DIR, "FRAME33.png"))
+
+f34m = make_back_mujer(f1m, s1m, s2m)
+for x in range(W):
+    for y in range(19, H):
+        f34m.putpixel((x, y), (0, 0, 0, 0))
+f34m.save(os.path.join(MUJER1_DIR, "FRAME34.png"))
+
+print("  F28-F34 espaldas con pelo largo regenerados")
+print(f"  Cuerpo detectado: s1={s1m[:3]} s2={s2m[:3]}")
+print("""
+===============================================================
+MUJER1 completa — mismos 49 frames que hombres
+  Pelo largo marron calido (baja hasta hombros en lados)
+  Camisa/vestido rosa
+  Zapatos vino/morado
 ===============================================================""")
