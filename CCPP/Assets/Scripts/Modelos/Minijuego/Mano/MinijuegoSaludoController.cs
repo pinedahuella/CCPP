@@ -3,7 +3,7 @@ using System.Collections;
 
 /// <summary>
 /// Controlador del minijuego de saludo de mano.
-/// Dos botones, uno correcto aleatorio, tiempo limitado.
+/// Dos botones, uno correcto aleatorio, tiempo limitado con barra visual.
 /// Éxito → valor 1. Fallo → valor 0.
 /// </summary>
 [RequireComponent(typeof(MinijuegoSaludoData))]
@@ -26,6 +26,8 @@ public class MinijuegoSaludoController : MonoBehaviour
         if (!_esperandoRespuesta) return;
 
         _tiempoRestante -= Time.deltaTime;
+        ActualizarBarra();
+
         if (_tiempoRestante <= 0f)
         {
             _esperandoRespuesta = false;
@@ -45,6 +47,7 @@ public class MinijuegoSaludoController : MonoBehaviour
         LimpiarEstado();
         AsignarManoAleatoria();
         ConfigurarBotones();
+        ResetearBarra();
 
         if (_data.imagenExito != null)
             _data.imagenExito.SetActive(false);
@@ -57,22 +60,35 @@ public class MinijuegoSaludoController : MonoBehaviour
     #endregion
 
     // ──────────────────────────────────────────────────────────────
+    #region Barra
+
+    private void ActualizarBarra()
+    {
+        if (_data.barraTiempo == null) return;
+        float t = Mathf.Clamp01(_tiempoRestante / _data.tiempoLimite);
+        _data.barraTiempo.sizeDelta = new Vector2(_data.anchoBarraInicial * t, _data.barraTiempo.sizeDelta.y);
+    }
+
+    private void ResetearBarra()
+    {
+        if (_data.barraTiempo == null) return;
+        _data.barraTiempo.sizeDelta = new Vector2(_data.anchoBarraInicial, _data.barraTiempo.sizeDelta.y);
+    }
+
+    #endregion
+
+    // ──────────────────────────────────────────────────────────────
     #region Lógica
 
     private void AsignarManoAleatoria()
     {
         _data.botonCorrectoEsArriba = Random.value > 0.5f;
 
-        Transform padreCorrect = _data.botonCorrectoEsArriba
-            ? _data.botonArriba.transform
-            : _data.botonAbajo.transform;
-
-        Transform padreIncorrecto = _data.botonCorrectoEsArriba
-            ? _data.botonAbajo.transform
-            : _data.botonArriba.transform;
+        Transform padreCorrecto = _data.botonCorrectoEsArriba ? _data.botonArriba.transform : _data.botonAbajo.transform;
+        Transform padreIncorrecto = _data.botonCorrectoEsArriba ? _data.botonAbajo.transform : _data.botonArriba.transform;
 
         if (_data.imagenManoOtro != null)
-            _data.imagenManoOtro.transform.SetParent(padreCorrect, false);
+            _data.imagenManoOtro.transform.SetParent(padreCorrecto, false);
 
         if (_data.imagenManoJugador != null)
             _data.imagenManoJugador.transform.SetParent(padreIncorrecto, false);
@@ -81,21 +97,15 @@ public class MinijuegoSaludoController : MonoBehaviour
     private void ConfigurarBotones()
     {
         LimpiarBotones();
-
-        if (_data.botonArriba != null)
-            _data.botonArriba.onClick.AddListener(() => AlPresionar(true));
-
-        if (_data.botonAbajo != null)
-            _data.botonAbajo.onClick.AddListener(() => AlPresionar(false));
+        if (_data.botonArriba != null) _data.botonArriba.onClick.AddListener(() => AlPresionar(true));
+        if (_data.botonAbajo != null) _data.botonAbajo.onClick.AddListener(() => AlPresionar(false));
     }
 
     private void AlPresionar(bool esArriba)
     {
         if (!_esperandoRespuesta) return;
         _esperandoRespuesta = false;
-
-        bool acerto = esArriba == _data.botonCorrectoEsArriba;
-        StartCoroutine(Terminar(acerto));
+        StartCoroutine(Terminar(esArriba == _data.botonCorrectoEsArriba));
     }
 
     private IEnumerator Terminar(bool acerto)
@@ -104,25 +114,17 @@ public class MinijuegoSaludoController : MonoBehaviour
 
         if (acerto)
         {
-            // Ocultar botones y mostrar imagen de éxito
             _data.botonArriba.gameObject.SetActive(false);
             _data.botonAbajo.gameObject.SetActive(false);
-
-            if (_data.imagenExito != null)
-                _data.imagenExito.SetActive(true);
-
+            if (_data.imagenExito != null) _data.imagenExito.SetActive(true);
             yield return new WaitForSeconds(_data.tiempoExito);
         }
 
         _data.panelSaludo.SetActive(false);
         ReactivarBotones();
-        Reportar(acerto ? 1 : 0);
-    }
 
-    private void Reportar(int valor)
-    {
-        string descripcion = valor == 1 ? "Éxito - Saludo correcto" : "Fallo - Saludo incorrecto";
-        Debug.Log($"[MinijuegoSaludo] {descripcion} → TipoAccion.Mano valor={valor}");
+        int valor = acerto ? 1 : 0;
+        Debug.Log($"[MinijuegoSaludo] {(acerto ? "Éxito" : "Fallo")} → TipoAccion.Mano valor={valor}");
 
         AccionResultado resultado = new AccionResultado(TipoAccion.Mano, valor);
         if (MisionesGlobal.Instancia != null)
@@ -156,16 +158,8 @@ public class MinijuegoSaludoController : MonoBehaviour
 
     private bool ValidarReferencias()
     {
-        if (_data.panelSaludo == null)
-        {
-            Debug.LogError("[MinijuegoSaludoController] panelSaludo no asignado.");
-            return false;
-        }
-        if (_data.botonArriba == null || _data.botonAbajo == null)
-        {
-            Debug.LogError("[MinijuegoSaludoController] Botones no asignados.");
-            return false;
-        }
+        if (_data.panelSaludo == null) { Debug.LogError("[MinijuegoSaludoController] panelSaludo no asignado."); return false; }
+        if (_data.botonArriba == null || _data.botonAbajo == null) { Debug.LogError("[MinijuegoSaludoController] Botones no asignados."); return false; }
         return true;
     }
 

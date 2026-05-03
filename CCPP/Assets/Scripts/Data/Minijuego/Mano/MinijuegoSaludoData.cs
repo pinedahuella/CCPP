@@ -21,17 +21,18 @@ public class MinijuegoSaludoData : MonoBehaviour
     public Image imagenManoJugador;
 
     [Header("Imagen de éxito")]
-    [Tooltip("Imagen de dos manos dándose, aparece al acertar")]
     public GameObject imagenExito;
 
-    [Header("Configuración")]
-    [Tooltip("Segundos para completar el saludo")]
-    public float tiempoLimite = 3f;
+    [Header("Barra de tiempo")]
+    [Tooltip("RectTransform de la barra que se acorta con el tiempo")]
+    public RectTransform barraTiempo;
+    [Tooltip("Ancho inicial de la barra en píxeles")]
+    public float anchoBarraInicial = 400f;
 
-    [Tooltip("Segundos que se muestra la imagen de éxito antes de cerrar")]
+    [Header("Configuración")]
+    public float tiempoLimite = 3f;
     public float tiempoExito = 1.2f;
 
     // ── Estado ────────────────────────────────────────────────────
-    [HideInInspector]
-    public bool botonCorrectoEsArriba;
+    [HideInInspector] public bool botonCorrectoEsArriba;
 }
