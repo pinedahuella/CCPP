@@ -1148,6 +1148,81 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30, y: 3, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &15048814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 15048815}
+  - component: {fileID: 15048817}
+  - component: {fileID: 15048816}
+  m_Layer: 5
+  m_Name: Imagen orden (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &15048815
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15048814}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 4.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 963292791}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &15048816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15048814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0.089374304, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &15048817
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15048814}
+  m_CullTransparentMesh: 1
 --- !u!1 &18709719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,6 +2028,13 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1901264828}
+  - {fileID: 352057255}
+  - {fileID: 1952476676}
+  - {fileID: 1248860472}
+  - {fileID: 509346275}
+  - {fileID: 115815688}
+  - {fileID: 1385692846}
+  - {fileID: 708906836}
   m_Father: {fileID: 1996456875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &38640763
@@ -3913,6 +3995,213 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &85975271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 85975272}
+  - component: {fileID: 85975276}
+  - component: {fileID: 85975275}
+  - component: {fileID: 85975274}
+  - component: {fileID: 85975273}
+  m_Layer: 5
+  m_Name: Video
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &85975272
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85975271}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 8.756276, y: 4.5357904, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 963292791}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!82 &85975273
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85975271}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!328 &85975274
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85975271}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: a10a2c2561f5ca34c8bcfae8003e09e4, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: eecfd0a4876c33c49a513018c3814e88, type: 2}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 2
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_TimeUpdateMode: 2
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 0
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
+--- !u!114 &85975275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85975271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 8400000, guid: eecfd0a4876c33c49a513018c3814e88, type: 2}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &85975276
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85975271}
+  m_CullTransparentMesh: 1
 --- !u!1 &86113536
 GameObject:
   m_ObjectHideFlags: 0
@@ -4905,6 +5194,60 @@ Transform:
   - {fileID: 1352567341}
   m_Father: {fileID: 1996456875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &115815687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 115815688}
+  - component: {fileID: 115815689}
+  m_Layer: 0
+  m_Name: respuestas  13
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &115815688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115815687}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -158.6848, y: 2.82974, z: -5.9937797}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 37627854}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &115815689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115815687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3676e89fd77dee94b887e78cd9ed37b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 794230844}
+  tiempoLimite: 10
+  anchoBarraInicial: 100
+  alphaAyudaPorEspacio: 0.05
+  aceleracionBarraPorEspacio: 1.5
+  indiceRespuestaCorrecta: 1
+  textoBoton0: "\xABY con tu esp\xEDritu\xBB"
+  textoBoton1: "\xABBendito seas por siempre, Se\xF1or\xBB"
+  textoBoton2: "\xABGloria a ti, Se\xF1or Jes\xFAs\xBB"
+  textoAyudaContenido: "\xABBendito seas por siempre, Se\xF1or\xBB"
 --- !u!1 &117649627
 GameObject:
   m_ObjectHideFlags: 0
@@ -8944,6 +9287,93 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &228956901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 228956903}
+  - component: {fileID: 228956902}
+  m_Layer: 0
+  m_Name: Hombre11_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &228956902
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228956901}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 33bc6af3222ea6c4ebe86f16cc81d2e9, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 9141604764496785390, guid: b46e27d6284e1ec4db38eae0004f6b6a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.8, y: 2.5}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &228956903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228956901}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 155.31, y: 1.86, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &232167458
 GameObject:
   m_ObjectHideFlags: 0
@@ -12007,7 +12437,7 @@ Transform:
   m_GameObject: {fileID: 319266054}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.76, y: 0.51, z: -3.3}
+  m_LocalPosition: {x: 0.76, y: 0.51, z: -6.336}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13599,6 +14029,57 @@ MonoBehaviour:
   tiempoSobrevivir: 15
   tiempoTranscurrido: 0
   minijuegoActivo: 0
+--- !u!1 &352057254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 352057255}
+  - component: {fileID: 352057256}
+  m_Layer: 0
+  m_Name: pecho (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &352057255
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352057254}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -158.6848, y: 2.82974, z: -5.9937797}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 37627854}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &352057256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352057254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b36f99b11bdc9045998836d5135f9e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 6035018}
+  rondasTotales: 3
+  velocidadMin: 200
+  velocidadMax: 300
+  margenAcierto: 60
+  tamanoInicial: 400
+  tamanoCorazon: 100
 --- !u!1 &357494414
 GameObject:
   m_ObjectHideFlags: 0
@@ -13712,7 +14193,7 @@ Transform:
   m_GameObject: {fileID: 358250785}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.25, y: 0.62, z: -1.4650002}
+  m_LocalPosition: {x: 4.6, y: 0.62, z: -1.4650002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19672,6 +20153,60 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &509346274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 509346275}
+  - component: {fileID: 509346276}
+  m_Layer: 0
+  m_Name: respuestas 9
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &509346275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509346274}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -158.6848, y: 2.82974, z: -5.9937797}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 37627854}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &509346276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509346274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3676e89fd77dee94b887e78cd9ed37b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 794230844}
+  tiempoLimite: 10
+  anchoBarraInicial: 100
+  alphaAyudaPorEspacio: 0.05
+  aceleracionBarraPorEspacio: 1.5
+  indiceRespuestaCorrecta: 2
+  textoBoton0: "\xABY con tu esp\xEDritu\xBB"
+  textoBoton1: "\xABAm\xE9n\xBB"
+  textoBoton2: "\xABGloria a ti, Se\xF1or Jes\xFAs\xBB"
+  textoAyudaContenido: "\xABGloria a ti, Se\xF1or Jes\xFAs\xBB"
 --- !u!1 &509936285
 GameObject:
   m_ObjectHideFlags: 0
@@ -22197,7 +22732,7 @@ Transform:
   m_GameObject: {fileID: 582509513}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.25, y: 0.62, z: -1.4650002}
+  m_LocalPosition: {x: 4.73, y: 0.62, z: -1.4650002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27410,6 +27945,60 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30, y: 3, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &708906835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 708906836}
+  - component: {fileID: 708906837}
+  m_Layer: 0
+  m_Name: respuestas  18
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &708906836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708906835}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -158.6848, y: 2.82974, z: -5.9937797}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 37627854}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &708906837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708906835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3676e89fd77dee94b887e78cd9ed37b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 794230844}
+  tiempoLimite: 10
+  anchoBarraInicial: 100
+  alphaAyudaPorEspacio: 0.05
+  aceleracionBarraPorEspacio: 1.5
+  indiceRespuestaCorrecta: 0
+  textoBoton0: "\xABAnunciamos tu muerte\u2026\xBB"
+  textoBoton1: "\xABBendito seas por siempre, Se\xF1or\xBB"
+  textoBoton2: "\xABLo tenemos levantado hacia el Se\xF1or\xBB"
+  textoAyudaContenido: "\xABAnunciamos tu muerte\u2026\xBB"
 --- !u!1 &709804558
 GameObject:
   m_ObjectHideFlags: 0
@@ -35547,6 +36136,88 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 960355259}
   m_CullTransparentMesh: 1
+--- !u!1 &963292790
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 963292791}
+  - component: {fileID: 963292793}
+  - component: {fileID: 963292792}
+  m_Layer: 5
+  m_Name: Imagenes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &963292791
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963292790}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9338082, y: 1.0057418, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2047307854}
+  - {fileID: 15048815}
+  - {fileID: 2134231207}
+  - {fileID: 1439883141}
+  - {fileID: 85975272}
+  - {fileID: 1021864183}
+  - {fileID: 1139579859}
+  m_Father: {fileID: 1086219734}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 868.5, y: 450}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &963292792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963292790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 5611604983501159943, guid: 117435a958a2df84bb25ef1597c4fef1, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &963292793
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963292790}
+  m_CullTransparentMesh: 0
 --- !u!1 &967327478
 GameObject:
   m_ObjectHideFlags: 0
@@ -37221,6 +37892,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1021864182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1021864183}
+  - component: {fileID: 1021864185}
+  - component: {fileID: 1021864184}
+  m_Layer: 5
+  m_Name: Gracias
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1021864183
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021864182}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 963292791}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 868.5, y: 450}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1021864184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021864182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8352941, g: 0.8352941, b: 0.8352941, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -4446722438092769108, guid: 020d3aef1d38ba74796d873f3365127f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1021864185
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021864182}
+  m_CullTransparentMesh: 0
 --- !u!1 &1022409044
 GameObject:
   m_ObjectHideFlags: 0
@@ -39258,6 +40004,7 @@ RectTransform:
   - {fileID: 1230233345}
   - {fileID: 111453609}
   - {fileID: 2108087861}
+  - {fileID: 963292791}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -41667,6 +42414,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137352282}
   m_CullTransparentMesh: 1
+--- !u!1 &1139579858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1139579859}
+  - component: {fileID: 1139579861}
+  - component: {fileID: 1139579860}
+  m_Layer: 5
+  m_Name: Tapa
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1139579859
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139579858}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 8.7897, y: 5.0162, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 963292791}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1139579860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139579858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1139579861
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139579858}
+  m_CullTransparentMesh: 1
 --- !u!1 &1140214223
 GameObject:
   m_ObjectHideFlags: 0
@@ -43683,7 +44505,7 @@ Transform:
   m_GameObject: {fileID: 1192010106}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.85, y: 0.62, z: -1.4650002}
+  m_LocalPosition: {x: 3.521, y: 0.62, z: 1.702}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44998,7 +45820,7 @@ Transform:
   m_GameObject: {fileID: 1214212445}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.85, y: 0.62, z: -1.4650002}
+  m_LocalPosition: {x: 3.24, y: 0.62, z: 1.699}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46901,6 +47723,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1248860471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1248860472}
+  - component: {fileID: 1248860473}
+  m_Layer: 0
+  m_Name: senial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1248860472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248860471}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -158.6848, y: 2.82974, z: -5.9937797}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 37627854}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1248860473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248860471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d6a8c387f16004b84f089c84d20710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 843676590}
+  tiempoLimite: 7
+  anchoBarraInicial: 100
+  esCompleja: 1
 --- !u!1 &1255256290
 GameObject:
   m_ObjectHideFlags: 0
@@ -49229,7 +50099,7 @@ Transform:
   m_GameObject: {fileID: 1322612234}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.85, y: 0.62, z: -1.4650002}
+  m_LocalPosition: {x: 3.34, y: 0.62, z: 1.701}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50651,7 +51521,7 @@ Transform:
   m_GameObject: {fileID: 1352567340}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.25, y: 0.62, z: -1.4650002}
+  m_LocalPosition: {x: 4.61, y: 0.62, z: -1.4650002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -52119,6 +52989,60 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1385692845
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1385692846}
+  - component: {fileID: 1385692847}
+  m_Layer: 0
+  m_Name: respuestas  14
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1385692846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385692845}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -158.6848, y: 2.82974, z: -5.9937797}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 37627854}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1385692847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385692845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3676e89fd77dee94b887e78cd9ed37b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 794230844}
+  tiempoLimite: 10
+  anchoBarraInicial: 100
+  alphaAyudaPorEspacio: 0.05
+  aceleracionBarraPorEspacio: 1.5
+  indiceRespuestaCorrecta: 2
+  textoBoton0: "\xABY con tu esp\xEDritu\xBB"
+  textoBoton1: "\xABBendito seas por siempre, Se\xF1or\xBB"
+  textoBoton2: "\xABLo tenemos levantado hacia el Se\xF1or\xBB"
+  textoAyudaContenido: "\xABLo tenemos levantado hacia el Se\xF1or\xBB"
 --- !u!1 &1385771152
 GameObject:
   m_ObjectHideFlags: 0
@@ -52446,7 +53370,7 @@ MonoBehaviour:
   textoTitulo: {fileID: 580733511}
   pensamientoJugador: {fileID: 1784196175}
   indicadorSpace: {fileID: 967327478}
-  objetoGanar: {fileID: 0}
+  objetoGanar: {fileID: 1749754117}
   escenas:
   - nombreEscena: primera scena
     mostrarTitulo: 1
@@ -52474,11 +53398,13 @@ MonoBehaviour:
     puntoDestino: {fileID: 1666989174}
     velocidadSacerdote: 2
     activar:
-    - {fileID: 111453608}
     - {fileID: 319266054}
     - {fileID: 111724890}
     desactivar:
     - {fileID: 620883537}
+    - {fileID: 1774634070}
+    - {fileID: 2098763017}
+    - {fileID: 873295069}
     visualesJugador: []
   - nombreEscena: 2
     mostrarTitulo: 0
@@ -52550,6 +53476,547 @@ MonoBehaviour:
     - {fileID: 1901264826}
     desactivar: []
     visualesJugador: []
+  - nombreEscena: 4
+    mostrarTitulo: 1
+    textoTitulo: Acto penitencial
+    dialogoInicial:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Es momento de reconocer nuestros errores'
+        imagen: {fileID: -1094836114, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: Reconozcamos nuestros pecados
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+      - texto: "Atenci\xF3n"
+        imagen: {fileID: 0}
+        esIzquierda: 0
+      - texto: 'Susurrando en voz muy baja: Guardamos silencio para reflexionar'
+        imagen: {fileID: -1094836114, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: "Por mi culpa\u2026"
+        imagen: {fileID: 0}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Este gesto muestra arrepentimiento'
+        imagen: {fileID: -1094836114, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Deb\xEDas golpearte el pecho al decir
+          \u201Cpor mi culpa\u201D"
+        imagen: {fileID: -1094836114, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 2
+    valorEsperado: 1
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 352057254}
+    desactivar: []
+    visualesJugador: []
+  - nombreEscena: 5
+    mostrarTitulo: 1
+    textoTitulo: Gloria
+    dialogoInicial:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Ahora cantamos el Gloria'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Es un canto de alabanza a Dios'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Deb\xEDas cantar con nosotros"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 4
+    valorEsperado: 2
+    musicaOpcional: {fileID: 8300000, guid: 1d74c2cd35bcdad4988cdf8f03208d25, type: 3}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 352057254}
+    - {fileID: 1952476675}
+    desactivar: []
+    visualesJugador: []
+  - nombreEscena: 5
+    mostrarTitulo: 1
+    textoTitulo: LITURGIA DE LA PALABRA
+    dialogoInicial:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Para escuchar, nos sentamos'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: Palabra de Dios
+        imagen: {fileID: -6821045909079175665, guid: b46e27d6284e1ec4db38eae0004f6b6a, type: 3}
+        esIzquierda: 0
+      - texto: "Te alabamos, Se\xF1or"
+        imagen: {fileID: 0}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Para escuchar debes sentarte'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 0
+    valorEsperado: 2
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 620883537}
+    desactivar:
+    - {fileID: 111724890}
+    visualesJugador: []
+  - nombreEscena: 6
+    mostrarTitulo: 1
+    textoTitulo: Evangelio
+    dialogoInicial:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: El Evangelio se escucha de pie'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: ahora a escuchar y responder'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Para escuchar debes ponerte de pie'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 0
+    valorEsperado: 1
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 319266054}
+    - {fileID: 111724890}
+    desactivar:
+    - {fileID: 2098763017}
+    - {fileID: 620883537}
+    visualesJugador: []
+  - nombreEscena: 7
+    mostrarTitulo: 0
+    textoTitulo: Evangelio
+    dialogoInicial:
+      lineas:
+      - texto: "El Se\xF1or est\xE9 con ustedes"
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Esa es la respuesta correcta al saludo
+          del sacerdote'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Deb\xEDas responder \u201CY con tu esp\xEDritu\u201D"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 4
+    valorEsperado: 1
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 2098763017}
+    desactivar:
+    - {fileID: 319266054}
+    visualesJugador: []
+  - nombreEscena: 8
+    mostrarTitulo: 1
+    textoTitulo: Lectura del Evangelio
+    dialogoInicial:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Ahora hacemos peque\xF1as cruces en frente,
+          labios y pecho"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: "Lectura del santo Evangelio\u2026"
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Esto significa que queremos entender,
+          proclamar y guardar la palabra'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Deb\xEDas hacer la cruz en frente, labios
+          y pecho"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 1
+    valorEsperado: 2
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 2098763017}
+    - {fileID: 1248860471}
+    desactivar:
+    - {fileID: 319266054}
+    visualesJugador: []
+  - nombreEscena: 9
+    mostrarTitulo: 0
+    textoTitulo: Lectura del Evangelio
+    dialogoInicial:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Ahora respondemos'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: "Palabra del Se\xF1or"
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: "Susurrando en voz muy baja: As\xED respondemos al Evangelio"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: La respuesta correcta es \u201CGloria
+          a ti, Se\xF1or Jes\xFAs\u201D"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 4
+    valorEsperado: 1
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 509346274}
+    desactivar: []
+    visualesJugador: []
+  - nombreEscena: 10
+    mostrarTitulo: 1
+    textoTitulo: "Homil\xEDa"
+    dialogoInicial:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Ahora nos sentamos para escuchar'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: "Hermanos\u2026"
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Nos sentamos para escuchar la explicaci\xF3n"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Deb\xEDas sentarte para la homil\xEDa"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 0
+    valorEsperado: 2
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 620883537}
+    desactivar:
+    - {fileID: 111724890}
+    visualesJugador: []
+  - nombreEscena: 11
+    mostrarTitulo: 0
+    textoTitulo: "Homil\xEDa"
+    dialogoInicial:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Pon atenci\xF3n, puede haber distracciones"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Escuchar ayuda a comprender el mensaje'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Deb\xEDas prestar atenci\xF3n"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 3
+    valorEsperado: 1
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 319266054}
+    desactivar:
+    - {fileID: 2098763017}
+    visualesJugador: []
+  - nombreEscena: 12
+    mostrarTitulo: 1
+    textoTitulo: "LITURGIA EUCAR\xCDSTICA"
+    dialogoInicial:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Ahora permanecemos sentados'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: "Bendito seas, Se\xF1or\u2026"
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Observamos la preparaci\xF3n del altar"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Deb\xEDas estar sentado en este momento"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 0
+    valorEsperado: 2
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar: []
+    desactivar: []
+    visualesJugador: []
+  - nombreEscena: 13
+    mostrarTitulo: 0
+    textoTitulo: "Homil\xEDa"
+    dialogoInicial:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Debemos responder al sacerdote'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: "\u2026pan de vida"
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Esa es la respuesta del ofertorio'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: La respuesta correcta es \u201CBendito
+          seas por siempre, Se\xF1or\u201D"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 4
+    valorEsperado: 1
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 115815687}
+    desactivar: []
+    visualesJugador: []
+  - nombreEscena: 14
+    mostrarTitulo: 0
+    textoTitulo: "Homil\xEDa"
+    dialogoInicial:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Responde al sacerdote'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: "Levantemos el coraz\xF3n"
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Es una respuesta de fe'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Deb\xEDas responder correctamente"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 4
+    valorEsperado: 1
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 2098763017}
+    - {fileID: 111724890}
+    - {fileID: 1385692845}
+    desactivar:
+    - {fileID: 620883537}
+    - {fileID: 319266054}
+    visualesJugador: []
+  - nombreEscena: 15
+    mostrarTitulo: 1
+    textoTitulo: "Consagraci\xF3n"
+    dialogoInicial:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Este es el momento m\xE1s importante
+          de la misa, pon toda la atenci\xF3n posible"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: "Santo eres en verdad\u2026"
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Debemos estar completamente atentos'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Deb\xEDas prestar total atenci\xF3n"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 3
+    valorEsperado: 1
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar: []
+    desactivar: []
+    visualesJugador: []
+  - nombreEscena: 16
+    mostrarTitulo: 0
+    textoTitulo: "Consagraci\xF3n"
+    dialogoInicial:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Nos arrodillamos ahora'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: (Silencio solemne)
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Es un signo de adoraci\xF3n"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Deb\xEDas arrodillarte en este momento"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 0
+    valorEsperado: 3
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 873295069}
+    desactivar:
+    - {fileID: 111724890}
+    - {fileID: 620883537}
+    visualesJugador: []
+  - nombreEscena: 17
+    mostrarTitulo: 0
+    textoTitulo: "Consagraci\xF3n"
+    dialogoInicial:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Ahora respondemos'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: Este es el misterio de la fe
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Esa es la aclamaci\xF3n"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Deb\xEDas decir la aclamaci\xF3n correcta"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 4
+    valorEsperado: 1
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 2098763017}
+    - {fileID: 111724890}
+    - {fileID: 708906835}
+    desactivar:
+    - {fileID: 873295069}
+    - {fileID: 319266054}
+    visualesJugador: []
+  - nombreEscena: 18
+    mostrarTitulo: 1
+    textoTitulo: "COMUNI\xD3N"
+    dialogoInicial:
+      lineas:
+      - texto: 'Susurrando en voz muy baja: Rezamos juntos'
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: "Padre nuestro\u2026"
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+      - texto: "Susurrando en voz muy baja: Es la oraci\xF3n que Jes\xFAs nos ense\xF1\xF3"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: Dense fraternalmente la paz
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+    dialogoExito:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Es un signo de uni\xF3n"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+      - texto: El Cuerpo de Cristo
+        imagen: {fileID: 602575264, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+        esIzquierda: 0
+      - texto: "Am\xE9n"
+        imagen: {fileID: 0}
+        esIzquierda: 0
+      - texto: "Ahora ya sabes c\xF3mo participar en la misa.\nRecuerda que puedes
+          acercarte a recibir la comuni\xF3n cuando est\xE9s preparado y en gracia.\nSi
+          no es as\xED, tambi\xE9n puedes quedarte en tu lugar y hacer una oraci\xF3n
+          con el coraz\xF3n.\nLo importante es vivir este momento con respeto y sinceridad."
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    dialogoFallo:
+      lineas:
+      - texto: "Susurrando en voz muy baja: Deb\xEDas dar la paz a los dem\xE1s"
+        imagen: {fileID: 729430206, guid: 073d6012b9890584d9db516dca5ef474, type: 3}
+        esIzquierda: 0
+    tipoAccion: 1
+    valorEsperado: 1
+    musicaOpcional: {fileID: 0}
+    animacionSacerdote: SenalCruz
+    puntoDestino: {fileID: 1666989174}
+    velocidadSacerdote: 0
+    activar:
+    - {fileID: 1741769516}
+    desactivar:
+    - {fileID: 319266054}
+    - {fileID: 319266054}
+    - {fileID: 1774634070}
+    - {fileID: 458305823}
+    visualesJugador: []
 --- !u!65 &1395874495
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -52580,7 +54047,7 @@ Transform:
   m_GameObject: {fileID: 1395874493}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.057, y: 0.55, z: -3.456}
+  m_LocalPosition: {x: 1.057, y: 0.55, z: -6.489}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -53657,6 +55124,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1439883140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1439883141}
+  - component: {fileID: 1439883143}
+  - component: {fileID: 1439883142}
+  m_Layer: 5
+  m_Name: Imagen orden (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1439883141
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439883140}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 4.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 963292791}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1439883142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439883140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1439883143
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439883140}
+  m_CullTransparentMesh: 1
 --- !u!1 &1443560840
 GameObject:
   m_ObjectHideFlags: 0
@@ -65113,6 +66655,148 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1747473297}
   m_CullTransparentMesh: 1
+--- !u!1 &1749754117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1749754118}
+  - component: {fileID: 1749754121}
+  - component: {fileID: 1749754120}
+  - component: {fileID: 1749754119}
+  m_Layer: 0
+  m_Name: Padre (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1749754118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749754117}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.923, y: 0.536, z: -4.77}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1996456875}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1749754119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749754117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: facc46051157b014b87f469b4f1540df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jugadorData: {fileID: 2135234597}
+  objetosADesactivar:
+  - {fileID: 111453608}
+  - {fileID: 1395874493}
+  objetosAActivar:
+  - {fileID: 963292790}
+  imagenNegra: {fileID: 1139579860}
+  velocidadFade: 1
+  paneles:
+  - {fileID: 2047307853}
+  - {fileID: 15048814}
+  - {fileID: 2134231206}
+  - {fileID: 1439883140}
+  tiempoPorPanel: 3
+  videoPlayer: {fileID: 85975274}
+  audioVideo: {fileID: 85975273}
+  tiempoFadeAntesDeFin: 3
+  panelGracias: {fileID: 1021864182}
+  tiempoPantallaGracias: 3
+  nombreEscenaInicio: Inicio
+--- !u!65 &1749754120
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749754117}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.8, y: 2.5, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!212 &1749754121
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749754117}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 33bc6af3222ea6c4ebe86f16cc81d2e9, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 1922377775, guid: c0e25fe99e357ca47b3467c50b1771cb, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.8, y: 2.5}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1752721919
 GameObject:
   m_ObjectHideFlags: 0
@@ -65904,7 +67588,7 @@ Transform:
   m_GameObject: {fileID: 1774634070}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.76, y: 0.31, z: -1.95}
+  m_LocalPosition: {x: 0.76, y: 0.31, z: -5.255}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -71024,7 +72708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1929706903
 Transform:
   m_ObjectHideFlags: 0
@@ -71940,6 +73624,58 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1952476675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1952476676}
+  - component: {fileID: 1952476677}
+  m_Layer: 0
+  m_Name: Notas 5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1952476676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952476675}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -158.6848, y: 2.82974, z: -5.9937797}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 37627854}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1952476677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952476675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5f7d0f72e5c0446a74605bd1024ab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 1022409047}
+  velocidadMin: 150
+  velocidadMax: 280
+  posYInicial: 400
+  intervaloNotas: 1.2
+  margenAcierto: 60
+  notasParaGanar: 15
+  fallosPermitidos: 3
 --- !u!1 &1960973528
 GameObject:
   m_ObjectHideFlags: 0
@@ -73319,6 +75055,7 @@ Transform:
   m_Children:
   - {fileID: 1395874496}
   - {fileID: 458305824}
+  - {fileID: 1749754118}
   - {fileID: 111724891}
   - {fileID: 620883538}
   - {fileID: 873295070}
@@ -74873,6 +76610,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2047307853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2047307854}
+  - component: {fileID: 2047307856}
+  - component: {fileID: 2047307855}
+  m_Layer: 5
+  m_Name: Imagen orden (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &2047307854
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047307853}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 4.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 963292791}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2047307855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047307853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2047307856
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047307853}
+  m_CullTransparentMesh: 1
 --- !u!1 &2048232551
 GameObject:
   m_ObjectHideFlags: 0
@@ -75574,7 +77386,7 @@ Transform:
   m_GameObject: {fileID: 2071015188}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.8000011, y: 0.85, z: -1.9000006}
+  m_LocalPosition: {x: -3.201, y: 0.85, z: -1.9000006}
   m_LocalScale: {x: 3.9794, y: 4.7319, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76627,7 +78439,7 @@ Transform:
   m_GameObject: {fileID: 2098763017}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.76, y: 0.8460001, z: -2.779}
+  m_LocalPosition: {x: 0.76, y: 0.8460001, z: -5.969}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -78342,6 +80154,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2134231206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2134231207}
+  - component: {fileID: 2134231209}
+  - component: {fileID: 2134231208}
+  m_Layer: 5
+  m_Name: Imagen orden (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &2134231207
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134231206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 4.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 963292791}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2134231208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134231206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.528935, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2134231209
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134231206}
+  m_CullTransparentMesh: 1
 --- !u!1 &2134636102
 GameObject:
   m_ObjectHideFlags: 0
@@ -78791,3 +80678,4 @@ SceneRoots:
   - {fileID: 1996456875}
   - {fileID: 69832095}
   - {fileID: 1044104832}
+  - {fileID: 228956903}

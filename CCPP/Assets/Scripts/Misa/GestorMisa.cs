@@ -178,14 +178,6 @@ public class GestorMisa : MonoBehaviour
     {
         yield return StartCoroutine(EsperarDialogo(escena.dialogoFallo));
 
-        vidaUI?.PerderVida();
-
-        if (vidaUI != null && vidaUI.SinVidas)
-        {
-            yield return StartCoroutine(Reiniciar());
-            yield break;
-        }
-
         // Bajar cortina, resetear jugador, subir cortina y reintentar
         yield return StartCoroutine(MoverCuadro(0f));
 
@@ -217,27 +209,19 @@ public class GestorMisa : MonoBehaviour
 
     private IEnumerator Reiniciar()
     {
-        // Bajar cortina
         yield return StartCoroutine(MoverCuadro(0f));
 
-        // Resetear estado
         _escenaActual = 0;
         vidaUI?.Resetear();
 
-        // Resetear posición jugador
         if (transformJugador != null && puntoResetJugador != null)
             transformJugador.position = puntoResetJugador.position;
 
         yield return new WaitForSeconds(0.5f);
-
-        // Subir cortina
         yield return StartCoroutine(MoverCuadro(2f));
 
-        // Devolver control al jugador para que vuelva a entrar al trigger
-        if (jugadorData != null) jugadorData.puedeMoverse = true;
-        if (visualJugadorReal != null) visualJugadorReal.SetActive(true);
-
-        _enFlujo = false;
+        // Volver a ejecutar desde la escena 0 directamente
+        yield return StartCoroutine(EjecutarEscena(_escenaActual));
     }
 
     #endregion
