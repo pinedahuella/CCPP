@@ -544,7 +544,7 @@ def gen_animations(dst_dir, f1_img, h1, h2, h3, s1, s2, s3):
     # F44: igual que F45 + ambos brazos levantados ~45°
     f44 = f45.copy()
     _shy = 14 + hy0  # y del hombro tras shift_up
-    for _cy in range(9, H):
+    for _cy in range(14, H):
         for _cx in range(4):      f44.putpixel((_cx,_cy),(0,0,0,0))
         for _cx in range(14, W): f44.putpixel((_cx,_cy),(0,0,0,0))
     for _cy in range(_shy+2, H):
@@ -579,6 +579,24 @@ def gen_animations(dst_dir, f1_img, h1, h2, h3, s1, s2, s3):
         for _cy in range(15, 18):
             px(img,  4, _cy, c1)
             px(img, 13, _cy, c2)
+
+    # F37: Brazos extendidos hacia arriba-afuera (nivel cara) — frente
+    f37 = f1_img.copy()
+    _limpiar_brazos(f37)
+    # Crear hueco visual entre brazo y cara (limpiar x=0-2 y x=15-17 en y=11-14)
+    for _cy37 in range(11, 15):
+        for _cx37 in range(3):      f37.putpixel((_cx37,_cy37),(0,0,0,0))
+        for _cx37 in range(15, W): f37.putpixel((_cx37,_cy37),(0,0,0,0))
+    _hombros(f37)
+    px(f37, 3,15,s1); px(f37,2,15,s1)
+    px(f37, 2,14,s1); px(f37,1,14,s1)
+    px(f37, 1,13,s2); px(f37,0,13,s1)
+    px(f37, 0,12,SKNS); px(f37,0,11,SKIN)
+    px(f37,14,15,s1); px(f37,15,15,s1)
+    px(f37,15,14,s1); px(f37,16,14,s1)
+    px(f37,16,13,s2); px(f37,17,13,s1)
+    px(f37,17,12,SKNS); px(f37,17,11,SKIN)
+    f37.save(os.path.join(dst_dir,"FRAME37.png"))
 
     # F46: eliminado — borrar si existe
     _f46p = os.path.join(dst_dir, "FRAME46.png")

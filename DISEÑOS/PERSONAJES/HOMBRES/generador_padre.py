@@ -746,7 +746,7 @@ f45.save(os.path.join(DST_DIR, "FRAME45.png"))
 print("FRAME45 — Cantando: boca abierta 2px")
 
 f44 = f45.copy()
-for _cy in range(9, H):
+for _cy in range(14, H):
     for _cx in range(4):      f44.putpixel((_cx,_cy),(0,0,0,0))
     for _cx in range(14, W): f44.putpixel((_cx,_cy),(0,0,0,0))
 for _cy in range(16, H):
@@ -793,11 +793,24 @@ print("FRAME43 — Padre Nuestro paso 1 (brazos empezando a abrirse)")
 f46 = make_back_view(_f1_priest)
 _limpiar_brazos_p(f46, 9, 22); _hombros_p(f46)
 # Brazo izquierdo sube en diagonal hasta y=11
-px(f46, 3,15,SOT1); px(f46, 3,14,SOT1); px(f46, 2,13,SOT1)
-px(f46, 1,12,SOT2); px(f46, 0,11,SKNS)
-# Brazo derecho simétrico
-px(f46,14,15,SOT1); px(f46,14,14,SOT1); px(f46,15,13,SOT1)
-px(f46,16,12,SOT2); px(f46,17,11,SKNS)
+px(f46, 3,15,SOT1); px(f46,2,15,SOT1)
+px(f46, 3,14,SOT1); px(f46,2,14,SOT1)
+px(f46, 2,13,SOT1); px(f46,1,13,SOT2)
+px(f46, 1,12,SOT2); px(f46,0,12,SKNS)
+px(f46, 0,11,SKNS)
+# Brazo derecho 2px: simétrico
+px(f46,14,15,SOT1); px(f46,15,15,SOT1)
+px(f46,14,14,SOT1); px(f46,15,14,SOT1)
+px(f46,15,13,SOT1); px(f46,16,13,SOT2)
+px(f46,16,12,SOT2); px(f46,17,12,SKNS)
+px(f46,17,11,SKNS)
+# Restaurar nuca borrada por _limpiar (y=9-11)
+px(f46, 1,9,HAI1);  px(f46,2,9,HAI1);  px(f46,3,9,HAI2)
+px(f46, 1,10,HAI1); px(f46,2,10,HAI1); px(f46,3,10,HAI2)
+px(f46, 2,11,HAI1); px(f46,3,11,HAI2)
+px(f46,14,9,HAI2);  px(f46,15,9,HAI1)
+px(f46,14,10,HAI2); px(f46,15,10,HAI1)
+px(f46,14,11,HAI2); px(f46,15,11,HAI1)
 f46.save(os.path.join(DST_DIR, "FRAME46.png"))
 print("FRAME46 — Levantar manos paso 1 (brazos a 45° arriba)")
 

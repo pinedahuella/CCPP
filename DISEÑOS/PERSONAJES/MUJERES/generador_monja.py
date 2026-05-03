@@ -435,7 +435,7 @@ f45.save(os.path.join(DST_DIR, "FRAME45.png"))
 print("FRAME45 — Monja cantando: boca abierta 2px")
 
 f44 = f45.copy()
-for _cy in range(9, H):
+for _cy in range(14, H):
     for _cx in range(4):      f44.putpixel((_cx,_cy),(0,0,0,0))
     for _cx in range(14, W): f44.putpixel((_cx,_cy),(0,0,0,0))
 for _cy in range(16, H):
@@ -598,7 +598,7 @@ _f45m1.save(os.path.join(MUJ1_DIR, "FRAME45.png"))
 print("MUJER1 FRAME45 — Cantando: boca abierta 2px")
 
 _f44m1 = _f45m1.copy()
-for _cy in range(9, H):
+for _cy in range(14, H):
     for _cx in range(4):      _f44m1.putpixel((_cx,_cy),(0,0,0,0))
     for _cx in range(14, W): _f44m1.putpixel((_cx,_cy),(0,0,0,0))
 for _cy in range(16, H):
