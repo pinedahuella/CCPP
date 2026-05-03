@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
+using System.Collections;
 
 /// <summary>
 /// Controlador del minijuego de señal.
-/// 4 botones deben presionarse en orden aleatorio en tiempo limitado.
+/// Modo simple: 4 botones en orden fijo.
+/// Modo complejo: más botones en orden fijo, distintos GameObjects.
+/// Barra de tiempo en ambos modos.
 /// Éxito → valor 2. Fallo → valor 0.
 /// </summary>
 [RequireComponent(typeof(MinijuegoSenalData))]
@@ -13,6 +15,9 @@ public class MinijuegoSenalController : MonoBehaviour
     private MinijuegoSenalData _data;
     private bool _esperandoRespuesta = false;
     private float _tiempoRestante;
+
+    // Botones activos según el modo
+    private Button[] _botonesActivos;
 
     // ──────────────────────────────────────────────────────────────
     #region Unity Callbacks
@@ -27,6 +32,8 @@ public class MinijuegoSenalController : MonoBehaviour
         if (!_esperandoRespuesta) return;
 
         _tiempoRestante -= Time.deltaTime;
+        ActualizarBarra();
+
         if (_tiempoRestante <= 0f)
         {
             _esperandoRespuesta = false;
@@ -44,9 +51,10 @@ public class MinijuegoSenalController : MonoBehaviour
         if (!ValidarReferencias()) return;
 
         LimpiarEstado();
-        GenerarOrdenAleatorio();
+        ConfigurarModo();
         ConfigurarBotones();
         MostrarOrdenVisual();
+        ResetearBarra();
 
         _tiempoRestante = _data.tiempoLimite;
         _esperandoRespuesta = true;
@@ -56,45 +64,88 @@ public class MinijuegoSenalController : MonoBehaviour
     #endregion
 
     // ──────────────────────────────────────────────────────────────
-    #region Lógica
+    #region Modo
 
-    /// <summary>
-    /// Genera un orden aleatorio de los 4 índices usando Fisher-Yates.
-    /// </summary>
-    private void GenerarOrdenAleatorio()
+    private void ConfigurarModo()
     {
-        int[] indices = { 0, 1, 2, 3 };
+        if (_data.esCompleja)
+        {
+            // Activar complejos, desactivar simples
+            if (_data.objetosSimple != null)
+                foreach (GameObject obj in _data.objetosSimple)
+                    if (obj != null) obj.SetActive(false);
 
-        _data.ordenAleatorio = indices;
+            if (_data.objetosComplejos != null)
+                foreach (GameObject obj in _data.objetosComplejos)
+                    if (obj != null) obj.SetActive(true);
+
+            _botonesActivos = _data.botonesComplejos;
+            _data.ordenAleatorio = GenerarOrden(_botonesActivos.Length);
+        }
+        else
+        {
+            // Activar simples, desactivar complejos
+            if (_data.objetosComplejos != null)
+                foreach (GameObject obj in _data.objetosComplejos)
+                    if (obj != null) obj.SetActive(false);
+
+            if (_data.objetosSimple != null)
+                foreach (GameObject obj in _data.objetosSimple)
+                    if (obj != null) obj.SetActive(true);
+
+            _botonesActivos = _data.botones;
+            _data.ordenAleatorio = GenerarOrden(_botonesActivos.Length);
+        }
     }
 
-    /// <summary>
-    /// Muestra el número de orden encima de cada botón.
-    /// Usa el texto del propio botón para indicar en qué posición va.
-    /// </summary>
+    private int[] GenerarOrden(int cantidad)
+    {
+        int[] indices = new int[cantidad];
+        for (int i = 0; i < cantidad; i++) indices[i] = i;
+        return indices;
+    }
+
+    #endregion
+
+    // ──────────────────────────────────────────────────────────────
+    #region Barra
+
+    private void ActualizarBarra()
+    {
+        if (_data.barraTiempo == null) return;
+        float t = Mathf.Clamp01(_tiempoRestante / _data.tiempoLimite);
+        _data.barraTiempo.sizeDelta = new Vector2(_data.anchoBarraInicial * t, _data.barraTiempo.sizeDelta.y);
+    }
+
+    private void ResetearBarra()
+    {
+        if (_data.barraTiempo == null) return;
+        _data.barraTiempo.sizeDelta = new Vector2(_data.anchoBarraInicial, _data.barraTiempo.sizeDelta.y);
+    }
+
+    #endregion
+
+    // ──────────────────────────────────────────────────────────────
+    #region Lógica
+
     private void MostrarOrdenVisual()
     {
-        for (int i = 0; i < _data.botones.Length; i++)
+        for (int i = 0; i < _botonesActivos.Length; i++)
         {
-            if (_data.botones[i] == null) continue;
+            if (_botonesActivos[i] == null) continue;
 
-            // El índice en ordenAleatorio indica la posición de este botón
-            // ordenAleatorio[posicion] = indiceDeBotobn
-            // Buscamos en qué posición está el botón i
             int posicion = 0;
             for (int j = 0; j < _data.ordenAleatorio.Length; j++)
             {
                 if (_data.ordenAleatorio[j] == i)
                 {
-                    posicion = j + 1; // 1-based para mostrar
+                    posicion = j + 1;
                     break;
                 }
             }
 
-            // Mostrar el número en el texto del botón
-            var texto = _data.botones[i].GetComponentInChildren<TMPro.TextMeshProUGUI>();
-            if (texto != null)
-                texto.text = posicion.ToString();
+            var texto = _botonesActivos[i].GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            if (texto != null) texto.text = posicion.ToString();
         }
     }
 
@@ -102,15 +153,15 @@ public class MinijuegoSenalController : MonoBehaviour
     {
         LimpiarBotones();
 
-        for (int i = 0; i < _data.botones.Length; i++)
+        for (int i = 0; i < _botonesActivos.Length; i++)
         {
-            if (_data.botones[i] == null) continue;
+            if (_botonesActivos[i] == null) continue;
 
-            _data.botones[i].gameObject.SetActive(true);
-            _data.botones[i].interactable = true;
+            _botonesActivos[i].gameObject.SetActive(true);
+            _botonesActivos[i].interactable = true;
 
             int indiceCapturado = i;
-            _data.botones[i].onClick.AddListener(() => AlPresionar(indiceCapturado));
+            _botonesActivos[i].onClick.AddListener(() => AlPresionar(indiceCapturado));
         }
     }
 
@@ -122,20 +173,16 @@ public class MinijuegoSenalController : MonoBehaviour
 
         if (indiceBoton != botonEsperado)
         {
-            // Orden incorrecto
             _esperandoRespuesta = false;
             StartCoroutine(Terminar(false));
             return;
         }
 
+        _botonesActivos[indiceBoton].interactable = false;
         _data.indiceActual++;
 
-        // Desactivar el botón presionado
-        _data.botones[indiceBoton].interactable = false;
-
-        if (_data.indiceActual >= 4)
+        if (_data.indiceActual >= _botonesActivos.Length)
         {
-            // Todos presionados en orden
             _esperandoRespuesta = false;
             StartCoroutine(Terminar(true));
         }
@@ -146,13 +193,9 @@ public class MinijuegoSenalController : MonoBehaviour
         LimpiarBotones();
         yield return new WaitForSeconds(0.3f);
         _data.panelSenal.SetActive(false);
-        Reportar(acerto ? 2 : 0);
-    }
 
-    private void Reportar(int valor)
-    {
-        string descripcion = valor == 2 ? "Éxito - Señal completada" : "Fallo - Señal incorrecta o tiempo agotado";
-        Debug.Log($"[MinijuegoSenal] {descripcion} → TipoAccion.Mano valor={valor}");
+        int valor = acerto ? 2 : 0;
+        Debug.Log($"[MinijuegoSenal] {(acerto ? "Éxito" : "Fallo")} → TipoAccion.Mano valor={valor}");
 
         AccionResultado resultado = new AccionResultado(TipoAccion.Mano, valor);
         if (MisionesGlobal.Instancia != null)
@@ -174,7 +217,8 @@ public class MinijuegoSenalController : MonoBehaviour
 
     private void LimpiarBotones()
     {
-        foreach (Button b in _data.botones)
+        if (_botonesActivos == null) return;
+        foreach (Button b in _botonesActivos)
             if (b != null) b.onClick.RemoveAllListeners();
     }
 
@@ -185,9 +229,14 @@ public class MinijuegoSenalController : MonoBehaviour
             Debug.LogError("[MinijuegoSenalController] panelSenal no asignado.");
             return false;
         }
-        if (_data.botones == null || _data.botones.Length != 4)
+        if (!_data.esCompleja && (_data.botones == null || _data.botones.Length == 0))
         {
-            Debug.LogError("[MinijuegoSenalController] Se necesitan exactamente 4 botones.");
+            Debug.LogError("[MinijuegoSenalController] botones simples no asignados.");
+            return false;
+        }
+        if (_data.esCompleja && (_data.botonesComplejos == null || _data.botonesComplejos.Length == 0))
+        {
+            Debug.LogError("[MinijuegoSenalController] botonesComplejos no asignados.");
             return false;
         }
         return true;
