@@ -94,22 +94,28 @@ public class TransicionZonaController : MonoBehaviour
     /// teletransporta jugador y camara, intercambia zonas y sube el cuadro negro.
     /// </summary>
     /// <param name="jugador">Transform del jugador que activo el trigger.</param>
+
     private IEnumerator EjecutarTransicion(Transform jugador)
     {
         _enTransicion = true;
 
-        // 1 — Bloquear movimiento
+        // 1 — Bloquear movimiento y input
         _jugadorData.puedeMoverse = false;
+        _jugadorData.direccionInput = Vector3.zero;
+
+        // 2 — Obtener rigidbody y desactivar física INMEDIATAMENTE
+        Rigidbody rb = jugador.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+            rb.Sleep();
+        }
 
         if (_data.audioTransicion != null)
             _data.audioTransicion.Play();
 
-        // 2 — Bajar cuadro negro hasta Y = 0
+        // 3 — Bajar cuadro negro
         yield return StartCoroutine(MoverCuadro(0f));
-
-        // 3 — Teletransportar jugador y camara
-        jugador.position = _data.puntoJugador.position;
-        _data.camara.position = _data.puntoCamara.position;
 
         // 4 — Intercambiar zonas
         if (_data.zonaEntrada != null)
@@ -118,21 +124,49 @@ public class TransicionZonaController : MonoBehaviour
         if (_data.zonaSalida != null)
             _data.zonaSalida.SetActive(false);
 
+        // 5 — Esperar 3 frames para que Unity procese todos los colliders nuevos
+        yield return null;
+        yield return null;
+        yield return null;
+
+        // 6 — Teletransportar con Physics.SyncTransforms para forzar actualización
+        jugador.position = _data.puntoJugador.position;
+        jugador.rotation = _data.puntoJugador.rotation;
+        _data.camara.position = _data.puntoCamara.position;
+        Physics.SyncTransforms();
+
+        // 7 — Esperar un FixedUpdate para que la física registre la nueva posición
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+
+        // 8 — Reactivar física limpia
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.Sleep();
+            yield return new WaitForFixedUpdate();
+            rb.WakeUp();
+        }
+
+        // 9 — Cambiar audio caminata si aplica
         if (_data.nuevaCaminata != null && _jugadorData.audioCaminata != null)
             _jugadorData.audioCaminata.clip = _data.nuevaCaminata;
 
+        // 10 — Cambiar seguimiento cámara si aplica
         CamaraData camaraData = _data.camara.GetComponent<CamaraData>();
         if (camaraData != null)
             camaraData.seguirJugador = _data.SeguirJugadorSiguiente;
 
-        // 5 — Subir cuadro negro hasta Y = 2
+        // 11 — Subir cuadro negro
         yield return StartCoroutine(MoverCuadro(2f));
 
-        // 6 — Reactivar movimiento
+        // 12 — Reactivar movimiento
         _jugadorData.puedeMoverse = true;
-
         _enTransicion = false;
     }
+
 
     /// <summary>
     /// Mueve el cuadro negro suavemente hasta el Y destino.

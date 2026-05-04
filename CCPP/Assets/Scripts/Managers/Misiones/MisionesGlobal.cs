@@ -21,7 +21,14 @@ public class MisionesGlobal : MonoBehaviour
         ConfigurarSingleton();
     }
 
+    private void OnDestroy()
+    {
+        if (Instancia == this)
+            Instancia = null;
+    }
     #endregion
+
+
 
     #region Inicialización
 
@@ -39,7 +46,8 @@ public class MisionesGlobal : MonoBehaviour
         }
 
         Instancia = this;
-        DontDestroyOnLoad(gameObject);
+
+
     }
 
     #endregion
